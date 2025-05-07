@@ -1,8 +1,8 @@
+
 import GenreExplorerClient from '@/components/genre-explorer-client';
 import type { GuideCategory } from '@/types';
 import { promises as fs } from 'fs';
 import path from 'path';
-import AnimatedTitle from '@/components/animated-title';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -40,24 +40,13 @@ async function getSeriesData(): Promise<GuideCategory[]> {
 
 export default async function Home() {
   const guideData = await getSeriesData();
-  const pageTitle = "Bharat Bang";
-  const pageTitleHindi = "भरत बंग";
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="py-8 bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4">
-          <AnimatedTitle 
-            text={pageTitle} 
-            className="text-4xl font-bold tracking-tight text-center" 
-            animationSpeed={250} // Slower speed for more noticeable effect
-          />
-          <AnimatedTitle 
-            text={pageTitleHindi} 
-            className="text-3xl font-bold tracking-tight text-center mt-2" 
-            animationSpeed={250} 
-          />
-          <p className="text-center text-lg text-primary-foreground/80 mt-4">Discover guides, series, movies and more</p>
+          <h1 className="text-4xl font-bold tracking-tight text-center">Universal Explorer</h1>
+          <p className="text-center text-lg text-primary-foreground/80 mt-2">Discover guides, series, movies and more</p>
         </div>
       </header>
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
@@ -71,4 +60,3 @@ export default async function Home() {
     </div>
   );
 }
-

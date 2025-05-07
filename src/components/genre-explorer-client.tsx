@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { GuideCategory, Genre, Series } from '@/types';
@@ -106,7 +107,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         setSelectedGenreName(DEFAULT_GENRE_NAME);
       }
     }
-  }, [initialData, selectedGuideCategoryName]); // Removed selectedGenreName from deps to avoid potential loops when it's reset
+  }, [initialData, selectedGuideCategoryName]);
 
 
   const selectedGuideCategory = useMemo(() => {
@@ -178,9 +179,9 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
       <Tabs 
         value={selectedGuideCategoryName} 
         onValueChange={handleGuideCategoryChange} 
-        className="w-full flex justify-center"
+        className="w-full"
       >
-        <TabsList className="inline-flex flex-wrap justify-center gap-2 p-2 bg-card rounded-lg shadow">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 gap-2 p-2 bg-card rounded-lg shadow">
           {guideCategories.map((category) => {
             const IconComponent = guideCategoryIconMap[category.iconName] || Tv; 
             return (
@@ -203,10 +204,10 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         <Tabs 
           value={selectedGenreName} 
           onValueChange={setSelectedGenreName} 
-          className="w-full mt-4 flex justify-center"
+          className="w-full mt-4"
         >
           
-          <TabsList className="inline-flex flex-wrap justify-center gap-2 p-2 bg-secondary rounded-lg shadow-inner">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 p-2 bg-secondary rounded-lg shadow-inner">
             {selectedGuideCategory.genres.map((genre) => {
               const IconComponent = genreIconMap[genre.iconName] || ListFilter; 
               return (
