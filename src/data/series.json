@@ -1,0 +1,74 @@
+
+[
+  {
+    "name": "Sci-Fi",
+    "iconName": "Rocket",
+    "series": [
+      { "id": "sf1", "title": "The Expanse", "imageUrl": "https://picsum.photos/seed/expanse/300/450", "dataAiHint": "space ship" },
+      { "id": "sf2", "title": "Foundation", "imageUrl": "https://picsum.photos/seed/foundation/300/450", "dataAiHint": "future city" },
+      { "id": "sf3", "title": "Altered Carbon", "imageUrl": "https://picsum.photos/seed/carbon/300/450", "dataAiHint": "cyberpunk neon" },
+      { "id": "sf4", "title": "Westworld", "imageUrl": "https://picsum.photos/seed/westworld/300/450", "dataAiHint": "robot human" },
+      { "id": "sf5", "title": "Black Mirror", "imageUrl": "https://picsum.photos/seed/mirror/300/450", "dataAiHint": "technology dark" },
+      { "id": "sf6", "title": "Star Trek: Discovery", "imageUrl": "https://picsum.photos/seed/discovery/300/450", "dataAiHint": "starship crew" },
+      { "id": "sf7", "title": "The Mandalorian", "imageUrl": "https://picsum.photos/seed/mandalorian/300/450", "dataAiHint": "bounty hunter" },
+      { "id": "sf8", "title": "Raised by Wolves", "imageUrl": "https://picsum.photos/seed/wolves/300/450", "dataAiHint": "androids alien" }
+    ]
+  },
+  {
+    "name": "Fantasy",
+    "iconName": "Swords",
+    "series": [
+      { "id": "f1", "title": "The Witcher", "imageUrl": "https://picsum.photos/seed/witcher/300/450", "dataAiHint": "monster hunter" },
+      { "id": "f2", "title": "Shadow and Bone", "imageUrl": "https://picsum.photos/seed/shadowbone/300/450", "dataAiHint": "magic war" },
+      { "id": "f3", "title": "Game of Thrones", "imageUrl": "https://picsum.photos/seed/got/300/450", "dataAiHint": "dragons throne" },
+      { "id": "f4", "title": "The Lord of the Rings: Rings of Power", "imageUrl": "https://picsum.photos/seed/lotrrop/300/450", "dataAiHint": "elves dwarves" },
+      { "id": "f5", "title": "His Dark Materials", "imageUrl": "https://picsum.photos/seed/hdm/300/450", "dataAiHint": "alternate world" },
+      { "id": "f6", "title": "Carnival Row", "imageUrl": "https://picsum.photos/seed/carnival/300/450", "dataAiHint": "mythical creatures" }
+    ]
+  },
+  {
+    "name": "Comedy",
+    "iconName": "Smile",
+    "series": [
+      { "id": "c1", "title": "Ted Lasso", "imageUrl": "https://picsum.photos/seed/tedlasso/300/450", "dataAiHint": "football coach" },
+      { "id": "c2", "title": "The Marvelous Mrs. Maisel", "imageUrl": "https://picsum.photos/seed/maisel/300/450", "dataAiHint": "standup comedian" },
+      { "id": "c3", "title": "What We Do in the Shadows", "imageUrl": "https://picsum.photos/seed/shadowsfx/300/450", "dataAiHint": "vampires documentary" },
+      { "id": "c4", "title": "Fleabag", "imageUrl": "https://picsum.photos/seed/fleabag/300/450", "dataAiHint": "woman london" },
+      { "id": "c5", "title": "Curb Your Enthusiasm", "imageUrl": "https://picsum.photos/seed/curb/300/450", "dataAiHint": "larry david" },
+      { "id": "c6", "title": "Barry", "imageUrl": "https://picsum.photos/seed/barry/300/450", "dataAiHint": "hitman actor" }
+    ]
+  },
+  {
+    "name": "Drama",
+    "iconName": "DramaIcon",
+    "series": [
+      { "id": "d1", "title": "Succession", "imageUrl": "https://picsum.photos/seed/succession/300/450", "dataAiHint": "media family" },
+      { "id": "d2", "title": "The Crown", "imageUrl": "https://picsum.photos/seed/crown/300/450", "dataAiHint": "royal family" },
+      { "id": "d3", "title": "Ozark", "imageUrl": "https://picsum.photos/seed/ozark/300/450", "dataAiHint": "money laundering" },
+      { "id": "d4", "title": "Better Call Saul", "imageUrl": "https://picsum.photos/seed/saul/300/450", "dataAiHint": "lawyer prequel" },
+      { "id": "d5", "title": "Squid Game", "imageUrl": "https://picsum.photos/seed/squidgame/300/450", "dataAiHint": "deadly games" },
+      { "id": "d6", "title": "Yellowstone", "imageUrl": "https://picsum.photos/seed/yellowstone/300/450", "dataAiHint": "ranch montana" }
+    ]
+  },
+  {
+    "name": "Thriller",
+    "iconName": "Spy",
+    "series": [
+      { "id": "t1", "title": "Mindhunter", "imageUrl": "https://picsum.photos/seed/mindhunter/300/450", "dataAiHint": "fbi profilers" },
+      { "id": "t2", "title": "You", "imageUrl": "https://picsum.photos/seed/you/300/450", "dataAiHint": "stalker obsession" },
+      { "id": "t3", "title": "Severance", "imageUrl": "https://picsum.photos/seed/severance/300/450", "dataAiHint": "work life" },
+      { "id": "t4", "title": "The Handmaid's Tale", "imageUrl": "https://picsum.photos/seed/handmaid/300/450", "dataAiHint": "dystopian society" },
+      { "id": "t5", "title": "Money Heist", "imageUrl": "https://picsum.photos/seed/moneyheist/300/450", "dataAiHint": "bank robbery" }
+    ]
+  },
+  {
+    "name": "Animation",
+    "iconName": "PencilLine",
+    "series": [
+      { "id": "a1", "title": "Arcane", "imageUrl": "https://picsum.photos/seed/arcane/300/450", "dataAiHint": "fantasy animation" },
+      { "id": "a2", "title": "Rick and Morty", "imageUrl": "https://picsum.photos/seed/rickmorty/300/450", "dataAiHint": "sci-fi comedy" },
+      { "id": "a3", "title": "Invincible", "imageUrl": "https://picsum.photos/seed/invincible/300/450", "dataAiHint": "superhero adult" },
+      { "id": "a4", "title": "BoJack Horseman", "imageUrl": "https://picsum.photos/seed/bojack/300/450", "dataAiHint": "talking horse" }
+    ]
+  }
+]
