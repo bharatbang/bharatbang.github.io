@@ -2,6 +2,7 @@ import GenreExplorerClient from '@/components/genre-explorer-client';
 import type { GuideCategory } from '@/types';
 import { promises as fs } from 'fs';
 import path from 'path';
+import AnimatedTitle from '@/components/animated-title';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -39,14 +40,17 @@ async function getSeriesData(): Promise<GuideCategory[]> {
 
 export default async function Home() {
   const guideData = await getSeriesData();
+  const pageTitle = "Bharat Bang";
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="py-8 bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-center">
-            Bharat Bang
-          </h1>
+          <AnimatedTitle 
+            text={pageTitle} 
+            className="text-4xl font-bold tracking-tight text-center" 
+            animationSpeed={250} // Slower speed for more noticeable effect
+          />
           <p className="text-center text-lg text-primary-foreground/80 mt-2">Discover guides, series, movies and more</p>
         </div>
       </header>
