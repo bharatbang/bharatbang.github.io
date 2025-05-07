@@ -10,16 +10,23 @@
         "series": [
           { "id": "mum-l1", "title": "Gateway of India", "imageUrl": "https://picsum.photos/seed/gatewayindia/300/450", "dataAiHint": "historic monument", "description": "Iconic arch-monument overlooking the Arabian Sea." },
           { "id": "mum-l2", "title": "Marine Drive", "imageUrl": "https://picsum.photos/seed/marinedrive/300/450", "dataAiHint": "city promenade", "description": "Queen's Necklace, a C-shaped boulevard along the coast." },
-          { "id": "mum-l3", "title": "CSMT", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Chhatrapati Shivaji Maharaj Terminus, a historic railway station." }
+          { "id": "mum-l3", "title": "CSMT", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Chhatrapati Shivaji Maharaj Terminus, a historic railway station." },
+          { "id": "mum-l4", "title": "Gorai Beach", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Sandy Beach with beach side hotel option to enjoy with kids" }
+        
         ]
       },
       {
         "name": "Food Hotspots",
         "iconName": "ChefHat",
         "series": [
-          { "id": "mum-f1", "title": "Leopold Cafe", "imageUrl": "https://picsum.photos/seed/leopold/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba." },
-          { "id": "mum-f2", "title": "Bademiya", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls." },
-          { "id": "mum-f3", "title": "Britannia & Co.", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao." }
+          { "id": "mum-f1", "title": "The Apetite Momos", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba." },
+          { "id": "mum-f2", "title": "Anand Vadapav", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls." },
+          { "id": "mum-f3", "title": "Bhagat Tarachand", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao." },
+          { "id": "mum-f4", "title": "Radhe Dhokla Ghatkopar", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Ghatkopar, best gujarati dishes." },
+          { "id": "mum-f5", "title": "Pavilion Veg Restaurant", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Ghatkopar, best soup,starters" },
+          { "id": "mum-f6", "title": "Pancham Puri Wala", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "CSMT, best puri chole" }
+          
+          
         ]
       },
       {
@@ -179,12 +186,19 @@
         ]
       },
       {
-        "name": "Animated Movies",
-        "iconName": "PencilLine",
+        "name": "War Movies",
+        "iconName": "Rocket",
         "series": [
-          { "id": "m-anim1", "title": "Spider-Man: Into the Spider-Verse", "imageUrl": "https://picsum.photos/seed/spiderverse/300/450", "dataAiHint": "animation superhero" },
-          { "id": "m-anim2", "title": "Your Name", "imageUrl": "https://picsum.photos/seed/yourname/300/450", "dataAiHint": "anime fantasy" },
-          { "id": "m-anim3", "title": "Klaus", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" }
+          { "id": "m-anim1", "title": "Unbroken", "imageUrl": "https://picsum.photos/seed/spiderverse/300/450", "dataAiHint": "animation superhero" },
+          { "id": "m-anim2", "title": "Saving Private Ryan", "imageUrl": "https://picsum.photos/seed/yourname/300/450", "dataAiHint": "anime fantasy" },
+          { "id": "m-anim3", "title": "Fury", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim3", "title": "Hacksaw Ridge", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim4", "title": "Dunkirk", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim5", "title": "Full Metal Jacket", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim6", "title": "American Sniper", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim7", "title": "The Imitation Game", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
+          { "id": "m-anim8", "title": "The Covenant", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" }
+
         ]
       }
     ]

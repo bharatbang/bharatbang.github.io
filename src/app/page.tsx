@@ -45,7 +45,7 @@ export default async function Home() {
       <header className="py-8 bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold tracking-tight text-center">
-            Universal Explorer
+            Bharat Bang
           </h1>
           <p className="text-center text-lg text-primary-foreground/80 mt-2">Discover guides, series, movies and more</p>
         </div>
