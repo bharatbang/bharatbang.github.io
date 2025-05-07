@@ -1,74 +1,192 @@
 
 [
   {
-    "name": "Sci-Fi",
-    "iconName": "Rocket",
-    "series": [
-      { "id": "sf1", "title": "The Expanse", "imageUrl": "https://picsum.photos/seed/expanse/300/450", "dataAiHint": "space ship" },
-      { "id": "sf2", "title": "Foundation", "imageUrl": "https://picsum.photos/seed/foundation/300/450", "dataAiHint": "future city" },
-      { "id": "sf3", "title": "Altered Carbon", "imageUrl": "https://picsum.photos/seed/carbon/300/450", "dataAiHint": "cyberpunk neon" },
-      { "id": "sf4", "title": "Westworld", "imageUrl": "https://picsum.photos/seed/westworld/300/450", "dataAiHint": "robot human" },
-      { "id": "sf5", "title": "Black Mirror", "imageUrl": "https://picsum.photos/seed/mirror/300/450", "dataAiHint": "technology dark" },
-      { "id": "sf6", "title": "Star Trek: Discovery", "imageUrl": "https://picsum.photos/seed/discovery/300/450", "dataAiHint": "starship crew" },
-      { "id": "sf7", "title": "The Mandalorian", "imageUrl": "https://picsum.photos/seed/mandalorian/300/450", "dataAiHint": "bounty hunter" },
-      { "id": "sf8", "title": "Raised by Wolves", "imageUrl": "https://picsum.photos/seed/wolves/300/450", "dataAiHint": "androids alien" }
+    "name": "Mumbai Guide",
+    "iconName": "Landmark",
+    "genres": [
+      {
+        "name": "Landmarks",
+        "iconName": "Landmark",
+        "series": [
+          { "id": "mum-l1", "title": "Gateway of India", "imageUrl": "https://picsum.photos/seed/gatewayindia/300/450", "dataAiHint": "historic monument", "description": "Iconic arch-monument overlooking the Arabian Sea." },
+          { "id": "mum-l2", "title": "Marine Drive", "imageUrl": "https://picsum.photos/seed/marinedrive/300/450", "dataAiHint": "city promenade", "description": "Queen's Necklace, a C-shaped boulevard along the coast." },
+          { "id": "mum-l3", "title": "CSMT", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Chhatrapati Shivaji Maharaj Terminus, a historic railway station." }
+        ]
+      },
+      {
+        "name": "Food Hotspots",
+        "iconName": "ChefHat",
+        "series": [
+          { "id": "mum-f1", "title": "Leopold Cafe", "imageUrl": "https://picsum.photos/seed/leopold/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba." },
+          { "id": "mum-f2", "title": "Bademiya", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls." },
+          { "id": "mum-f3", "title": "Britannia & Co.", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao." }
+        ]
+      },
+      {
+        "name": "Markets",
+        "iconName": "ShoppingBasket",
+        "series": [
+          { "id": "mum-m1", "title": "Crawford Market", "imageUrl": "https://picsum.photos/seed/crawford/300/450", "dataAiHint": "market bustling", "description": "One of South Mumbai's most famous markets." },
+          { "id": "mum-m2", "title": "Chor Bazaar", "imageUrl": "https://picsum.photos/seed/chorbazaar/300/450", "dataAiHint": "antique market", "description": "Known for antiques and second-hand goods." },
+          { "id": "mum-m3", "title": "Fashion Street", "imageUrl": "https://picsum.photos/seed/fashionstreet/300/450", "dataAiHint": "clothing market", "description": "A popular destination for budget-friendly clothing." }
+        ]
+      }
     ]
   },
   {
-    "name": "Fantasy",
-    "iconName": "Swords",
-    "series": [
-      { "id": "f1", "title": "The Witcher", "imageUrl": "https://picsum.photos/seed/witcher/300/450", "dataAiHint": "monster hunter" },
-      { "id": "f2", "title": "Shadow and Bone", "imageUrl": "https://picsum.photos/seed/shadowbone/300/450", "dataAiHint": "magic war" },
-      { "id": "f3", "title": "Game of Thrones", "imageUrl": "https://picsum.photos/seed/got/300/450", "dataAiHint": "dragons throne" },
-      { "id": "f4", "title": "The Lord of the Rings: Rings of Power", "imageUrl": "https://picsum.photos/seed/lotrrop/300/450", "dataAiHint": "elves dwarves" },
-      { "id": "f5", "title": "His Dark Materials", "imageUrl": "https://picsum.photos/seed/hdm/300/450", "dataAiHint": "alternate world" },
-      { "id": "f6", "title": "Carnival Row", "imageUrl": "https://picsum.photos/seed/carnival/300/450", "dataAiHint": "mythical creatures" }
+    "name": "Food Guide",
+    "iconName": "Utensils",
+    "genres": [
+      {
+        "name": "Restaurants",
+        "iconName": "Utensils",
+        "series": [
+          { "id": "food-r1", "title": "Fine Dining Gem", "imageUrl": "https://picsum.photos/seed/finedining/300/450", "dataAiHint": "elegant restaurant", "description": "Experience exquisite cuisine in a luxurious setting." },
+          { "id": "food-r2", "title": "Cozy Bistro", "imageUrl": "https://picsum.photos/seed/bistro/300/450", "dataAiHint": "small cafe", "description": "A charming spot for a casual meal with friends." },
+          { "id": "food-r3", "title": "Family Eatery", "imageUrl": "https://picsum.photos/seed/familyeatery/300/450", "dataAiHint": "restaurant family", "description": "Kid-friendly and perfect for a family outing." }
+        ]
+      },
+      {
+        "name": "Street Food",
+        "iconName": "Flame",
+        "series": [
+          { "id": "food-sf1", "title": "Famous Taco Stand", "imageUrl": "https://picsum.photos/seed/tacostand/300/450", "dataAiHint": "tacos food", "description": "Authentic street tacos that are a local favorite." },
+          { "id": "food-sf2", "title": "Local Noodle Stall", "imageUrl": "https://picsum.photos/seed/noodlestall/300/450", "dataAiHint": "noodles street", "description": "Delicious and quick noodles cooked fresh." },
+          { "id": "food-sf3", "title": "Sweet Crepes Cart", "imageUrl": "https://picsum.photos/seed/crepescart/300/450", "dataAiHint": "dessert street", "description": "Indulge in a variety of sweet and savory crepes." }
+        ]
+      },
+      {
+        "name": "Cafes",
+        "iconName": "Coffee",
+        "series": [
+          { "id": "food-c1", "title": "Artisan Coffee Shop", "imageUrl": "https://picsum.photos/seed/coffeeshop/300/450", "dataAiHint": "coffee art", "description": "Specialty coffees and a relaxing atmosphere." },
+          { "id": "food-c2", "title": "Quiet Study Cafe", "imageUrl": "https://picsum.photos/seed/studycafe/300/450", "dataAiHint": "cafe books", "description": "A peaceful place to work, study, or read." },
+          { "id": "food-c3", "title": "Trendy Brunch Spot", "imageUrl": "https://picsum.photos/seed/brunchspot/300/450", "dataAiHint": "brunch food", "description": "The perfect place for a weekend brunch." }
+        ]
+      }
     ]
   },
   {
-    "name": "Comedy",
-    "iconName": "Smile",
-    "series": [
-      { "id": "c1", "title": "Ted Lasso", "imageUrl": "https://picsum.photos/seed/tedlasso/300/450", "dataAiHint": "football coach" },
-      { "id": "c2", "title": "The Marvelous Mrs. Maisel", "imageUrl": "https://picsum.photos/seed/maisel/300/450", "dataAiHint": "standup comedian" },
-      { "id": "c3", "title": "What We Do in the Shadows", "imageUrl": "https://picsum.photos/seed/shadowsfx/300/450", "dataAiHint": "vampires documentary" },
-      { "id": "c4", "title": "Fleabag", "imageUrl": "https://picsum.photos/seed/fleabag/300/450", "dataAiHint": "woman london" },
-      { "id": "c5", "title": "Curb Your Enthusiasm", "imageUrl": "https://picsum.photos/seed/curb/300/450", "dataAiHint": "larry david" },
-      { "id": "c6", "title": "Barry", "imageUrl": "https://picsum.photos/seed/barry/300/450", "dataAiHint": "hitman actor" }
+    "name": "Travel Guide",
+    "iconName": "Plane",
+    "genres": [
+      {
+        "name": "Destinations",
+        "iconName": "Map",
+        "series": [
+          { "id": "travel-d1", "title": "Paris, France", "imageUrl": "https://picsum.photos/seed/paris/300/450", "dataAiHint": "eiffel tower", "description": "The city of lights, love, and art." },
+          { "id": "travel-d2", "title": "Kyoto, Japan", "imageUrl": "https://picsum.photos/seed/kyoto/300/450", "dataAiHint": "japan temple", "description": "Ancient temples, serene gardens, and rich culture." },
+          { "id": "travel-d3", "title": "Rome, Italy", "imageUrl": "https://picsum.photos/seed/rome/300/450", "dataAiHint": "colosseum italy", "description": "Explore historic ruins and vibrant Italian life." }
+        ]
+      },
+      {
+        "name": "Travel Tips",
+        "iconName": "Lightbulb",
+        "series": [
+          { "id": "travel-t1", "title": "Book Flights Early", "imageUrl": "https://picsum.photos/seed/flightbooking/300/450", "dataAiHint": "airplane window", "description": "Save money and get better seats by booking in advance." },
+          { "id": "travel-t2", "title": "Learn Basic Phrases", "imageUrl": "https://picsum.photos/seed/language/300/450", "dataAiHint": "foreign language", "description": "Locals appreciate the effort, and it enriches your experience." },
+          { "id": "travel-t3", "title": "Pack Light", "imageUrl": "https://picsum.photos/seed/packlight/300/450", "dataAiHint": "suitcase travel", "description": "Travel with ease and avoid excess baggage fees." }
+        ]
+      },
+      {
+        "name": "Packing Essentials",
+        "iconName": "Briefcase",
+        "series": [
+          { "id": "travel-p1", "title": "Universal Adapter", "imageUrl": "https://picsum.photos/seed/adapter/300/450", "dataAiHint": "travel adapter", "description": "A must-have for international travel to keep your devices charged." },
+          { "id": "travel-p2", "title": "Comfortable Shoes", "imageUrl": "https://picsum.photos/seed/shoes/300/450", "dataAiHint": "walking shoes", "description": "Essential for exploring new cities and attractions." },
+          { "id": "travel-p3", "title": "Travel Pillow", "imageUrl": "https://picsum.photos/seed/travelpillow/300/450", "dataAiHint": "neck pillow", "description": "For comfortable journeys on planes, trains, or buses." }
+        ]
+      }
     ]
   },
   {
-    "name": "Drama",
-    "iconName": "DramaIcon",
-    "series": [
-      { "id": "d1", "title": "Succession", "imageUrl": "https://picsum.photos/seed/succession/300/450", "dataAiHint": "media family" },
-      { "id": "d2", "title": "The Crown", "imageUrl": "https://picsum.photos/seed/crown/300/450", "dataAiHint": "royal family" },
-      { "id": "d3", "title": "Ozark", "imageUrl": "https://picsum.photos/seed/ozark/300/450", "dataAiHint": "money laundering" },
-      { "id": "d4", "title": "Better Call Saul", "imageUrl": "https://picsum.photos/seed/saul/300/450", "dataAiHint": "lawyer prequel" },
-      { "id": "d5", "title": "Squid Game", "imageUrl": "https://picsum.photos/seed/squidgame/300/450", "dataAiHint": "deadly games" },
-      { "id": "d6", "title": "Yellowstone", "imageUrl": "https://picsum.photos/seed/yellowstone/300/450", "dataAiHint": "ranch montana" }
+    "name": "TV Series Guide",
+    "iconName": "Tv",
+    "genres": [
+      {
+        "name": "Sci-Fi",
+        "iconName": "Rocket",
+        "series": [
+          { "id": "sf1", "title": "The Expanse", "imageUrl": "https://picsum.photos/seed/expanse/300/450", "dataAiHint": "space ship" },
+          { "id": "sf2", "title": "Foundation", "imageUrl": "https://picsum.photos/seed/foundation/300/450", "dataAiHint": "future city" },
+          { "id": "sf3", "title": "Altered Carbon", "imageUrl": "https://picsum.photos/seed/carbon/300/450", "dataAiHint": "cyberpunk neon" },
+          { "id": "sf4", "title": "Westworld", "imageUrl": "https://picsum.photos/seed/westworld/300/450", "dataAiHint": "robot human" }
+        ]
+      },
+      {
+        "name": "Fantasy",
+        "iconName": "Swords",
+        "series": [
+          { "id": "f1", "title": "The Witcher", "imageUrl": "https://picsum.photos/seed/witcher/300/450", "dataAiHint": "monster hunter" },
+          { "id": "f2", "title": "Shadow and Bone", "imageUrl": "https://picsum.photos/seed/shadowbone/300/450", "dataAiHint": "magic war" },
+          { "id": "f3", "title": "Game of Thrones", "imageUrl": "https://picsum.photos/seed/got/300/450", "dataAiHint": "dragons throne" }
+        ]
+      },
+      {
+        "name": "Comedy",
+        "iconName": "Smile",
+        "series": [
+          { "id": "c1", "title": "Ted Lasso", "imageUrl": "https://picsum.photos/seed/tedlasso/300/450", "dataAiHint": "football coach" },
+          { "id": "c2", "title": "The Marvelous Mrs. Maisel", "imageUrl": "https://picsum.photos/seed/maisel/300/450", "dataAiHint": "standup comedian" }
+        ]
+      },
+      {
+        "name": "Drama",
+        "iconName": "Drama",
+        "series": [
+          { "id": "d1", "title": "Succession", "imageUrl": "https://picsum.photos/seed/succession/300/450", "dataAiHint": "media family" },
+          { "id": "d2", "title": "The Crown", "imageUrl": "https://picsum.photos/seed/crown/300/450", "dataAiHint": "royal family" }
+        ]
+      },
+      {
+        "name": "Thriller",
+        "iconName": "ShieldAlert",
+        "series": [
+          { "id": "t1", "title": "Mindhunter", "imageUrl": "https://picsum.photos/seed/mindhunter/300/450", "dataAiHint": "fbi profilers" },
+          { "id": "t2", "title": "Severance", "imageUrl": "https://picsum.photos/seed/severance/300/450", "dataAiHint": "work life" }
+        ]
+      },
+      {
+        "name": "Animation",
+        "iconName": "PencilLine",
+        "series": [
+          { "id": "a1", "title": "Arcane", "imageUrl": "https://picsum.photos/seed/arcane/300/450", "dataAiHint": "fantasy animation" },
+          { "id": "a2", "title": "Rick and Morty", "imageUrl": "https://picsum.photos/seed/rickmorty/300/450", "dataAiHint": "sci-fi comedy" }
+        ]
+      }
     ]
   },
   {
-    "name": "Thriller",
-    "iconName": "Spy",
-    "series": [
-      { "id": "t1", "title": "Mindhunter", "imageUrl": "https://picsum.photos/seed/mindhunter/300/450", "dataAiHint": "fbi profilers" },
-      { "id": "t2", "title": "You", "imageUrl": "https://picsum.photos/seed/you/300/450", "dataAiHint": "stalker obsession" },
-      { "id": "t3", "title": "Severance", "imageUrl": "https://picsum.photos/seed/severance/300/450", "dataAiHint": "work life" },
-      { "id": "t4", "title": "The Handmaid's Tale", "imageUrl": "https://picsum.photos/seed/handmaid/300/450", "dataAiHint": "dystopian society" },
-      { "id": "t5", "title": "Money Heist", "imageUrl": "https://picsum.photos/seed/moneyheist/300/450", "dataAiHint": "bank robbery" }
-    ]
-  },
-  {
-    "name": "Animation",
-    "iconName": "PencilLine",
-    "series": [
-      { "id": "a1", "title": "Arcane", "imageUrl": "https://picsum.photos/seed/arcane/300/450", "dataAiHint": "fantasy animation" },
-      { "id": "a2", "title": "Rick and Morty", "imageUrl": "https://picsum.photos/seed/rickmorty/300/450", "dataAiHint": "sci-fi comedy" },
-      { "id": "a3", "title": "Invincible", "imageUrl": "https://picsum.photos/seed/invincible/300/450", "dataAiHint": "superhero adult" },
-      { "id": "a4", "title": "BoJack Horseman", "imageUrl": "https://picsum.photos/seed/bojack/300/450", "dataAiHint": "talking horse" }
+    "name": "Movies Guide",
+    "iconName": "Film",
+    "genres": [
+      {
+        "name": "Action",
+        "iconName": "Zap",
+        "series": [
+          { "id": "m-a1", "title": "Mad Max: Fury Road", "imageUrl": "https://picsum.photos/seed/madmax/300/450", "dataAiHint": "action desert" },
+          { "id": "m-a2", "title": "John Wick", "imageUrl": "https://picsum.photos/seed/johnwick/300/450", "dataAiHint": "action hitman" },
+          { "id": "m-a3", "title": "Mission: Impossible - Fallout", "imageUrl": "https://picsum.photos/seed/mifallout/300/450", "dataAiHint": "spy action" }
+        ]
+      },
+      {
+        "name": "Sci-Fi Movies",
+        "iconName": "Rocket",
+        "series": [
+          { "id": "m-sf1", "title": "Blade Runner 2049", "imageUrl": "https://picsum.photos/seed/bladerunner/300/450", "dataAiHint": "future dystopia" },
+          { "id": "m-sf2", "title": "Interstellar", "imageUrl": "https://picsum.photos/seed/interstellar/300/450", "dataAiHint": "space travel" },
+          { "id": "m-sf3", "title": "Dune", "imageUrl": "https://picsum.photos/seed/dune/300/450", "dataAiHint": "sci-fi desert" }
+        ]
+      },
+      {
+        "name": "Animated Movies",
+        "iconName": "PencilLine",
+        "series": [
+          { "id": "m-anim1", "title": "Spider-Man: Into the Spider-Verse", "imageUrl": "https://picsum.photos/seed/spiderverse/300/450", "dataAiHint": "animation superhero" },
+          { "id": "m-anim2", "title": "Your Name", "imageUrl": "https://picsum.photos/seed/yourname/300/450", "dataAiHint": "anime fantasy" },
+          { "id": "m-anim3", "title": "Klaus", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" }
+        ]
+      }
     ]
   }
 ]
