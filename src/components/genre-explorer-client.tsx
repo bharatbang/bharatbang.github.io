@@ -73,39 +73,40 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
   const [selectedGenreName, setSelectedGenreName] = useState<string>(DEFAULT_GENRE_NAME);
 
   useEffect(() => {
-    setGuideCategories(initialData); // Sync local state with prop
+    setGuideCategories(initialData); 
 
     if (initialData.length === 0) {
       setSelectedGuideCategoryName(DEFAULT_CATEGORY_NAME);
       setSelectedGenreName(DEFAULT_GENRE_NAME);
-    } else {
-      const currentGuideCat = initialData.find(gc => gc.name === selectedGuideCategoryName);
-      if (currentGuideCat) {
-        if (currentGuideCat.genres.length > 0) {
-          // If current selectedGenreName is not valid for the new category, or is default, pick the first genre
-          const currentGenreIsValid = currentGuideCat.genres.some(g => g.name === selectedGenreName);
-          if (!currentGenreIsValid || selectedGenreName === DEFAULT_GENRE_NAME) {
-            setSelectedGenreName(currentGuideCat.genres[0].name);
-          }
-          // Otherwise, the existing selectedGenreName is kept if it's valid for the new category
-        } else {
-          // Current category has no genres
-          setSelectedGenreName(DEFAULT_GENRE_NAME);
+      return;
+    }
+
+    const currentGuideCat = initialData.find(gc => gc.name === selectedGuideCategoryName);
+
+    if (currentGuideCat) {
+      if (currentGuideCat.genres.length > 0) {
+        const currentGenreIsValid = currentGuideCat.genres.some(g => g.name === selectedGenreName);
+        if (!currentGenreIsValid || selectedGenreName === DEFAULT_GENRE_NAME) {
+          setSelectedGenreName(currentGuideCat.genres[0].name);
         }
       } else {
-        // selectedGuideCategoryName was not found in initialData.
-        // This could happen if initialData changed and the old category name is gone.
-        // The useState initializer for selectedGuideCategoryName should pick a valid default from the new initialData.
-        // Or if selectedGuideCategoryName is default, the first category from initialData is selected by useState.
-        // Then this effect will run again, and this 'else' shouldn't be hit if initialData has categories.
-        // If initialData is not empty, but selectedGuideCategoryName still results in no currentGuideCat,
-        // it means selectedGuideCategoryName is DEFAULT_CATEGORY_NAME and initialData[0] was used.
-        // This path should ideally not be hit if selectedGuideCategoryName is correctly initialized.
-        // For safety, reset genre.
+        setSelectedGenreName(DEFAULT_GENRE_NAME);
+      }
+    } else {
+      // If current selectedGuideCategoryName is not in new initialData,
+      // reset to the first category of initialData.
+      const newSelectedGuideCategoryName = initialData[0]?.name || DEFAULT_CATEGORY_NAME;
+      setSelectedGuideCategoryName(newSelectedGuideCategoryName);
+      
+      // And then set genre based on this new category
+      const newCategory = initialData.find(gc => gc.name === newSelectedGuideCategoryName);
+      if (newCategory && newCategory.genres.length > 0) {
+        setSelectedGenreName(newCategory.genres[0].name);
+      } else {
         setSelectedGenreName(DEFAULT_GENRE_NAME);
       }
     }
-  }, [initialData, selectedGuideCategoryName, selectedGenreName]);
+  }, [initialData, selectedGuideCategoryName]); // Removed selectedGenreName from deps to avoid potential loops when it's reset
 
 
   const selectedGuideCategory = useMemo(() => {
@@ -152,7 +153,6 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
     setSortOrder('none');
   };
   
-  // Handle category change: reset genre to the first of the new category or default
   const handleGuideCategoryChange = (newCategoryName: string) => {
     setSelectedGuideCategoryName(newCategoryName);
     const newCategory = guideCategories.find(gc => gc.name === newCategoryName);
@@ -164,21 +164,25 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
   };
 
 
-  if (!initialData) { // Check for initialData specifically, not its length for this loading state
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <p className="text-xl text-muted-foreground">Loading data...</p>
-    </div>
-  );
-}
+  if (!initialData) { 
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl text-muted-foreground">Loading data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
        {/* Guide Category Tabs */}
-      <Tabs value={selectedGuideCategoryName} onValueChange={handleGuideCategoryChange} className="w-full">
-        <TabsList className="flex flex-wrap justify-center gap-2 p-2 bg-card rounded-lg shadow">
+      <Tabs 
+        value={selectedGuideCategoryName} 
+        onValueChange={handleGuideCategoryChange} 
+        className="w-full flex justify-center"
+      >
+        <TabsList className="inline-flex flex-wrap justify-center gap-2 p-2 bg-card rounded-lg shadow">
           {guideCategories.map((category) => {
-            const IconComponent = guideCategoryIconMap[category.iconName] || Tv; // Default to Tv icon
+            const IconComponent = guideCategoryIconMap[category.iconName] || Tv; 
             return (
               <TabsTrigger 
                 key={category.name} 
@@ -196,11 +200,15 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
 
       {/* Genre/Sub-category Tabs */}
       {selectedGuideCategory && selectedGuideCategory.genres.length > 0 && (
-        <Tabs value={selectedGenreName} onValueChange={setSelectedGenreName} className="w-full mt-4">
+        <Tabs 
+          value={selectedGenreName} 
+          onValueChange={setSelectedGenreName} 
+          className="w-full mt-4 flex justify-center"
+        >
           
-          <TabsList className="flex flex-wrap justify-center gap-2 p-2 bg-secondary rounded-lg shadow-inner">
+          <TabsList className="inline-flex flex-wrap justify-center gap-2 p-2 bg-secondary rounded-lg shadow-inner">
             {selectedGuideCategory.genres.map((genre) => {
-              const IconComponent = genreIconMap[genre.iconName] || ListFilter; // Default to ListFilter icon
+              const IconComponent = genreIconMap[genre.iconName] || ListFilter; 
               return (
                 <TabsTrigger 
                   key={genre.name} 
@@ -242,7 +250,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
 
               {filteredAndSortedSeries.length > 0 ? (
                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 sm:gap-6 mt-4">
-                  {filteredAndSortedSeries.map((series) => ( // Removed slice(0,16) to show all
+                  {filteredAndSortedSeries.map((series) => ( 
                     <SeriesCard key={series.id} series={series} />
                   ))}
                 </div>
@@ -262,12 +270,12 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
             No sub-categories available for {selectedGuideCategory.name}.
           </p>
       )}
-       {!selectedGuideCategory && initialData.length > 0 && ( // Show only if initialData is loaded but no category selected
+       {!selectedGuideCategory && initialData.length > 0 && ( 
          <p className="text-center text-muted-foreground py-10 text-lg">
             Select a guide category to see content.
           </p>
       )}
-      {initialData.length === 0 && ( // Show if initialData itself is empty
+      {initialData.length === 0 && ( 
          <p className="text-center text-muted-foreground py-10 text-lg">
             No guide data available.
           </p>
