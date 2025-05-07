@@ -41,6 +41,7 @@ async function getSeriesData(): Promise<GuideCategory[]> {
 export default async function Home() {
   const guideData = await getSeriesData();
   const pageTitle = "Bharat Bang";
+  const pageTitleHindi = "भरत बंग";
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -51,7 +52,12 @@ export default async function Home() {
             className="text-4xl font-bold tracking-tight text-center" 
             animationSpeed={250} // Slower speed for more noticeable effect
           />
-          <p className="text-center text-lg text-primary-foreground/80 mt-2">Discover guides, series, movies and more</p>
+          <AnimatedTitle 
+            text={pageTitleHindi} 
+            className="text-3xl font-bold tracking-tight text-center mt-2" 
+            animationSpeed={250} 
+          />
+          <p className="text-center text-lg text-primary-foreground/80 mt-4">Discover guides, series, movies and more</p>
         </div>
       </header>
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
@@ -65,3 +71,4 @@ export default async function Home() {
     </div>
   );
 }
+
