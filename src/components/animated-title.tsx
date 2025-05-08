@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import type { HTMLAttributes } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface AnimatedTitleProps extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement> {
@@ -26,12 +26,14 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   useEffect(() => {
+    // Reset state for new text or on re-mount/prop change
     setDisplayedText('');
     setIsAnimationComplete(false);
-    let startTimeoutId: NodeJS.Timeout;
-    let typingIntervalId: NodeJS.Timeout;
 
-    if (text) {
+    let startTimeoutId: NodeJS.Timeout | undefined;
+    let typingIntervalId: NodeJS.Timer | undefined;
+
+    if (text && text.length > 0) { // Only start animation if text is valid and not empty
       startTimeoutId = setTimeout(() => {
         let currentIndex = 0;
         typingIntervalId = setInterval(() => {
@@ -39,38 +41,50 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
             setDisplayedText((prev) => prev + text[currentIndex]);
             currentIndex++;
           } else {
-            clearInterval(typingIntervalId);
+            if (typingIntervalId) clearInterval(typingIntervalId);
+            typingIntervalId = undefined; // Ensure it's marked as cleared
             setIsAnimationComplete(true);
           }
         }, typingSpeed);
       }, initialDelay);
+    } else {
+      // If text is null, undefined, or empty, consider animation complete
+      setIsAnimationComplete(true);
     }
 
+    // Cleanup function
     return () => {
-      clearTimeout(startTimeoutId);
-      clearInterval(typingIntervalId);
+      if (startTimeoutId) clearTimeout(startTimeoutId);
+      if (typingIntervalId) clearInterval(typingIntervalId);
     };
-  }, [text, initialDelay, typingSpeed]);
-  
-  const minHeightClass = () => {
+  }, [text, initialDelay, typingSpeed]); // Dependencies for the effect
+
+  const getMinHeightClass = () => {
+    // Ensure a minimum height to prevent layout shift while text is appearing
+    // The exact value might need tweaking based on font size and line height
     switch (Tag) {
-      case 'h1': return 'min-h-[1.2em]'; // Adjusted for potentially larger h1
-      case 'h2': return 'min-h-[1.2em]'; // Adjusted for h2
-      default: return 'min-h-[1em]';
+      case 'h1':
+        return 'min-h-[1.2em]'; 
+      case 'h2':
+        return 'min-h-[1.2em]'; 
+      default:
+        return 'min-h-[1em]'; 
     }
-  }
+  };
 
   return (
     <Tag
       className={cn(
-        className,
-        minHeightClass() // Apply dynamic min-height
+        className, 
+        getMinHeightClass() 
       )}
       {...props}
     >
       {displayedText}
       {showCursor && !isAnimationComplete && (
-        <span className="inline-block animate-pulse ml-0.5">|</span>
+        <span aria-hidden="true" className="inline-block animate-pulse select-none ml-0.5 pointer-events-none">
+          |
+        </span>
       )}
     </Tag>
   );
