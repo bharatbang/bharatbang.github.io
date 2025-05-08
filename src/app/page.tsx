@@ -51,22 +51,33 @@ export default async function Home() {
         <div className="container mx-auto px-4 flex flex-col items-center">
           
           <AnimatedTitle
+            text="Bharat Bang"
+            as="h1"
+            className="text-5xl font-bold tracking-tight text-center"
+            typingSpeed={100}
+            initialDelay={200}
+          />
+          <AnimatedTitle
             text="भरत बंग"
             as="h2"
             className="text-3xl font-medium tracking-tight text-center text-primary-foreground/90 mt-2"
             typingSpeed={100}
-            initialDelay={1200} /> 
-         
-         
-          <div className="mt-6">
+            initialDelay={1200} 
+          /> 
+        </div>
+      </header>
+      <main className="container mx-auto p-4 sm:p-6 md:p-8">
+        <section className="mb-12">
+          <h2 className="text-3xl font-semibold tracking-tight mb-6 text-center sm:text-left">
+            Code Snippets
+          </h2>
+          <div className="flex justify-center sm:justify-start">
             <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <CodeXml size={20} className="mr-2" />
               HTML Creator
             </Link>
           </div>
-        </div>
-      </header>
-      <main className="container mx-auto p-4 sm:p-6 md:p-8">
+        </section>
         <GenreExplorerClient initialData={guideData} />
       </main>
       <footer className="py-6 mt-12 border-t border-border">
@@ -77,4 +88,3 @@ export default async function Home() {
     </div>
   );
 }
-
