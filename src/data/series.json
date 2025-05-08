@@ -81,9 +81,9 @@
         "name": "Destinations",
         "iconName": "Map",
         "series": [
-          { "id": "travel-d1", "title": "Paris, France", "imageUrl": "https://picsum.photos/seed/paris/300/450", "dataAiHint": "eiffel tower", "description": "The city of lights, love, and art." },
-          { "id": "travel-d2", "title": "Kyoto, Japan", "imageUrl": "https://picsum.photos/seed/kyoto/300/450", "dataAiHint": "japan temple", "description": "Ancient temples, serene gardens, and rich culture." },
-          { "id": "travel-d3", "title": "Rome, Italy", "imageUrl": "https://picsum.photos/seed/rome/300/450", "dataAiHint": "colosseum italy", "description": "Explore historic ruins and vibrant Italian life." }
+          { "id": "travel-d1", "title": "Rajasthan", "imageUrl": "https://picsum.photos/seed/paris/300/450", "dataAiHint": "eiffel tower", "description": "The city of lights, love, and art." },
+          { "id": "travel-d2", "title": "Dwarka, Gujarat", "imageUrl": "https://picsum.photos/seed/kyoto/300/450", "dataAiHint": "japan temple", "description": "Ancient temples, serene gardens, and rich culture." },
+          { "id": "travel-d3", "title": "Hampi, Karnataka", "imageUrl": "https://picsum.photos/seed/rome/300/450", "dataAiHint": "colosseum italy", "description": "Explore historic ruins and vibrant Italian life." }
         ]
       },
       {
