@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -18,7 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Textarea } from '@/components/ui/textarea';
+// import { Textarea } from '@/components/ui/textarea'; // No longer needed
 // import { Button } from '@/components/ui/button'; // Button is imported but not directly used in this file after removal, can be removed if not needed by other parts
 import FieldButton from './field-button';
 import type { DraggableFieldData } from './field-button';
@@ -237,19 +238,7 @@ export default function HtmlCreatorClient() {
               </Select>
             </div>
 
-            <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Success</h3>
-            <div>
-              <Label htmlFor="successMessage" className="text-xs font-semibold text-muted-foreground">Data Added Successfully Message</Label>
-              <Textarea id="successMessage" placeholder="e.g., Your request has been submitted." className="mt-1 bg-background text-sm" rows={2}/>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="sendConfirmationEmail" />
-              <Label htmlFor="sendConfirmationEmail" className="text-sm font-normal">Send Confirmation Email</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="goToNextUrl" />
-              <Label htmlFor="goToNextUrl" className="text-sm font-normal">Go to Next URL</Label>
-            </div>
+            {/* Success section removed as per user request */}
 
              <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Validation</h3>
             <div className="flex items-center space-x-2">
@@ -287,3 +276,4 @@ export default function HtmlCreatorClient() {
     </div>
   );
 }
+
