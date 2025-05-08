@@ -74,7 +74,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
   const [selectedGenreName, setSelectedGenreName] = useState<string>(DEFAULT_GENRE_NAME);
 
   useEffect(() => {
-    setGuideCategories(initialData); 
+    setGuideCategories(initialData);
 
     if (initialData.length === 0) {
       setSelectedGuideCategoryName(DEFAULT_CATEGORY_NAME);
@@ -94,12 +94,9 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         setSelectedGenreName(DEFAULT_GENRE_NAME);
       }
     } else {
-      // If current selectedGuideCategoryName is not in new initialData,
-      // reset to the first category of initialData.
       const newSelectedGuideCategoryName = initialData[0]?.name || DEFAULT_CATEGORY_NAME;
       setSelectedGuideCategoryName(newSelectedGuideCategoryName);
       
-      // And then set genre based on this new category
       const newCategory = initialData.find(gc => gc.name === newSelectedGuideCategoryName);
       if (newCategory && newCategory.genres.length > 0) {
         setSelectedGenreName(newCategory.genres[0].name);
@@ -107,7 +104,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         setSelectedGenreName(DEFAULT_GENRE_NAME);
       }
     }
-  }, [initialData, selectedGuideCategoryName]);
+  }, [initialData, selectedGuideCategoryName, selectedGenreName]);
 
 
   const selectedGuideCategory = useMemo(() => {
@@ -181,18 +178,18 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         onValueChange={handleGuideCategoryChange} 
         className="w-full"
       >
-        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 gap-2 p-2 bg-card rounded-lg shadow">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 p-2 bg-card rounded-lg shadow border border-input">
           {guideCategories.map((category) => {
             const IconComponent = guideCategoryIconMap[category.iconName] || Tv; 
             return (
               <TabsTrigger 
                 key={category.name} 
                 value={category.name} 
-                className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base rounded-md transition-colors data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:bg-accent hover:text-accent-foreground"
+                className="flex items-center justify-center gap-1.5 sm:gap-2 px-2 py-2 sm:px-3 sm:py-2.5 text-xs sm:text-sm rounded-md transition-colors data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:bg-accent hover:text-accent-foreground flex-wrap"
                 aria-label={`Select ${category.name} category`}
               >
-                <IconComponent size={20} aria-hidden="true" />
-                <span>{category.name}</span>
+                <IconComponent size={20} aria-hidden="true" className="shrink-0"/>
+                <span className="text-center">{category.name}</span>
               </TabsTrigger>
             );
           })}
@@ -207,18 +204,18 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
           className="w-full mt-4"
         >
           
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 p-2 bg-secondary rounded-lg shadow-inner">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2 bg-secondary rounded-lg shadow-inner">
             {selectedGuideCategory.genres.map((genre) => {
               const IconComponent = genreIconMap[genre.iconName] || ListFilter; 
               return (
                 <TabsTrigger 
                   key={genre.name} 
                   value={genre.name} 
-                  className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm rounded-md transition-colors data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center justify-center gap-1.5 sm:gap-2 px-2 py-2 sm:px-3 sm:py-2.5 text-xs sm:text-sm rounded-md transition-colors data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:bg-accent hover:text-accent-foreground flex-wrap"
                   aria-label={`Select ${genre.name} genre`}
                 >
-                  <IconComponent size={18} aria-hidden="true"/>
-                  <span>{genre.name}</span>
+                  <IconComponent size={18} aria-hidden="true" className="shrink-0"/>
+                  <span className="text-center">{genre.name}</span>
                 </TabsTrigger>
               );
             })}

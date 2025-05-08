@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Genre Explorer',
+  title: 'Bharat Bang',
   description: 'Explore series by genre, built with NextJS and Firebase Studio',
 };
 
