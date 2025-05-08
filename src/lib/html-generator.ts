@@ -1,3 +1,4 @@
+
 import type { DroppedFieldItem } from '@/components/html-creator/html-creator-client';
 
 function generateHtmlForField(field: DroppedFieldItem): string {
@@ -145,3 +146,5 @@ export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): str
 </html>
 `;
 }
+
+    

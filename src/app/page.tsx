@@ -54,18 +54,16 @@ export default async function Home() {
             as="h1"
             className="text-5xl font-bold tracking-tight text-center"
             typingSpeed={100}
-            initialDelay={200}
-          />
+            initialDelay={200}/>
+          
           <AnimatedTitle
             text="भरत बंग"
             as="h2"
             className="text-3xl font-medium tracking-tight text-center text-primary-foreground/90 mt-2"
             typingSpeed={100}
-            initialDelay={1200} // Adjusted delay
-          />
-          <p className="text-center text-lg text-primary-foreground/80 mt-4">
-            Discover guides, series, movies and more
-          </p>
+            initialDelay={1200} /> // Adjusted delay
+         
+         
           <div className="mt-6">
             <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <CodeXml size={20} className="mr-2" />

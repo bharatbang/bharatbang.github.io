@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { LucideIcon } from 'lucide-react';
@@ -10,7 +11,9 @@ export interface DraggableFieldData {
   iconName: string; // Keep iconName if needed for display on canvas, or derive from typeId
 }
 
-export interface DraggableField extends DraggableFieldData {
+export interface DraggableField {
+  id: string; // This is the typeId
+  name: string;
   icon: LucideIcon;
 }
 
@@ -49,3 +52,5 @@ export default function FieldButton({ field, className }: FieldButtonProps) {
     </Button>
   );
 }
+
+    
