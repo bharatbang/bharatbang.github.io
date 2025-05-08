@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { LucideIcon } from 'lucide-react';
@@ -8,7 +7,7 @@ import { cn } from '@/lib/utils';
 export interface DraggableFieldData {
   typeId: string;
   name: string;
-  iconName: string; // Keep iconName if needed for display on canvas, or derive from typeId
+  iconName: string;
 }
 
 export interface DraggableField {
@@ -21,19 +20,29 @@ export interface DraggableField {
 interface FieldButtonProps {
   field: DraggableField;
   className?: string;
+  onAddField: (fieldData: DraggableFieldData) => void; // New prop for click action
 }
 
-export default function FieldButton({ field, className }: FieldButtonProps) {
+export default function FieldButton({ field, className, onAddField }: FieldButtonProps) {
   const IconComponent = field.icon;
 
   const handleDragStart = (e: React.DragEvent<HTMLButtonElement>) => {
     const dragData: DraggableFieldData = {
-      typeId: field.id, // Use field.id which is the typeId
+      typeId: field.id,
       name: field.name,
-      iconName: field.icon.displayName || field.id, // Attempt to get icon name or fallback
+      iconName: (IconComponent as any)?.displayName || field.id,
     };
     e.dataTransfer.setData('application/json', JSON.stringify(dragData));
     e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleClick = () => {
+    const fieldToAdd: DraggableFieldData = {
+      typeId: field.id,
+      name: field.name,
+      iconName: (IconComponent as any)?.displayName || field.id,
+    };
+    onAddField(fieldToAdd);
   };
 
   return (
@@ -46,11 +55,10 @@ export default function FieldButton({ field, className }: FieldButtonProps) {
       )}
       draggable
       onDragStart={handleDragStart}
+      onClick={handleClick} // Added onClick handler
     >
       <IconComponent size={16} className="text-muted-foreground shrink-0" />
       <span className="truncate">{field.name}</span>
     </Button>
   );
 }
-
-    

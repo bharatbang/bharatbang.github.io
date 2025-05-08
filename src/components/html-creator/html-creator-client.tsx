@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -87,6 +86,18 @@ export default function HtmlCreatorClient() {
   const [generatedHtml, setGeneratedHtml] = useState('');
   // const [selectedFieldInstanceId, setSelectedFieldInstanceId] = useState<string | null>(null); // For future property editing
 
+  const handleAddField = useCallback((fieldData: DraggableFieldData) => {
+    if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
+      const newField: DroppedFieldItem = {
+        ...fieldData,
+        instanceId: crypto.randomUUID(),
+      };
+      setDroppedFields((prevFields) => [...prevFields, newField]);
+    } else {
+      console.error("Clicked field data is invalid or missing required properties:", fieldData);
+    }
+  }, []);
+
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const fieldDataString = e.dataTransfer.getData('application/json');
@@ -101,7 +112,7 @@ export default function HtmlCreatorClient() {
           };
           setDroppedFields((prevFields) => [...prevFields, newField]);
         } else {
-          console.error("Parsed field data is invalid or missing required properties:", fieldData);
+          console.error("Parsed dropped field data is invalid or missing required properties:", fieldData);
         }
       } catch (error) {
         console.error("Failed to parse dropped field data:", error);
@@ -140,7 +151,11 @@ export default function HtmlCreatorClient() {
         <h2 className="text-sm font-semibold text-muted-foreground px-2 mb-3">FIELDS</h2>
         <div className="grid grid-cols-2 gap-2">
           {draggableFieldsList.map((field) => (
-            <FieldButton key={field.id} field={field} />
+            <FieldButton 
+              key={field.id} 
+              field={field} 
+              onAddField={handleAddField} // Pass the handler here
+            />
           ))}
         </div>
       </aside>
@@ -157,7 +172,7 @@ export default function HtmlCreatorClient() {
           >
             {droppedFields.length === 0 && (
               <div className="flex items-center justify-center h-full">
-                <p className="text-muted-foreground text-center">Drop fields here to build your form</p>
+                <p className="text-muted-foreground text-center">Drop or click fields here to build your form</p>
               </div>
             )}
             {droppedFields.map((field) => (
