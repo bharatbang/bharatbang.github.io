@@ -4,6 +4,9 @@ import type { GuideCategory } from '@/types';
 import { promises as fs } from 'fs';
 import path from 'path';
 import AnimatedTitle from '@/components/animated-title';
+import Link from 'next/link';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { CodeXml } from 'lucide-react';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -58,11 +61,17 @@ export default async function Home() {
             as="h2"
             className="text-3xl font-medium tracking-tight text-center text-primary-foreground/90 mt-2"
             typingSpeed={100}
-            initialDelay={1500} // Increased delay to start after "Bharat Bang"
+            initialDelay={1200} // Adjusted delay
           />
           <p className="text-center text-lg text-primary-foreground/80 mt-4">
             Discover guides, series, movies and more
           </p>
+          <div className="mt-6">
+            <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <CodeXml size={20} className="mr-2" />
+              HTML Creator
+            </Link>
+          </div>
         </div>
       </header>
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
