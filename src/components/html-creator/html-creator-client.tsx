@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import {
   Tabs,
@@ -21,20 +21,30 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import FieldButton from './field-button';
+import type { DraggableFieldData } from './field-button';
+import DroppedFieldDisplay from './dropped-field-display';
+import HtmlPreviewArea from './html-preview-area';
+import { generateHtml } from '@/lib/html-generator';
 import {
   Minus, AlignLeft, Mail, FileText, CalendarDays, CalendarClock, ChevronDownSquare,
   CircleDot, ListChecks, CheckSquare, Hash, Percent, DollarSign, Link as LinkIcon,
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
-  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Workflow, Settings, Share, Palette, Type
+  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Workflow, Settings, Share, Palette, Type, Trash2
 } from 'lucide-react';
 
-interface DraggableField {
-  id: string;
+// Represents a field that has been dropped onto the canvas
+export interface DroppedFieldItem extends DraggableFieldData {
+  instanceId: string; // Unique ID for this specific instance on the canvas
+}
+
+// Defines the structure of a field type available for dragging
+interface DraggableFieldDefinition {
+  id: string; // This is the typeId
   name: string;
   icon: LucideIcon;
 }
 
-const draggableFields: DraggableField[] = [
+const draggableFieldsList: DraggableFieldDefinition[] = [
   { id: 'single-line', name: 'Single Line', icon: Type },
   { id: 'multi-line', name: 'Multi Line', icon: AlignLeft },
   { id: 'email', name: 'Email', icon: Mail },
@@ -46,7 +56,7 @@ const draggableFields: DraggableField[] = [
   { id: 'multi-select', name: 'Multi Select', icon: ListChecks },
   { id: 'checkbox', name: 'Checkbox', icon: CheckSquare },
   { id: 'number', name: 'Number', icon: Hash },
-  { id: 'decimal', name: 'Decimal', icon: FunctionSquare }, // Using FunctionSquare as stand-in for Decimal
+  { id: 'decimal', name: 'Decimal', icon: FunctionSquare },
   { id: 'percent', name: 'Percent', icon: Percent },
   { id: 'currency', name: 'Currency', icon: DollarSign },
   { id: 'url', name: 'URL', icon: LinkIcon },
@@ -56,23 +66,67 @@ const draggableFields: DraggableField[] = [
   { id: 'lookup', name: 'Lookup', icon: Search },
   { id: 'add-notes', name: 'Add Notes', icon: StickyNote },
   { id: 'subform', name: 'SubForm', icon: LayoutGrid },
-  { id: 'zoho-crm', name: 'Zoho CRM', icon: Briefcase }, // Placeholder
+  { id: 'zoho-crm', name: 'Zoho CRM', icon: Briefcase },
   { id: 'auto-number', name: 'Auto Number', icon: ListOrdered },
   { id: 'formula', name: 'Formula', icon: FunctionSquare },
   { id: 'signature', name: 'Signature', icon: PenTool },
   { id: 'users', name: 'Users', icon: Users },
 ];
 
+export const iconMap: Record<string, LucideIcon> = draggableFieldsList.reduce((acc, field) => {
+  acc[field.id] = field.icon;
+  return acc;
+}, {} as Record<string, LucideIcon>);
+
 
 export default function HtmlCreatorClient() {
   const [formTitle, setFormTitle] = useState('Vacation Requests');
+  const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
+  const [generatedHtml, setGeneratedHtml] = useState('');
+  // const [selectedFieldInstanceId, setSelectedFieldInstanceId] = useState<string | null>(null); // For future property editing
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const fieldDataString = e.dataTransfer.getData('application/json');
+    if (fieldDataString) {
+      const fieldData = JSON.parse(fieldDataString) as DraggableFieldData;
+      const newField: DroppedFieldItem = {
+        ...fieldData,
+        instanceId: crypto.randomUUID(),
+      };
+      setDroppedFields((prevFields) => [...prevFields, newField]);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault(); // Necessary to allow dropping
+  };
+
+  const handleRemoveField = useCallback((instanceIdToRemove: string) => {
+    setDroppedFields((prevFields) => prevFields.filter(field => field.instanceId !== instanceIdToRemove));
+  }, []);
+
+  useEffect(() => {
+    const html = generateHtml(formTitle, droppedFields);
+    setGeneratedHtml(html);
+  }, [droppedFields, formTitle]);
+
+  const handleDownloadHtml = () => {
+    const blob = new Blob([generatedHtml], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${formTitle.replace(/\s+/g, '_') || 'form'}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  };
 
   return (
     <div className="flex h-screen bg-muted/40 text-foreground">
-      {/* Left Panel - App Navigation (Mimicking Zoho Creator) */}
+      {/* Left Panel - App Navigation */}
       <aside className="w-20 flex-shrink-0 bg-card border-r border-border flex flex-col items-center py-4 space-y-4">
         <div className="p-2 mb-4">
-           {/* Placeholder for logo */}
           <Palette size={32} className="text-primary"/>
         </div>
         <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
@@ -80,7 +134,7 @@ export default function HtmlCreatorClient() {
           <span className="text-xs mt-1">Dashboard</span>
         </Button>
          <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-primary bg-accent/20">
-          <Minus size={24} /> {/* Using Minus for "Create New" - needs better icon */}
+          <Minus size={24} />
           <span className="text-xs mt-1">Create New</span>
         </Button>
         <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
@@ -91,7 +145,7 @@ export default function HtmlCreatorClient() {
           <Share size={24} />
           <span className="text-xs mt-1">Share</span>
         </Button>
-        <div className="flex-grow"></div> {/* Spacer */}
+        <div className="flex-grow"></div>
         <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
           <Settings size={24} />
           <span className="text-xs mt-1">Settings</span>
@@ -102,39 +156,39 @@ export default function HtmlCreatorClient() {
       <aside className="w-64 flex-shrink-0 border-r border-border bg-background p-4 overflow-y-auto">
         <h2 className="text-sm font-semibold text-muted-foreground px-2 mb-3">FIELDS</h2>
         <div className="grid grid-cols-2 gap-2">
-          {draggableFields.map((field) => (
+          {draggableFieldsList.map((field) => (
             <FieldButton key={field.id} field={field} />
           ))}
         </div>
       </aside>
 
-      {/* Center Panel - Canvas */}
-      <main className="flex-1 p-6 overflow-y-auto bg-muted/30">
-        <div className="max-w-3xl mx-auto bg-card p-8 rounded-lg shadow-lg border border-border">
+      {/* Center Panel - Canvas & HTML Output */}
+      <main className="flex-1 p-6 overflow-y-auto bg-muted/30 flex flex-col space-y-6">
+        <div className="max-w-3xl mx-auto bg-card p-8 rounded-lg shadow-lg border border-border flex-grow flex flex-col">
           <h1 className="text-2xl font-semibold mb-6 pb-4 border-b border-border">{formTitle}</h1>
           
-          <form className="space-y-6">
-            <div>
-              <Label htmlFor="employeeName" className="text-sm font-medium">Employee Name</Label>
-              <Input id="employeeName" type="text" className="mt-1 bg-background" />
-            </div>
-            <div>
-              <Label htmlFor="beginningOn" className="text-sm font-medium">Beginning on</Label>
-              <Input id="beginningOn" type="date" className="mt-1 bg-background" />
-            </div>
-            <div>
-              <Label htmlFor="endingOn" className="text-sm font-medium">Ending on</Label>
-              <Input id="endingOn" type="date" className="mt-1 bg-background" />
-            </div>
-            <div>
-              <Label htmlFor="daysRequested" className="text-sm font-medium">Number of Days Requested</Label>
-              <Input id="daysRequested" type="number" className="mt-1 bg-background" />
-            </div>
-            <div className="flex justify-end space-x-3 pt-6">
-              <Button type="submit" variant="default">Submit</Button>
-              <Button type="reset" variant="outline">Reset</Button>
-            </div>
-          </form>
+          <div 
+            className="border-2 border-dashed border-muted-foreground/30 rounded-md p-4 min-h-[300px] flex-grow bg-background/50 space-y-3"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            {droppedFields.length === 0 && (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-muted-foreground text-center">Drop fields here to build your form</p>
+              </div>
+            )}
+            {droppedFields.map((field) => (
+              <DroppedFieldDisplay 
+                key={field.instanceId} 
+                field={field} 
+                onRemove={handleRemoveField} 
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className="max-w-3xl mx-auto w-full">
+          <HtmlPreviewArea html={generatedHtml} onDownload={handleDownloadHtml} />
         </div>
       </main>
 
@@ -147,8 +201,8 @@ export default function HtmlCreatorClient() {
           </TabsList>
           <TabsContent value="form-properties" className="p-4 space-y-6">
             <div>
-              <Label htmlFor="formTitle" className="text-xs font-semibold text-muted-foreground">Form Title</Label>
-              <Input id="formTitle" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} className="mt-1 h-8 bg-background"/>
+              <Label htmlFor="formTitleProp" className="text-xs font-semibold text-muted-foreground">Form Title</Label>
+              <Input id="formTitleProp" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} className="mt-1 h-8 bg-background"/>
             </div>
             <div>
               <Label htmlFor="formLinkName" className="text-xs font-semibold text-muted-foreground">Form Link Name</Label>
@@ -228,7 +282,7 @@ export default function HtmlCreatorClient() {
             </div>
           </TabsContent>
           <TabsContent value="field-properties" className="p-4">
-            <p className="text-sm text-muted-foreground">Select a field on the canvas to see its properties.</p>
+            <p className="text-sm text-muted-foreground">Select a field on the canvas to see its properties. (Feature coming soon)</p>
           </TabsContent>
         </Tabs>
       </aside>
