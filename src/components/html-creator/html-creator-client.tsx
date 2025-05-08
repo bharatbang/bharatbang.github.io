@@ -37,12 +37,13 @@ import {
 // Represents a field that has been dropped onto the canvas
 export interface DroppedFieldItem extends DraggableFieldData {
   instanceId: string; // Unique ID for this specific instance on the canvas
+  // name property is inherited from DraggableFieldData and can be edited
 }
 
 // Defines the structure of a field type available for dragging
 interface DraggableFieldDefinition {
   id: string; // This is the typeId
-  name: string;
+  name: string; // This is the base name / type
   icon: LucideIcon;
 }
 
@@ -86,18 +87,29 @@ export default function HtmlCreatorClient() {
   const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
   const [generatedHtml, setGeneratedHtml] = useState('');
   // const [selectedFieldInstanceId, setSelectedFieldInstanceId] = useState<string | null>(null); // For future property editing
+  const [fieldCounters, setFieldCounters] = useState<Record<string, number>>({});
+
+
+  const getNextFieldName = (baseName: string): string => {
+    const currentCount = fieldCounters[baseName] || 0;
+    const nextCount = currentCount + 1;
+    setFieldCounters(prev => ({ ...prev, [baseName]: nextCount }));
+    return `${baseName} ${nextCount}`;
+  };
+
 
   const handleAddField = useCallback((fieldData: DraggableFieldData) => {
     if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
       const newField: DroppedFieldItem = {
         ...fieldData,
+        name: getNextFieldName(fieldData.name), // Use generated unique name
         instanceId: crypto.randomUUID(),
       };
       setDroppedFields((prevFields) => [...prevFields, newField]);
     } else {
       console.error("Clicked field data is invalid or missing required properties:", fieldData);
     }
-  }, []);
+  }, [fieldCounters]); // Add fieldCounters to dependency array
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -105,10 +117,10 @@ export default function HtmlCreatorClient() {
     if (fieldDataString) {
       try {
         const fieldData = JSON.parse(fieldDataString) as DraggableFieldData;
-        // Basic validation of the parsed data
         if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
           const newField: DroppedFieldItem = {
             ...fieldData,
+            name: getNextFieldName(fieldData.name), // Use generated unique name
             instanceId: crypto.randomUUID(),
           };
           setDroppedFields((prevFields) => [...prevFields, newField]);
@@ -127,6 +139,14 @@ export default function HtmlCreatorClient() {
 
   const handleRemoveField = useCallback((instanceIdToRemove: string) => {
     setDroppedFields((prevFields) => prevFields.filter(field => field.instanceId !== instanceIdToRemove));
+  }, []);
+
+  const handleFieldNameChange = useCallback((instanceIdToUpdate: string, newName: string) => {
+    setDroppedFields((prevFields) =>
+      prevFields.map(f =>
+        f.instanceId === instanceIdToUpdate ? { ...f, name: newName } : f
+      )
+    );
   }, []);
 
   useEffect(() => {
@@ -155,7 +175,7 @@ export default function HtmlCreatorClient() {
             <FieldButton 
               key={field.id} 
               field={field} 
-              onAddField={handleAddField} // Pass the handler here
+              onAddField={handleAddField}
             />
           ))}
         </div>
@@ -180,7 +200,8 @@ export default function HtmlCreatorClient() {
               <DroppedFieldDisplay 
                 key={field.instanceId} 
                 field={field} 
-                onRemove={handleRemoveField} 
+                onRemove={handleRemoveField}
+                onNameChange={handleFieldNameChange} 
               />
             ))}
           </div>
@@ -238,8 +259,6 @@ export default function HtmlCreatorClient() {
               </Select>
             </div>
 
-            {/* Success section removed as per user request */}
-
              <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Validation</h3>
             <div className="flex items-center space-x-2">
               <Checkbox id="enableCaptcha" />
@@ -276,4 +295,3 @@ export default function HtmlCreatorClient() {
     </div>
   );
 }
-
