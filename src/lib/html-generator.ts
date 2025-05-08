@@ -7,7 +7,7 @@ function generateHtmlForField(field: DroppedFieldItem): string {
 
   switch (field.typeId) {
     case 'label': // New "Label" field type
-      return `<label id="${fieldId}">${field.name}</label>`; // Renders the field name as the label content
+      return `<p id="${fieldId}" class="static-label">${field.name}</p>`; // Renders as a paragraph, styled as a label
     case 'single-line':
       return `${labelElement}<input type="text" id="${fieldId}" name="${fieldName}" />`;
     case 'multi-line':
@@ -21,7 +21,7 @@ function generateHtmlForField(field: DroppedFieldItem): string {
     case 'date-time':
       return `${labelElement}<input type="datetime-local" id="${fieldId}" name="${fieldName}" />`;
     case 'drop-down':
-      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
+      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="">--Please choose an option--</option>\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
     case 'radio':
       return `<div>\n  <p>${field.name}:</p>\n  <input type="radio" id="${fieldId}-1" name="${fieldName}" value="option1" /> <label for="${fieldId}-1">Option 1</label>\n  <input type="radio" id="${fieldId}-2" name="${fieldName}" value="option2" /> <label for="${fieldId}-2">Option 2</label>\n</div>`;
     case 'multi-select':
@@ -59,15 +59,19 @@ function generateHtmlForField(field: DroppedFieldItem): string {
     case 'signature':
       return `<div>\n  <p>${field.name}:</p>\n  <canvas id="${fieldId}" width="300" height="100" style="border:1px solid #ccc;" title="Signature Pad Placeholder"></canvas>\n  <!-- Actual signature pad requires JS library -->\n</div>`;
     case 'users':
-      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="user1">User 1</option>\n  <option value="user2">User 2</option>\n</select>`;
+      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="">--Select User--</option>\n  <option value="user1">User 1</option>\n  <option value="user2">User 2</option>\n</select>`;
     default:
       return `<div><!-- Unknown field type: ${field.typeId} - ${field.name} --></div>`;
   }
 }
 
 export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): string {
-  const fieldHtml = fields.map(field => 
-    `<div class="form-field" style="margin-bottom: 15px;">\n  ${generateHtmlForField(field)}\n</div>`
+  const fieldHtml = fields.map(field =>
+    `<div class="form-field-wrapper">\n` +
+    `  <div class="form-field-content">\n` +
+    `    ${generateHtmlForField(field)}\n` +
+    `  </div>\n` +
+    `</div>`
   ).join('\n\n');
 
   return `<!DOCTYPE html>
@@ -77,55 +81,179 @@ export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): str
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${formTitle || 'Generated Form'}</title>
   <style>
-    body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
-    .form-container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h1 { color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    input[type="datetime-local"],
-    input[type="number"],
-    input[type="url"],
-    input[type="file"],
-    textarea,
-    select {
-      width: calc(100% - 22px); /* Account for padding and border */
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+      margin: 20px; 
+      background-color: #f0f2f5; 
+      color: #333;
+    }
+    .form-container { 
+      background-color: #ffffff; 
+      padding: 25px; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+      max-width: 900px; /* Max width for the form */
+      margin: 20px auto; /* Center the form */
+    }
+    h1 { 
+      color: #1a202c; 
+      border-bottom: 1px solid #e2e8f0; 
+      padding-bottom: 12px; 
+      margin-bottom: 25px; 
+      font-size: 1.75rem;
+    }
+
+    .form-container form {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      gap: 25px; /* Space between grid items */
+    }
+
+    .form-field-wrapper {
+      padding: 2px; /* This creates the "border" thickness */
+      background: linear-gradient(to right, hsl(315, 72%, 55%), hsl(35, 92%, 60%)); /* Vibrant Pink to Orange */
+      border-radius: 8px; /* Rounded corners for the border */
+      display: flex; /* Added to help content fill height */
+      flex-direction: column; /* Added */
+      
+    }
+
+    .form-field-content {
+      background-color: #ffffff; /* White background for the content area */
+      padding: 18px;
+      border-radius: 6px; /* Inner radius, slightly smaller than wrapper */
+      flex-grow: 1; /* Added to help content fill height */
+      display: flex; /* Added */
+      flex-direction: column; /* Added */
+      justify-content: center; /* Vertically center content if field is short */
+      min-height: 80px; /* Minimum height for visual consistency */
+    }
+    
+    .form-field-content .static-label {
+      font-weight: bold;
+      color: #4a5568;
+      margin-bottom: 0; /* Labels typically don't need much bottom margin if they are just text */
+    }
+
+    .form-field-content label { 
+      display: block; 
+      margin-bottom: 6px; 
+      font-weight: 600; 
+      color: #4a5568; 
+      font-size: 0.875rem;
+    }
+    .form-field-content input[type="text"],
+    .form-field-content input[type="email"],
+    .form-field-content input[type="date"],
+    .form-field-content input[type="datetime-local"],
+    .form-field-content input[type="number"],
+    .form-field-content input[type="url"],
+    .form-field-content input[type="file"],
+    .form-field-content textarea,
+    .form-field-content select {
+      width: 100%; 
+      padding: 10px 12px;
+      margin-bottom: 0; 
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
       box-sizing: border-box;
+      font-size: 0.9rem;
+      color: #2d3748;
+      background-color: #f7fafc;
     }
-    input[type="radio"], input[type="checkbox"] { margin-right: 5px; }
-    input[type="radio"] + label, input[type="checkbox"] + label { font-weight: normal; }
-    div > input[type="checkbox"] + label { /* For single checkbox field styling */ display: inline-block; margin-bottom:0; }
-    fieldset { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
-    legend { font-weight: bold; color: #333; }
+    .form-field-content input:focus, 
+    .form-field-content textarea:focus, 
+    .form-field-content select:focus {
+        border-color: hsl(212, 19%, 16%); /* Corresponds to --foreground or --primary */
+        box-shadow: 0 0 0 2px hsla(212, 19%, 16%, 0.2);
+        outline: none;
+    }
+
+    .form-field-content input[type="radio"], 
+    .form-field-content input[type="checkbox"] { 
+        margin-right: 8px; 
+        transform: scale(1.1);
+    }
+    .form-field-content input[type="radio"] + label, 
+    .form-field-content input[type="checkbox"] + label { 
+        font-weight: normal; 
+        font-size: 0.9rem;
+        color: #4a5568;
+    }
+    .form-field-content div > input[type="checkbox"] + label { 
+        display: inline-flex; 
+        align-items: center;
+        margin-bottom:0; 
+    }
+    
+    .form-field-content p { /* For radio group titles or notes */
+        margin-bottom: 8px; 
+        color: #4a5568; 
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+    .form-field-content p#${''} { /* For 'Add Notes' content specifically */
+        font-weight: normal;
+        font-size: 0.9rem;
+    }
+
+
+    .form-field-content fieldset { 
+      border: 1px solid #e2e8f0; 
+      padding: 18px; 
+      margin-bottom: 0; 
+      border-radius: 6px; 
+    }
+    .form-field-content legend { 
+      font-weight: 600; 
+      color: #2d3748; 
+      padding: 0 8px;
+      font-size: 0.95rem;
+    }
+
+    /* Button container styling */
+    .form-buttons-container {
+      grid-column: 1 / -1; /* Make button container span both columns */
+      margin-top: 20px; /* Keep some top margin */
+      display: flex;
+      justify-content: flex-start; /* Align buttons to the start */
+      gap: 10px;
+    }
     button[type="submit"], button[type="reset"] {
-      background-color: #007bff;
+      background-color: hsl(183, 100%, 36%); /* Teal - Accent color */
       color: white;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 16px;
-      margin-right: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease-in-out;
     }
-    button[type="reset"] { background-color: #6c757d; }
-    button:hover { opacity: 0.9; }
-    .rich-text-editor { min-height: 150px; }
-    /* Basic responsive adjustments */
-    @media (max-width: 600px) {
-      input[type="text"],
-      input[type="email"],
-      input[type="date"],
-      input[type="datetime-local"],
-      input[type="number"],
-      input[type="url"],
-      textarea,
-      select {
-        width: 100%;
+    button[type="reset"] { 
+      background-color: #6c757d; /* Muted gray */
+    }
+    button[type="submit"]:hover { 
+      background-color: hsl(183, 100%, 30%); 
+    }
+    button[type="reset"]:hover { 
+      background-color: #5a6268; 
+    }
+    
+    .form-field-content .rich-text-editor { min-height: 120px; }
+    .form-field-content img { display: block; margin-top: 5px; }
+    .form-field-content canvas { display: block; margin-top: 5px; }
+
+    /* Responsive adjustments for the form grid */
+    @media (max-width: 768px) {
+      .form-container form {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+      }
+      .form-container {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -136,7 +264,7 @@ export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): str
     <form action="#" method="POST">
       ${fieldHtml}
       
-      <div style="margin-top: 20px;">
+      <div class="form-buttons-container">
         <button type="submit">Submit</button>
         <button type="reset">Reset</button>
       </div>
@@ -146,3 +274,4 @@ export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): str
 </html>
 `;
 }
+
