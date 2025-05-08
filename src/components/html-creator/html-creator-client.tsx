@@ -1,23 +1,24 @@
+
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label as UiLabel } from '@/components/ui/label'; // Renamed to avoid conflict with local Label field
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
+// import {
+//   Tabs,
+//   TabsContent,
+//   TabsList,
+//   TabsTrigger,
+// } from '@/components/ui/tabs';
+// import { Input } from '@/components/ui/input';
+// import { Label as UiLabel } from '@/components/ui/label'; // Renamed to avoid conflict with local Label field
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from '@/components/ui/select';
+// import { Checkbox } from '@/components/ui/checkbox';
 import FieldButton from './field-button';
 import type { DraggableFieldData } from './field-button';
 import DroppedFieldDisplay from './dropped-field-display';
@@ -27,7 +28,7 @@ import {
   AlignLeft, Mail, FileText, CalendarDays, CalendarClock, ChevronDownSquare,
   CircleDot, ListChecks, CheckSquare, Hash, Percent, DollarSign, Link as LinkIcon,
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
-  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag // Added Tag icon
+  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag
 } from 'lucide-react';
 
 // Represents a field that has been dropped onto the canvas
@@ -184,7 +185,14 @@ export default function HtmlCreatorClient() {
       {/* Center Panel - Canvas & HTML Output */}
       <main className="flex-1 p-6 overflow-y-auto bg-muted/30 flex flex-col space-y-6">
         <div className="max-w-3xl mx-auto bg-card p-8 rounded-lg shadow-lg border border-border flex-grow flex flex-col">
-          <h1 className="text-2xl font-semibold mb-6 pb-4 border-b border-border">{formTitle}</h1>
+          {/* Form Title - editable for form properties */}
+          <input 
+            type="text" 
+            value={formTitle} 
+            onChange={(e) => setFormTitle(e.target.value)}
+            className="text-2xl font-semibold mb-6 pb-4 border-b border-border bg-transparent focus:outline-none focus:ring-0 focus:border-primary w-full"
+            placeholder="Enter Form Title"
+          />
           
           <div 
             className="border-2 border-dashed border-muted-foreground/30 rounded-md p-4 min-h-[300px] flex-grow bg-background/50 grid grid-cols-1 sm:grid-cols-2 gap-3"
@@ -212,7 +220,7 @@ export default function HtmlCreatorClient() {
         </div>
       </main>
 
-      {/* Right Panel - Properties */}
+      {/* Right Panel - Properties - THIS PANEL IS NOW HIDDEN
       <aside className="w-80 flex-shrink-0 border-l border-border bg-background p-0 overflow-y-auto">
         <Tabs defaultValue="form-properties" className="w-full">
           <TabsList className="grid w-full grid-cols-2 rounded-none border-b border-border">
@@ -292,6 +300,8 @@ export default function HtmlCreatorClient() {
           </TabsContent>
         </Tabs>
       </aside>
+       */}
     </div>
   );
 }
+
