@@ -1,51 +1,51 @@
-
 import type { DroppedFieldItem } from '@/components/html-creator/html-creator-client';
 
 function generateHtmlForField(field: DroppedFieldItem): string {
   const fieldId = `${field.typeId}-${field.instanceId.substring(0, 8)}`;
   const fieldName = field.name.replace(/\s+/g, '_').toLowerCase(); // For name attribute
-  const label = `<label for="${fieldId}">${field.name}:</label>\n`;
+  const labelElement = `<label for="${fieldId}">${field.name}:</label>\n`;
 
   switch (field.typeId) {
+    case 'label': // New "Label" field type
+      return `<label id="${fieldId}">${field.name}</label>`; // Renders the field name as the label content
     case 'single-line':
-      return `${label}<input type="text" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="text" id="${fieldId}" name="${fieldName}" />`;
     case 'multi-line':
-      return `${label}<textarea id="${fieldId}" name="${fieldName}"></textarea>`;
+      return `${labelElement}<textarea id="${fieldId}" name="${fieldName}"></textarea>`;
     case 'email':
-      return `${label}<input type="email" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="email" id="${fieldId}" name="${fieldName}" />`;
     case 'rich-text':
-      return `${label}<textarea id="${fieldId}" name="${fieldName}" class="rich-text-editor" placeholder="Rich text editor (requires JS library)"></textarea>`;
+      return `${labelElement}<textarea id="${fieldId}" name="${fieldName}" class="rich-text-editor" placeholder="Rich text editor (requires JS library)"></textarea>`;
     case 'date':
-      return `${label}<input type="date" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="date" id="${fieldId}" name="${fieldName}" />`;
     case 'date-time':
-      return `${label}<input type="datetime-local" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="datetime-local" id="${fieldId}" name="${fieldName}" />`;
     case 'drop-down':
-      return `${label}<select id="${fieldId}" name="${fieldName}">\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
+      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
     case 'radio':
-      // Radio groups need a shared name attribute, this is a simplified version
       return `<div>\n  <p>${field.name}:</p>\n  <input type="radio" id="${fieldId}-1" name="${fieldName}" value="option1" /> <label for="${fieldId}-1">Option 1</label>\n  <input type="radio" id="${fieldId}-2" name="${fieldName}" value="option2" /> <label for="${fieldId}-2">Option 2</label>\n</div>`;
     case 'multi-select':
-      return `${label}<select id="${fieldId}" name="${fieldName}" multiple>\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
+      return `${labelElement}<select id="${fieldId}" name="${fieldName}" multiple>\n  <option value="option1">Option 1</option>\n  <option value="option2">Option 2</option>\n</select>`;
     case 'checkbox':
       return `<div>\n  <input type="checkbox" id="${fieldId}" name="${fieldName}" /> <label for="${fieldId}">${field.name}</label>\n</div>`;
     case 'number':
-      return `${label}<input type="number" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="number" id="${fieldId}" name="${fieldName}" />`;
     case 'decimal':
-      return `${label}<input type="number" id="${fieldId}" name="${fieldName}" step="0.01" />`;
+      return `${labelElement}<input type="number" id="${fieldId}" name="${fieldName}" step="0.01" />`;
     case 'percent':
-      return `${label}<input type="number" id="${fieldId}" name="${fieldName}" min="0" max="100" /> %`;
+      return `${labelElement}<input type="number" id="${fieldId}" name="${fieldName}" min="0" max="100" /> %`;
     case 'currency':
-      return `${label}$ <input type="number" id="${fieldId}" name="${fieldName}" step="0.01" />`;
+      return `${labelElement}$ <input type="number" id="${fieldId}" name="${fieldName}" step="0.01" />`;
     case 'url':
-      return `${label}<input type="url" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="url" id="${fieldId}" name="${fieldName}" />`;
     case 'image':
       return `<div>\n  <p>${field.name}:</p>\n  <img src="https://picsum.photos/200/100?random=${field.instanceId}" alt="${field.name} placeholder" style="max-width:200px; height:auto; border:1px solid #ccc;" />\n  <!-- Actual image upload would require server-side handling -->\n</div>`;
     case 'decision-box':
       return `<div>\n  <input type="checkbox" id="${fieldId}" name="${fieldName}" /> <label for="${fieldId}">${field.name}</label>\n</div>`;
     case 'file-upload':
-      return `${label}<input type="file" id="${fieldId}" name="${fieldName}" />`;
+      return `${labelElement}<input type="file" id="${fieldId}" name="${fieldName}" />`;
     case 'lookup':
-      return `${label}<input type="text" id="${fieldId}" name="${fieldName}" placeholder="Search..." /> <!-- Lookup field -->`;
+      return `${labelElement}<input type="text" id="${fieldId}" name="${fieldName}" placeholder="Search..." /> <!-- Lookup field -->`;
     case 'add-notes':
       return `<div>\n  <p>${field.name}:</p>\n  <p id="${fieldId}">This is a notes section. Content can be dynamic.</p>\n</div>`;
     case 'subform':
@@ -53,13 +53,13 @@ function generateHtmlForField(field: DroppedFieldItem): string {
     case 'zoho-crm':
       return `<div><!-- Zoho CRM Field: ${field.name} - Placeholder --></div>`;
     case 'auto-number':
-      return `${label}<input type="text" id="${fieldId}" name="${fieldName}" value="Auto-Generated (e.g., 123)" readonly />`;
+      return `${labelElement}<input type="text" id="${fieldId}" name="${fieldName}" value="Auto-Generated (e.g., 123)" readonly />`;
     case 'formula':
-      return `${label}<input type="text" id="${fieldId}" name="${fieldName}" value="Calculated Value" readonly />`;
+      return `${labelElement}<input type="text" id="${fieldId}" name="${fieldName}" value="Calculated Value" readonly />`;
     case 'signature':
       return `<div>\n  <p>${field.name}:</p>\n  <canvas id="${fieldId}" width="300" height="100" style="border:1px solid #ccc;" title="Signature Pad Placeholder"></canvas>\n  <!-- Actual signature pad requires JS library -->\n</div>`;
     case 'users':
-      return `${label}<select id="${fieldId}" name="${fieldName}">\n  <option value="user1">User 1</option>\n  <option value="user2">User 2</option>\n</select>`;
+      return `${labelElement}<select id="${fieldId}" name="${fieldName}">\n  <option value="user1">User 1</option>\n  <option value="user2">User 2</option>\n</select>`;
     default:
       return `<div><!-- Unknown field type: ${field.typeId} - ${field.name} --></div>`;
   }
@@ -146,5 +146,3 @@ export function generateHtml(formTitle: string, fields: DroppedFieldItem[]): str
 </html>
 `;
 }
-
-    

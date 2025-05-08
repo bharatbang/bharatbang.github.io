@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -10,7 +9,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Label as UiLabel } from '@/components/ui/label'; // Renamed to avoid conflict with local Label field
 import {
   Select,
   SelectContent,
@@ -19,8 +18,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-// import { Textarea } from '@/components/ui/textarea'; // No longer needed
-// import { Button } from '@/components/ui/button'; // Button is imported but not directly used in this file after removal, can be removed if not needed by other parts
 import FieldButton from './field-button';
 import type { DraggableFieldData } from './field-button';
 import DroppedFieldDisplay from './dropped-field-display';
@@ -30,8 +27,7 @@ import {
   AlignLeft, Mail, FileText, CalendarDays, CalendarClock, ChevronDownSquare,
   CircleDot, ListChecks, CheckSquare, Hash, Percent, DollarSign, Link as LinkIcon,
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
-  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type
-  // Icons like Minus, Workflow, Share, Settings, Palette were part of the removed sidebar
+  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag // Added Tag icon
 } from 'lucide-react';
 
 // Represents a field that has been dropped onto the canvas
@@ -48,6 +44,7 @@ interface DraggableFieldDefinition {
 }
 
 const draggableFieldsList: DraggableFieldDefinition[] = [
+  { id: 'label', name: 'Label', icon: Tag }, // New "Label" field
   { id: 'single-line', name: 'Single Line', icon: Type },
   { id: 'multi-line', name: 'Multi Line', icon: AlignLeft },
   { id: 'email', name: 'Email', icon: Mail },
@@ -59,7 +56,7 @@ const draggableFieldsList: DraggableFieldDefinition[] = [
   { id: 'multi-select', name: 'Multi Select', icon: ListChecks },
   { id: 'checkbox', name: 'Checkbox', icon: CheckSquare },
   { id: 'number', name: 'Number', icon: Hash },
-  { id: 'decimal', name: 'Decimal', icon: FunctionSquare }, // Changed icon from Minus to FunctionSquare for clarity
+  { id: 'decimal', name: 'Decimal', icon: FunctionSquare },
   { id: 'percent', name: 'Percent', icon: Percent },
   { id: 'currency', name: 'Currency', icon: DollarSign },
   { id: 'url', name: 'URL', icon: LinkIcon },
@@ -86,7 +83,6 @@ export default function HtmlCreatorClient() {
   const [formTitle, setFormTitle] = useState('Vacation Requests');
   const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
   const [generatedHtml, setGeneratedHtml] = useState('');
-  // const [selectedFieldInstanceId, setSelectedFieldInstanceId] = useState<string | null>(null); // For future property editing
   const [fieldCounters, setFieldCounters] = useState<Record<string, number>>({});
 
 
@@ -94,6 +90,10 @@ export default function HtmlCreatorClient() {
     const currentCount = fieldCounters[baseName] || 0;
     const nextCount = currentCount + 1;
     setFieldCounters(prev => ({ ...prev, [baseName]: nextCount }));
+    // For the "Label" field, just use its name or append count if multiple labels are named "Label"
+    if (baseName === "Label" && nextCount === 1 && !droppedFields.some(f => f.name === "Label" && f.typeId === 'label')) {
+      return baseName;
+    }
     return `${baseName} ${nextCount}`;
   };
 
@@ -102,14 +102,14 @@ export default function HtmlCreatorClient() {
     if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
       const newField: DroppedFieldItem = {
         ...fieldData,
-        name: getNextFieldName(fieldData.name), // Use generated unique name
+        name: getNextFieldName(fieldData.name), 
         instanceId: crypto.randomUUID(),
       };
       setDroppedFields((prevFields) => [...prevFields, newField]);
     } else {
       console.error("Clicked field data is invalid or missing required properties:", fieldData);
     }
-  }, [fieldCounters]); // Add fieldCounters to dependency array
+  }, [fieldCounters, droppedFields]); // Added fieldCounters and droppedFields
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -120,7 +120,7 @@ export default function HtmlCreatorClient() {
         if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
           const newField: DroppedFieldItem = {
             ...fieldData,
-            name: getNextFieldName(fieldData.name), // Use generated unique name
+            name: getNextFieldName(fieldData.name),
             instanceId: crypto.randomUUID(),
           };
           setDroppedFields((prevFields) => [...prevFields, newField]);
@@ -134,7 +134,7 @@ export default function HtmlCreatorClient() {
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault(); // Necessary to allow dropping
+    e.preventDefault(); 
   };
 
   const handleRemoveField = useCallback((instanceIdToRemove: string) => {
@@ -187,12 +187,12 @@ export default function HtmlCreatorClient() {
           <h1 className="text-2xl font-semibold mb-6 pb-4 border-b border-border">{formTitle}</h1>
           
           <div 
-            className="border-2 border-dashed border-muted-foreground/30 rounded-md p-4 min-h-[300px] flex-grow bg-background/50 space-y-3"
+            className="border-2 border-dashed border-muted-foreground/30 rounded-md p-4 min-h-[300px] flex-grow bg-background/50 grid grid-cols-1 sm:grid-cols-2 gap-3"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
             {droppedFields.length === 0 && (
-              <div className="flex items-center justify-center h-full">
+              <div className="flex items-center justify-center h-full col-span-1 sm:col-span-2">
                 <p className="text-muted-foreground text-center">Drop or click fields here to build your form</p>
               </div>
             )}
@@ -221,17 +221,17 @@ export default function HtmlCreatorClient() {
           </TabsList>
           <TabsContent value="form-properties" className="p-4 space-y-6">
             <div>
-              <Label htmlFor="formTitleProp" className="text-xs font-semibold text-muted-foreground">Form Title</Label>
+              <UiLabel htmlFor="formTitleProp" className="text-xs font-semibold text-muted-foreground">Form Title</UiLabel>
               <Input id="formTitleProp" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} className="mt-1 h-8 bg-background"/>
             </div>
             <div>
-              <Label htmlFor="formLinkName" className="text-xs font-semibold text-muted-foreground">Form Link Name</Label>
+              <UiLabel htmlFor="formLinkName" className="text-xs font-semibold text-muted-foreground">Form Link Name</UiLabel>
               <Input id="formLinkName" defaultValue="Vacation_Requests" className="mt-1 h-8 bg-background"/>
             </div>
 
             <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Appearance</h3>
             <div>
-              <Label htmlFor="labelPlacement" className="text-xs font-semibold text-muted-foreground">Label Placement</Label>
+              <UiLabel htmlFor="labelPlacement" className="text-xs font-semibold text-muted-foreground">Label Placement</UiLabel>
               <Select defaultValue="left">
                 <SelectTrigger id="labelPlacement" className="mt-1 h-8 bg-background">
                   <SelectValue placeholder="Select placement" />
@@ -244,7 +244,7 @@ export default function HtmlCreatorClient() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="labelWidth" className="text-xs font-semibold text-muted-foreground">Label Width</Label>
+              <UiLabel htmlFor="labelWidth" className="text-xs font-semibold text-muted-foreground">Label Width</UiLabel>
               <Select defaultValue="auto">
                 <SelectTrigger id="labelWidth" className="mt-1 h-8 bg-background">
                   <SelectValue placeholder="Select width" />
@@ -262,18 +262,18 @@ export default function HtmlCreatorClient() {
              <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Validation</h3>
             <div className="flex items-center space-x-2">
               <Checkbox id="enableCaptcha" />
-              <Label htmlFor="enableCaptcha" className="text-sm font-normal">Enable Captcha</Label>
+              <UiLabel htmlFor="enableCaptcha" className="text-sm font-normal">Enable Captcha</UiLabel>
             </div>
              <div className="flex items-center space-x-2">
               <Checkbox id="oneEntryIp" />
-              <Label htmlFor="oneEntryIp" className="text-sm font-normal">One Entry Per IP Address</Label>
+              <UiLabel htmlFor="oneEntryIp" className="text-sm font-normal">One Entry Per IP Address</UiLabel>
             </div>
              <div className="flex items-center space-x-2">
               <Checkbox id="oneEntryUser" />
-              <Label htmlFor="oneEntryUser" className="text-sm font-normal">One Entry Per User</Label>
+              <UiLabel htmlFor="oneEntryUser" className="text-sm font-normal">One Entry Per User</UiLabel>
             </div>
              <div>
-              <Label htmlFor="maxEntries" className="text-xs font-semibold text-muted-foreground">Maximum Entries</Label>
+              <UiLabel htmlFor="maxEntries" className="text-xs font-semibold text-muted-foreground">Maximum Entries</UiLabel>
               <Select defaultValue="unlimited">
                 <SelectTrigger id="maxEntries" className="mt-1 h-8 bg-background">
                   <SelectValue placeholder="Select limit" />
