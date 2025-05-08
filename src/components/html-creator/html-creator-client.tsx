@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -19,17 +20,18 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button'; // Button is imported but not directly used in this file after removal, can be removed if not needed by other parts
 import FieldButton from './field-button';
 import type { DraggableFieldData } from './field-button';
 import DroppedFieldDisplay from './dropped-field-display';
 import HtmlPreviewArea from './html-preview-area';
 import { generateHtml } from '@/lib/html-generator';
 import {
-  Minus, AlignLeft, Mail, FileText, CalendarDays, CalendarClock, ChevronDownSquare,
+  AlignLeft, Mail, FileText, CalendarDays, CalendarClock, ChevronDownSquare,
   CircleDot, ListChecks, CheckSquare, Hash, Percent, DollarSign, Link as LinkIcon,
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
-  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Workflow, Settings, Share, Palette, Type, Trash2
+  Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type
+  // Icons like Minus, Workflow, Share, Settings, Palette were part of the removed sidebar
 } from 'lucide-react';
 
 // Represents a field that has been dropped onto the canvas
@@ -56,7 +58,7 @@ const draggableFieldsList: DraggableFieldDefinition[] = [
   { id: 'multi-select', name: 'Multi Select', icon: ListChecks },
   { id: 'checkbox', name: 'Checkbox', icon: CheckSquare },
   { id: 'number', name: 'Number', icon: Hash },
-  { id: 'decimal', name: 'Decimal', icon: FunctionSquare },
+  { id: 'decimal', name: 'Decimal', icon: FunctionSquare }, // Changed icon from Minus to FunctionSquare for clarity
   { id: 'percent', name: 'Percent', icon: Percent },
   { id: 'currency', name: 'Currency', icon: DollarSign },
   { id: 'url', name: 'URL', icon: LinkIcon },
@@ -133,35 +135,7 @@ export default function HtmlCreatorClient() {
 
   return (
     <div className="flex h-screen bg-muted/40 text-foreground">
-      {/* Left Panel - App Navigation */}
-      <aside className="w-20 flex-shrink-0 bg-card border-r border-border flex flex-col items-center py-4 space-y-4">
-        <div className="p-2 mb-4">
-          <Palette size={32} className="text-primary"/>
-        </div>
-        <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
-          <LayoutGrid size={24} />
-          <span className="text-xs mt-1">Dashboard</span>
-        </Button>
-         <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-primary bg-accent/20">
-          <Minus size={24} />
-          <span className="text-xs mt-1">Create New</span>
-        </Button>
-        <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
-          <Workflow size={24} />
-          <span className="text-xs mt-1">Workflow</span>
-        </Button>
-        <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
-          <Share size={24} />
-          <span className="text-xs mt-1">Share</span>
-        </Button>
-        <div className="flex-grow"></div>
-        <Button variant="ghost" size="icon" className="w-12 h-12 flex flex-col items-center text-muted-foreground hover:text-primary">
-          <Settings size={24} />
-          <span className="text-xs mt-1">Settings</span>
-        </Button>
-      </aside>
-
-      {/* Second Left Panel - Fields */}
+      {/* Left Panel - Fields */}
       <aside className="w-64 flex-shrink-0 border-r border-border bg-background p-4 overflow-y-auto">
         <h2 className="text-sm font-semibold text-muted-foreground px-2 mb-3">FIELDS</h2>
         <div className="grid grid-cols-2 gap-2">
@@ -298,6 +272,3 @@ export default function HtmlCreatorClient() {
     </div>
   );
 }
-
-    
-    
