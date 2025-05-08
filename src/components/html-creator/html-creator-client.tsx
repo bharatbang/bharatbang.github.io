@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -90,12 +89,21 @@ export default function HtmlCreatorClient() {
     e.preventDefault();
     const fieldDataString = e.dataTransfer.getData('application/json');
     if (fieldDataString) {
-      const fieldData = JSON.parse(fieldDataString) as DraggableFieldData;
-      const newField: DroppedFieldItem = {
-        ...fieldData,
-        instanceId: crypto.randomUUID(),
-      };
-      setDroppedFields((prevFields) => [...prevFields, newField]);
+      try {
+        const fieldData = JSON.parse(fieldDataString) as DraggableFieldData;
+        // Basic validation of the parsed data
+        if (fieldData && typeof fieldData.typeId === 'string' && typeof fieldData.name === 'string') {
+          const newField: DroppedFieldItem = {
+            ...fieldData,
+            instanceId: crypto.randomUUID(),
+          };
+          setDroppedFields((prevFields) => [...prevFields, newField]);
+        } else {
+          console.error("Parsed field data is invalid or missing required properties:", fieldData);
+        }
+      } catch (error) {
+        console.error("Failed to parse dropped field data:", error);
+      }
     }
   };
 
@@ -291,4 +299,5 @@ export default function HtmlCreatorClient() {
   );
 }
 
+    
     
