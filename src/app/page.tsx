@@ -48,10 +48,9 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="py-8 bg-primary text-primary-foreground shadow-md">
-        <div className="container mx-auto px-4 text-center">
-            {/* Titles removed as per user request */}
-             <h1 className="text-5xl font-bold tracking-tight">Bharat Bang</h1>
-             <h2 className="text-3xl font-medium tracking-tight text-primary-foreground/90 mt-2">भरत बंग</h2>
+        <div className="container mx-auto px-4 flex flex-col items-center">
+          <AnimatedTitle text="Bharat Bang" as="h1" className="text-5xl font-bold tracking-tight text-center" typingSpeed={100} initialDelay={200} />
+          <AnimatedTitle text="भरत बंग" as="h2" className="text-3xl font-medium tracking-tight text-primary-foreground/90 mt-2 text-center" typingSpeed={100} initialDelay={1400} />
         </div>
       </header>
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
@@ -59,10 +58,14 @@ export default async function Home() {
           <h2 className="text-3xl font-semibold tracking-tight mb-6 text-center sm:text-left">
             Code Snippets
           </h2>
-          <div className="flex justify-center sm:justify-start">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-start gap-4">
             <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <CodeXml size={20} className="mr-2" />
               HTML Creator
+            </Link>
+            <Link href="/html-creator-v2" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <CodeXml size={20} className="mr-2" />
+              HTML Creator V2
             </Link>
           </div>
         </section>
@@ -76,4 +79,3 @@ export default async function Home() {
     </div>
   );
 }
-
