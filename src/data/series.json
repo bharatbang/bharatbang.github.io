@@ -11,22 +11,19 @@
           { "id": "mum-l1", "title": "Gateway of India", "imageUrl": "https://picsum.photos/seed/gatewayindia/300/450", "dataAiHint": "historic monument", "description": "Iconic arch-monument overlooking the Arabian Sea." },
           { "id": "mum-l2", "title": "Marine Drive", "imageUrl": "https://picsum.photos/seed/marinedrive/300/450", "dataAiHint": "city promenade", "description": "Queen's Necklace, a C-shaped boulevard along the coast." },
           { "id": "mum-l3", "title": "CSMT", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Chhatrapati Shivaji Maharaj Terminus, a historic railway station." },
-          { "id": "mum-l4", "title": "Gorai Beach", "imageUrl": "https://picsum.photos/seed/csmt/300/450", "dataAiHint": "train station", "description": "Sandy Beach with beach side hotel option to enjoy with kids" }
-        
+          { "id": "mum-l4", "title": "Gorai Beach", "imageUrl": "https://picsum.photos/seed/goraibeach/300/450", "dataAiHint": "sandy beach", "description": "Sandy Beach with beach side hotel option to enjoy with kids." }
         ]
       },
       {
         "name": "Food Hotspots",
         "iconName": "ChefHat",
         "series": [
-          { "id": "mum-f1", "title": "The Apetite Momos", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba." },
-          { "id": "mum-f2", "title": "Anand Vadapav", "imageUrl": "https://picsum.photos/seed/bademiya/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls." },
-          { "id": "mum-f3", "title": "Bhagat Tarachand", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao." },
-          { "id": "mum-f4", "title": "Radhe Dhokla Ghatkopar", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Ghatkopar, best gujarati dishes." },
-          { "id": "mum-f5", "title": "Pavilion Veg Restaurant", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "Ghatkopar, best soup,starters" },
-          { "id": "mum-f6", "title": "Pancham Puri Wala", "imageUrl": "https://picsum.photos/seed/britannia/300/450", "dataAiHint": "restaurant classic", "description": "CSMT, best puri chole" }
-          
-          
+          { "id": "mum-f1", "title": "The Apetite Momos", "imageUrl": "https://picsum.photos/seed/apetitemomos/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba." },
+          { "id": "mum-f2", "title": "Anand Vadapav", "imageUrl": "https://picsum.photos/seed/anandvadapav/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls." },
+          { "id": "mum-f3", "title": "Bhagat Tarachand", "imageUrl": "https://picsum.photos/seed/bhagattarachand/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao." },
+          { "id": "mum-f4", "title": "Radhe Dhokla Ghatkopar", "imageUrl": "https://picsum.photos/seed/radhedhokla/300/450", "dataAiHint": "gujarati snacks", "description": "Ghatkopar, best gujarati dishes." },
+          { "id": "mum-f5", "title": "Pavilion Veg Restaurant", "imageUrl": "https://picsum.photos/seed/pavilionveg/300/450", "dataAiHint": "restaurant fine_dining", "description": "Ghatkopar, best soup,starters" },
+          { "id": "mum-f6", "title": "Pancham Puri Wala", "imageUrl": "https://picsum.photos/seed/panchampuri/300/450", "dataAiHint": "indian thali", "description": "CSMT, best puri chole" }
         ]
       },
       {
@@ -81,9 +78,9 @@
         "name": "Destinations",
         "iconName": "Map",
         "series": [
-          { "id": "travel-d1", "title": "Rajasthan", "imageUrl": "https://picsum.photos/seed/paris/300/450", "dataAiHint": "eiffel tower", "description": "The city of lights, love, and art." },
-          { "id": "travel-d2", "title": "Dwarka, Gujarat", "imageUrl": "https://picsum.photos/seed/kyoto/300/450", "dataAiHint": "japan temple", "description": "Ancient temples, serene gardens, and rich culture." },
-          { "id": "travel-d3", "title": "Hampi, Karnataka", "imageUrl": "https://picsum.photos/seed/rome/300/450", "dataAiHint": "colosseum italy", "description": "Explore historic ruins and vibrant Italian life." }
+          { "id": "travel-d1", "title": "Rajasthan", "imageUrl": "https://picsum.photos/seed/rajasthan/300/450", "dataAiHint": "india palace", "description": "The city of lights, love, and art." },
+          { "id": "travel-d2", "title": "Dwarka, Gujarat", "imageUrl": "https://picsum.photos/seed/dwarka/300/450", "dataAiHint": "hindu temple", "description": "Ancient temples, serene gardens, and rich culture." },
+          { "id": "travel-d3", "title": "Hampi, Karnataka", "imageUrl": "https://picsum.photos/seed/hampi/300/450", "dataAiHint": "ancient ruins", "description": "Explore historic ruins and vibrant Italian life." }
         ]
       },
       {
@@ -114,51 +111,51 @@
         "name": "Sci-Fi",
         "iconName": "Rocket",
         "series": [
-          { "id": "sf1", "title": "The Expanse", "imageUrl": "https://picsum.photos/seed/expanse/300/450", "dataAiHint": "space ship" },
-          { "id": "sf2", "title": "Foundation", "imageUrl": "https://picsum.photos/seed/foundation/300/450", "dataAiHint": "future city" },
-          { "id": "sf3", "title": "Altered Carbon", "imageUrl": "https://picsum.photos/seed/carbon/300/450", "dataAiHint": "cyberpunk neon" },
-          { "id": "sf4", "title": "Westworld", "imageUrl": "https://picsum.photos/seed/westworld/300/450", "dataAiHint": "robot human" }
+          { "id": "sf1", "title": "The Expanse", "imageUrl": "https://picsum.photos/seed/expanse/300/450", "dataAiHint": "space ship", "imdbUrl": "https://www.imdb.com/title/tt3230854/" },
+          { "id": "sf2", "title": "Foundation", "imageUrl": "https://picsum.photos/seed/foundation/300/450", "dataAiHint": "future city", "imdbUrl": "https://www.imdb.com/title/tt0804484/" },
+          { "id": "sf3", "title": "Altered Carbon", "imageUrl": "https://picsum.photos/seed/carbon/300/450", "dataAiHint": "cyberpunk neon", "imdbUrl": "https://www.imdb.com/title/tt2261227/" },
+          { "id": "sf4", "title": "Westworld", "imageUrl": "https://picsum.photos/seed/westworld/300/450", "dataAiHint": "robot human", "imdbUrl": "https://www.imdb.com/title/tt0475784/" }
         ]
       },
       {
         "name": "Fantasy",
         "iconName": "Swords",
         "series": [
-          { "id": "f1", "title": "The Witcher", "imageUrl": "https://picsum.photos/seed/witcher/300/450", "dataAiHint": "monster hunter" },
-          { "id": "f2", "title": "Shadow and Bone", "imageUrl": "https://picsum.photos/seed/shadowbone/300/450", "dataAiHint": "magic war" },
-          { "id": "f3", "title": "Game of Thrones", "imageUrl": "https://picsum.photos/seed/got/300/450", "dataAiHint": "dragons throne" }
+          { "id": "f1", "title": "The Witcher", "imageUrl": "https://picsum.photos/seed/witcher/300/450", "dataAiHint": "monster hunter", "imdbUrl": "https://www.imdb.com/title/tt5180504/" },
+          { "id": "f2", "title": "Shadow and Bone", "imageUrl": "https://picsum.photos/seed/shadowbone/300/450", "dataAiHint": "magic war", "imdbUrl": "https://www.imdb.com/title/tt2403776/" },
+          { "id": "f3", "title": "Game of Thrones", "imageUrl": "https://picsum.photos/seed/got/300/450", "dataAiHint": "dragons throne", "imdbUrl": "https://www.imdb.com/title/tt0944947/" }
         ]
       },
       {
         "name": "Comedy",
         "iconName": "Smile",
         "series": [
-          { "id": "c1", "title": "Ted Lasso", "imageUrl": "https://picsum.photos/seed/tedlasso/300/450", "dataAiHint": "football coach" },
-          { "id": "c2", "title": "The Marvelous Mrs. Maisel", "imageUrl": "https://picsum.photos/seed/maisel/300/450", "dataAiHint": "standup comedian" }
+          { "id": "c1", "title": "Ted Lasso", "imageUrl": "https://picsum.photos/seed/tedlasso/300/450", "dataAiHint": "football coach", "imdbUrl": "https://www.imdb.com/title/tt10986410/" },
+          { "id": "c2", "title": "The Marvelous Mrs. Maisel", "imageUrl": "https://picsum.photos/seed/maisel/300/450", "dataAiHint": "standup comedian", "imdbUrl": "https://www.imdb.com/title/tt5788792/" }
         ]
       },
       {
         "name": "Drama",
         "iconName": "Drama",
         "series": [
-          { "id": "d1", "title": "Succession", "imageUrl": "https://picsum.photos/seed/succession/300/450", "dataAiHint": "media family" },
-          { "id": "d2", "title": "The Crown", "imageUrl": "https://picsum.photos/seed/crown/300/450", "dataAiHint": "royal family" }
+          { "id": "d1", "title": "Succession", "imageUrl": "https://picsum.photos/seed/succession/300/450", "dataAiHint": "media family", "imdbUrl": "https://www.imdb.com/title/tt7660850/" },
+          { "id": "d2", "title": "The Crown", "imageUrl": "https://picsum.photos/seed/crown/300/450", "dataAiHint": "royal family", "imdbUrl": "https://www.imdb.com/title/tt4786824/" }
         ]
       },
       {
         "name": "Thriller",
         "iconName": "ShieldAlert",
         "series": [
-          { "id": "t1", "title": "Mindhunter", "imageUrl": "https://picsum.photos/seed/mindhunter/300/450", "dataAiHint": "fbi profilers" },
-          { "id": "t2", "title": "Severance", "imageUrl": "https://picsum.photos/seed/severance/300/450", "dataAiHint": "work life" }
+          { "id": "t1", "title": "Mindhunter", "imageUrl": "https://picsum.photos/seed/mindhunter/300/450", "dataAiHint": "fbi profilers", "imdbUrl": "https://www.imdb.com/title/tt5290382/" },
+          { "id": "t2", "title": "Severance", "imageUrl": "https://picsum.photos/seed/severance/300/450", "dataAiHint": "work life", "imdbUrl": "https://www.imdb.com/title/tt11280740/" }
         ]
       },
       {
         "name": "Animation",
         "iconName": "PencilLine",
         "series": [
-          { "id": "a1", "title": "Arcane", "imageUrl": "https://picsum.photos/seed/arcane/300/450", "dataAiHint": "fantasy animation" },
-          { "id": "a2", "title": "Rick and Morty", "imageUrl": "https://picsum.photos/seed/rickmorty/300/450", "dataAiHint": "sci-fi comedy" }
+          { "id": "a1", "title": "Arcane", "imageUrl": "https://picsum.photos/seed/arcane/300/450", "dataAiHint": "fantasy animation", "imdbUrl": "https://www.imdb.com/title/tt11126994/" },
+          { "id": "a2", "title": "Rick and Morty", "imageUrl": "https://picsum.photos/seed/rickmorty/300/450", "dataAiHint": "sci-fi comedy", "imdbUrl": "https://www.imdb.com/title/tt2861424/" }
         ]
       }
     ]
@@ -171,34 +168,33 @@
         "name": "Action",
         "iconName": "Zap",
         "series": [
-          { "id": "m-a1", "title": "Mad Max: Fury Road", "imageUrl": "https://picsum.photos/seed/madmax/300/450", "dataAiHint": "action desert" },
-          { "id": "m-a2", "title": "John Wick", "imageUrl": "https://picsum.photos/seed/johnwick/300/450", "dataAiHint": "action hitman" },
-          { "id": "m-a3", "title": "Mission: Impossible - Fallout", "imageUrl": "https://picsum.photos/seed/mifallout/300/450", "dataAiHint": "spy action" }
+          { "id": "m-a1", "title": "Mad Max: Fury Road", "imageUrl": "https://picsum.photos/seed/madmax/300/450", "dataAiHint": "action desert", "imdbUrl": "https://www.imdb.com/title/tt1392190/" },
+          { "id": "m-a2", "title": "John Wick", "imageUrl": "https://picsum.photos/seed/johnwick/300/450", "dataAiHint": "action hitman", "imdbUrl": "https://www.imdb.com/title/tt2911666/" },
+          { "id": "m-a3", "title": "Mission: Impossible - Fallout", "imageUrl": "https://picsum.photos/seed/mifallout/300/450", "dataAiHint": "spy action", "imdbUrl": "https://www.imdb.com/title/tt4912910/" }
         ]
       },
       {
         "name": "Sci-Fi Movies",
         "iconName": "Rocket",
         "series": [
-          { "id": "m-sf1", "title": "Blade Runner 2049", "imageUrl": "https://picsum.photos/seed/bladerunner/300/450", "dataAiHint": "future dystopia" },
-          { "id": "m-sf2", "title": "Interstellar", "imageUrl": "https://picsum.photos/seed/interstellar/300/450", "dataAiHint": "space travel" },
-          { "id": "m-sf3", "title": "Dune", "imageUrl": "https://picsum.photos/seed/dune/300/450", "dataAiHint": "sci-fi desert" }
+          { "id": "m-sf1", "title": "Blade Runner 2049", "imageUrl": "https://picsum.photos/seed/bladerunner/300/450", "dataAiHint": "future dystopia", "imdbUrl": "https://www.imdb.com/title/tt1856101/" },
+          { "id": "m-sf2", "title": "Interstellar", "imageUrl": "https://picsum.photos/seed/interstellar/300/450", "dataAiHint": "space travel", "imdbUrl": "https://www.imdb.com/title/tt0816692/" },
+          { "id": "m-sf3", "title": "Dune", "imageUrl": "https://picsum.photos/seed/dune/300/450", "dataAiHint": "sci-fi desert", "imdbUrl": "https://www.imdb.com/title/tt1160419/" }
         ]
       },
       {
         "name": "War Movies",
-        "iconName": "Rocket",
+        "iconName": "ShieldAlert",
         "series": [
-          { "id": "m-anim1", "title": "Unbroken", "imageUrl": "https://picsum.photos/seed/spiderverse/300/450", "dataAiHint": "animation superhero" },
-          { "id": "m-anim2", "title": "Saving Private Ryan", "imageUrl": "https://picsum.photos/seed/yourname/300/450", "dataAiHint": "anime fantasy" },
-          { "id": "m-anim3", "title": "Fury", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim3", "title": "Hacksaw Ridge", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim4", "title": "Dunkirk", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim5", "title": "Full Metal Jacket", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim6", "title": "American Sniper", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim7", "title": "The Imitation Game", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" },
-          { "id": "m-anim8", "title": "The Covenant", "imageUrl": "https://picsum.photos/seed/klaus/300/450", "dataAiHint": "christmas animation" }
-
+          { "id": "m-w1", "title": "Unbroken", "imageUrl": "https://picsum.photos/seed/unbroken/300/450", "dataAiHint": "war drama", "imdbUrl": "https://www.imdb.com/title/tt1809398/" },
+          { "id": "m-w2", "title": "Saving Private Ryan", "imageUrl": "https://picsum.photos/seed/savingprivateryan/300/450", "dataAiHint": "world war", "imdbUrl": "https://www.imdb.com/title/tt0120815/" },
+          { "id": "m-w3", "title": "Fury", "imageUrl": "https://picsum.photos/seed/fury/300/450", "dataAiHint": "tank battle", "imdbUrl": "https://www.imdb.com/title/tt2713180/" },
+          { "id": "m-w4", "title": "Hacksaw Ridge", "imageUrl": "https://picsum.photos/seed/hacksawridge/300/450", "dataAiHint": "war hero", "imdbUrl": "https://www.imdb.com/title/tt2119532/" },
+          { "id": "m-w5", "title": "Dunkirk", "imageUrl": "https://picsum.photos/seed/dunkirk/300/450", "dataAiHint": "war evacuation", "imdbUrl": "https://www.imdb.com/title/tt5013056/" },
+          { "id": "m-w6", "title": "Full Metal Jacket", "imageUrl": "https://picsum.photos/seed/fullmetaljacket/300/450", "dataAiHint": "vietnam war", "imdbUrl": "https://www.imdb.com/title/tt0093058/" },
+          { "id": "m-w7", "title": "American Sniper", "imageUrl": "https://picsum.photos/seed/americansniper/300/450", "dataAiHint": "war sniper", "imdbUrl": "https://www.imdb.com/title/tt2179136/" },
+          { "id": "m-w8", "title": "The Imitation Game", "imageUrl": "https://picsum.photos/seed/imitationgame/300/450", "dataAiHint": "biography war", "imdbUrl": "https://www.imdb.com/title/tt2084970/" },
+          { "id": "m-w9", "title": "The Covenant", "imageUrl": "https://picsum.photos/seed/thecovenant/300/450", "dataAiHint": "modern war", "imdbUrl": "https://www.imdb.com/title/tt4873118/" }
         ]
       }
     ]
