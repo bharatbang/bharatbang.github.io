@@ -40,7 +40,7 @@ export default function PhoneSizeCompareClient() {
   const getImageDimensions = () => {
     if (!currentPhone) return { displayWidth: 0, displayHeight: 0, imageSrc: '' };
 
-    const scale = 0.5 + (zoomLevel / 100);
+    const scale = 0.5 + (zoomLevel / 100); // Zoom factor: 0.5x to 1.5x of base size
 
     let phonePhysicalWidthMm: number;
     let phonePhysicalHeightMm: number;
