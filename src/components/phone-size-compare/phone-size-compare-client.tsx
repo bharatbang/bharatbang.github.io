@@ -26,8 +26,8 @@ export default function PhoneSizeCompareClient() {
   const [zoomLevel, setZoomLevel] = useState<number>(50); // Slider 0-100, represents a zoom factor
   const [showOutline, setShowOutline] = useState<boolean>(false);
   const [showCreditCard, setShowCreditCard] = useState<boolean>(true);
-  const [isStacked, setIsStacked] = useState<boolean>(false); // Placeholder for now
-  const [sortBy, setSortBy] = useState<SortOption>(SORT_OPTIONS[0]); // Placeholder for now
+  const [isStacked, setIsStacked] = useState<boolean>(false); 
+  const [sortBy, setSortBy] = useState<SortOption>(SORT_OPTIONS[0]); 
 
   const currentPhone: PhoneSpec | undefined = useMemo(() => {
     return PHONE_DATA.find(p => p.id === selectedPhoneId);
@@ -40,10 +40,6 @@ export default function PhoneSizeCompareClient() {
   const getImageDimensions = () => {
     if (!currentPhone) return { displayWidth: 0, displayHeight: 0, imageSrc: '' };
 
-    // Base dimensions (intrinsic size of the placeholder image, e.g., width 200px for rear/front)
-    // Let's use the phone's actual dimensions converted to pixels for a more realistic comparison against the credit card.
-    // Scale factor from zoomLevel (0-100). Let's map 50 to 1x scale.
-    // 0 -> 0.5x, 50 -> 1x, 100 -> 1.5x
     const scale = 0.5 + (zoomLevel / 100);
 
     let phonePhysicalWidthMm: number;
@@ -70,7 +66,7 @@ export default function PhoneSizeCompareClient() {
 
   const creditCardPhysicalWidthMm = 85.6;
   const creditCardPhysicalHeightMm = 53.98;
-  const creditCardDisplayWidth = creditCardPhysicalWidthMm * pixelsPerMm; // No zoom on credit card
+  const creditCardDisplayWidth = creditCardPhysicalWidthMm * pixelsPerMm; 
   const creditCardDisplayHeight = creditCardPhysicalHeightMm * pixelsPerMm;
 
 
@@ -87,7 +83,9 @@ export default function PhoneSizeCompareClient() {
             </SelectTrigger>
             <SelectContent>
               {PHONE_DATA.map(phone => (
-                <SelectItem key={phone.id} value={phone.id}>{phone.name}</SelectItem>
+                <SelectItem key={phone.id} value={phone.id}>
+                  {phone.name} ({phone.dimensions.height} x {phone.dimensions.width} x {phone.dimensions.thickness} mm)
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -159,10 +157,14 @@ export default function PhoneSizeCompareClient() {
 
       <div className="flex items-end justify-center gap-8 py-8 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] bg-muted/30 p-4 rounded-md overflow-x-auto">
         {showCreditCard && (
-          <div className="shrink-0" style={{ width: `${creditCardDisplayWidth}px`, height: `${creditCardDisplayHeight}px` }}>
+          <div 
+            className="shrink-0 rounded-xl overflow-hidden" // Added rounded-xl and overflow-hidden
+            style={{ width: `${creditCardDisplayWidth}px`, height: `${creditCardDisplayHeight}px` }}
+          >
             <div className="relative w-full h-full">
               <Image 
-                src="https://placehold.co/338x213/3B82F6/FFFFFF.png?text=Bank+Name%0A1234+5678+9876+5432%0ACARDHOLDER" 
+                className="rounded-xl" // Also apply to Image for Next/Image handling
+                src="https://placehold.co/338x213.png" 
                 alt="Credit Card" 
                 layout="fill" 
                 objectFit="contain"
@@ -183,7 +185,7 @@ export default function PhoneSizeCompareClient() {
             }}
           >
             <Image
-              key={imageSrc} // Force re-render if src changes
+              key={imageSrc} 
               src={imageSrc}
               alt={`${currentPhone.name} - ${selectedView}`}
               layout="fill"
