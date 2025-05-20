@@ -26,8 +26,8 @@ export default function PhoneSizeCompareClient() {
   const [zoomLevel, setZoomLevel] = useState<number>(50); // Slider 0-100, represents a zoom factor
   const [showOutline, setShowOutline] = useState<boolean>(false);
   const [showCreditCard, setShowCreditCard] = useState<boolean>(true);
-  const [isStacked, setIsStacked] = useState<boolean>(false); 
-  const [sortBy, setSortBy] = useState<SortOption>(SORT_OPTIONS[0]); 
+  const [isStacked, setIsStacked] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<SortOption>(SORT_OPTIONS[0]);
 
   const currentPhone: PhoneSpec | undefined = useMemo(() => {
     return PHONE_DATA.find(p => p.id === selectedPhoneId);
@@ -36,7 +36,7 @@ export default function PhoneSizeCompareClient() {
   const handleClearPhone = () => {
     setSelectedPhoneId(null);
   };
-  
+
   const getImageDimensions = () => {
     if (!currentPhone) return { displayWidth: 0, displayHeight: 0, imageSrc: '' };
 
@@ -55,7 +55,7 @@ export default function PhoneSizeCompareClient() {
       phonePhysicalHeightMm = currentPhone.dimensions.height;
       imageSrc = selectedView === 'front' ? currentPhone.imageUrls.front : currentPhone.imageUrls.rear;
     }
-    
+
     const displayWidth = phonePhysicalWidthMm * pixelsPerMm * scale;
     const displayHeight = phonePhysicalHeightMm * pixelsPerMm * scale;
 
@@ -66,7 +66,7 @@ export default function PhoneSizeCompareClient() {
 
   const creditCardPhysicalWidthMm = 85.6;
   const creditCardPhysicalHeightMm = 53.98;
-  const creditCardDisplayWidth = creditCardPhysicalWidthMm * pixelsPerMm; 
+  const creditCardDisplayWidth = creditCardPhysicalWidthMm * pixelsPerMm;
   const creditCardDisplayHeight = creditCardPhysicalHeightMm * pixelsPerMm;
 
 
@@ -92,7 +92,7 @@ export default function PhoneSizeCompareClient() {
             <SelectContent>
               {PHONE_DATA.map(phone => (
                 <SelectItem key={phone.id} value={phone.id}>
-                  {phone.name} ({phone.dimensions.height} x {phone.dimensions.width} x {phone.dimensions.thickness} mm)
+                  {phone.name} ({(phone.dimensions.height / 10).toFixed(1)} x {(phone.dimensions.width / 10).toFixed(1)} x {(phone.dimensions.thickness / 10).toFixed(1)} cm)
                 </SelectItem>
               ))}
             </SelectContent>
@@ -111,7 +111,7 @@ export default function PhoneSizeCompareClient() {
               ))}
             </SelectContent>
           </Select>
-          
+
           <div className="flex items-center gap-2 flex-1 min-w-[150px] sm:min-w-[200px]">
             <Label htmlFor="zoomSlider" className="whitespace-nowrap text-sm">Zoom:</Label>
             <Slider
@@ -165,16 +165,16 @@ export default function PhoneSizeCompareClient() {
 
       <div className="flex items-end justify-center gap-8 py-8 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] bg-muted/30 p-4 rounded-md overflow-x-auto">
         {showCreditCard && (
-          <div 
+          <div
             className="shrink-0 rounded-xl overflow-hidden" // Added rounded-xl and overflow-hidden
             style={{ width: `${creditCardDisplayWidth}px`, height: `${creditCardDisplayHeight}px` }}
           >
             <div className="relative w-full h-full">
-              <Image 
+              <Image
                 className="rounded-xl" // Also apply to Image for Next/Image handling
-                src="https://placehold.co/338x213.png" 
-                alt="Credit Card" 
-                layout="fill" 
+                src="https://placehold.co/338x213.png"
+                alt="Credit Card"
+                layout="fill"
                 objectFit="contain"
                 data-ai-hint="credit card bank"
               />
@@ -183,17 +183,17 @@ export default function PhoneSizeCompareClient() {
         )}
 
         {currentPhone && imageSrc && displayWidth > 0 && displayHeight > 0 && (
-          <div 
+          <div
             className="relative shrink-0"
-            style={{ 
-              width: `${displayWidth}px`, 
+            style={{
+              width: `${displayWidth}px`,
               height: `${displayHeight}px`,
               border: showOutline ? '2px dashed hsl(var(--primary))' : 'none',
               boxShadow: isStacked ? '0 0 0 4px hsl(var(--border)), 0 0 0 8px hsl(var(--muted))' : 'none'
             }}
           >
             <Image
-              key={imageSrc} 
+              key={imageSrc}
               src={imageSrc}
               alt={`${currentPhone.name} - ${selectedView}`}
               layout="fill"
@@ -222,5 +222,3 @@ export default function PhoneSizeCompareClient() {
     </div>
   );
 }
-
-    
