@@ -178,7 +178,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         onValueChange={handleGuideCategoryChange} 
         className="w-full"
       >
-        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 p-2 bg-card rounded-lg shadow border border-input">
+        <TabsList className="flex flex-wrap gap-2 p-2 bg-card rounded-lg shadow-md border border-input justify-start items-center h-auto">
           {guideCategories.map((category) => {
             const IconComponent = guideCategoryIconMap[category.iconName] || Tv; 
             return (
@@ -204,7 +204,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
           className="w-full mt-4"
         >
           
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2 bg-secondary rounded-lg shadow-inner">
+          <TabsList className="flex flex-wrap gap-2 p-2 bg-secondary rounded-lg shadow-inner justify-start items-center h-auto">
             {selectedGuideCategory.genres.map((genre) => {
               const IconComponent = genreIconMap[genre.iconName] || ListFilter; 
               return (
