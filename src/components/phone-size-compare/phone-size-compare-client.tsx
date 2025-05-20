@@ -210,7 +210,7 @@ export default function PhoneSizeCompareClient() {
             >
               <X size={16} />
             </Button>
-            <p className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-0.5 rounded whitespace-nowrap">
+            <p className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-0.5 rounded whitespace-nowrap z-10">
               {currentPhone.name}
             </p>
           </div>
@@ -222,3 +222,5 @@ export default function PhoneSizeCompareClient() {
     </div>
   );
 }
+
+    
