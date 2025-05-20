@@ -6,7 +6,7 @@ import path from 'path';
 import AnimatedTitle from '@/components/animated-title';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
-import { CodeXml } from 'lucide-react';
+import { CodeXml, Smartphone } from 'lucide-react';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -58,7 +58,7 @@ export default async function Home() {
           <h2 className="text-3xl font-semibold tracking-tight mb-6 text-center sm:text-left">
             Code Snippets
           </h2>
-          <div className="flex flex-col sm:flex-row justify-center sm:justify-start gap-4">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-start gap-4 flex-wrap">
             <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <CodeXml size={20} className="mr-2" />
               HTML Creator
@@ -66,6 +66,10 @@ export default async function Home() {
             <Link href="/html-creator-v2" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <CodeXml size={20} className="mr-2" />
               HTML Creator V2
+            </Link>
+            <Link href="/phone-size-compare" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <Smartphone size={20} className="mr-2" />
+              Phone Size Compare
             </Link>
           </div>
         </section>
@@ -79,4 +83,3 @@ export default async function Home() {
     </div>
   );
 }
-
