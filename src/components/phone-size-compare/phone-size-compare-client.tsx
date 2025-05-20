@@ -70,6 +70,19 @@ export default function PhoneSizeCompareClient() {
   const creditCardDisplayHeight = creditCardPhysicalHeightMm * pixelsPerMm;
 
 
+  const getFormattedDimensionsCm = (phone: PhoneSpec, view: PhoneView): string => {
+    const heightCm = (phone.dimensions.height / 10).toFixed(1);
+    let widthOrThicknessCm: string;
+
+    if (view === 'side') {
+      widthOrThicknessCm = (phone.dimensions.thickness / 10).toFixed(1);
+    } else {
+      widthOrThicknessCm = (phone.dimensions.width / 10).toFixed(1);
+    }
+    return `${heightCm}cm x ${widthOrThicknessCm}cm`;
+  };
+
+
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="mb-4">
@@ -184,7 +197,7 @@ export default function PhoneSizeCompareClient() {
 
         {currentPhone && imageSrc && displayWidth > 0 && displayHeight > 0 && (
           <div
-            className="relative shrink-0"
+            className="relative shrink-0 flex flex-col items-center justify-center" // Added flex for centering text
             style={{
               width: `${displayWidth}px`,
               height: `${displayHeight}px`,
@@ -204,15 +217,28 @@ export default function PhoneSizeCompareClient() {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute top-1 right-1 bg-black/50 hover:bg-black/70 text-white h-6 w-6 z-10"
+              className="absolute top-1 right-1 bg-black/50 hover:bg-black/70 text-white h-6 w-6 z-20" // Ensure button is above text
               onClick={handleClearPhone}
               aria-label="Clear phone selection"
             >
               <X size={16} />
             </Button>
-            <p className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-0.5 rounded whitespace-nowrap z-10">
-              {currentPhone.name}
-            </p>
+            
+            {showOutline && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none p-2">
+                <p className="bg-black/70 text-white text-xs px-2 py-0.5 rounded mb-1 text-center">
+                  {currentPhone.name}
+                </p>
+                <p className="bg-black/70 text-white text-xs px-2 py-0.5 rounded text-center">
+                  {getFormattedDimensionsCm(currentPhone, selectedView)}
+                </p>
+              </div>
+            )}
+             {!showOutline && (
+                <p className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-0.5 rounded whitespace-nowrap z-10">
+                {currentPhone.name}
+                </p>
+            )}
           </div>
         )}
         {!currentPhone && (
@@ -222,3 +248,4 @@ export default function PhoneSizeCompareClient() {
     </div>
   );
 }
+
