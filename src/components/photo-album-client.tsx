@@ -33,16 +33,6 @@ const albumItems: AlbumItem[] = [
 export default function PhotoAlbumClient() {
   return (
     <div className="relative w-full h-[calc(100vh-12rem)]  bg-muted/30 overflow-hidden p-4 md:p-8">
-      {/* Central Text */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30 pointer-events-none">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-destructive tracking-tight">
-          Where your new
-        </h2>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-destructive tracking-tight mt-1 md:mt-2">
-          favorites find you.
-        </h2>
-      </div>
-
       {/* Album Grid */}
       {albumItems.map((item) => (
         <div
