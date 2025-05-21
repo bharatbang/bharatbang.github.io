@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail } from 'lucide-react'; // Added Mail import
+import { CodeXml, Smartphone, Mail, Images } from 'lucide-react'; // Added Images import
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -71,6 +71,10 @@ export default async function Home() {
             <Link href="/connect-me" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <Mail size={20} className="mr-2" />
               Connect Me
+            </Link>
+            <Link href="/photo-album" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <Images size={20} className="mr-2" />
+              Photo Album
             </Link>
           </div>
         </section>
