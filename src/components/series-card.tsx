@@ -37,9 +37,9 @@ export default function SeriesCard({ series }: SeriesCardProps) {
     </div>
   );
 
-  if (series.imdbUrl) {
+  if (series.externalUrl) {
     return (
-      <Link href={series.imdbUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+      <Link href={series.externalUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
         {cardContent}
       </Link>
     );

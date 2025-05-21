@@ -6,7 +6,7 @@ export interface Series {
   imageUrl: string;
   dataAiHint?: string;
   description?: string; // Optional description for items like landmarks, food, travel tips
-  imdbUrl?: string; // Optional IMDb URL
+  externalUrl?: string; // Optional external URL (e.g., IMDb, Google Maps)
 }
 
 export interface Genre { // Represents a sub-category within a GuideCategory
