@@ -52,11 +52,11 @@
         "name": "Restaurants",
         "iconName": "Utensils",
         "series": [
-          { "id": "food-r1", "title": "The Grand Thakar Restaurant, Rajkot", "imageUrl": "https://picsum.photos/seed/grandthakar/300/450", "dataAiHint": "thali restaurant", "description": "Authentic Gujarati and Kathiyawadi thali.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=The+Grand+Thakar+Restaurant+Rajkot" },
+          { "id": "food-r1", "title": "The Grand Thakar Restaurant, Rajkot", "imageUrl": "https://picsum.photos/seed/grandthakarrajkot/300/450", "dataAiHint": "thali restaurant", "description": "Authentic Gujarati and Kathiyawadi thali.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=The+Grand+Thakar+Restaurant+Rajkot" },
           { 
             "id": "food-r2", 
             "title": "Kansar Kathiyawadi Thali (Thane)", 
-            "imageUrl": "https://picsum.photos/seed/kansarthali/300/450", 
+            "imageUrl": "https://picsum.photos/seed/kansarthalithane/300/450", 
             "dataAiHint": "gujarati thali", 
             "description": "Authentic Kathiyawadi thali restaurant in Thane.",
             "externalUrl": "https://www.google.com/maps/search/?api=1&query=Kansar+Kathiyawadi+Thali+Restaurant+Thane"
@@ -107,7 +107,10 @@
           { "id": "travel-d14", "title": "Ayodhya", "imageUrl": "https://picsum.photos/seed/ayodhya/300/450", "dataAiHint": "ram temple", "description": "Ancient city in Uttar Pradesh, revered as the birthplace of Lord Rama.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Ayodhya" },
           { "id": "travel-d15", "title": "Tungareshwar Wildlife Sanctuary", "imageUrl": "https://picsum.photos/seed/tungareshwar/300/450", "dataAiHint": "wildlife sanctuary", "description": "A lush green sanctuary near Vasai, known for its waterfalls and biodiversity.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Tungareshwar+Wildlife+Sanctuary" },
           { "id": "travel-d16", "title": "Dindigad Fort", "imageUrl": "https://picsum.photos/seed/dindigad/300/450", "dataAiHint": "hill fort", "description": "A historic hill fort in Tamil Nadu, offering panoramic views.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Dindigad+Fort" },
-          { "id": "travel-d17", "title": "Flying Rhino Paramotoring: Jejuri", "imageUrl": "https://picsum.photos/seed/flyingrhino/300/450", "dataAiHint": "paramotoring adventure", "description": "Experience paramotoring near Jejuri.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Flying+Rhino+Paramotoring+Jejuri" }
+          { "id": "travel-d17", "title": "Flying Rhino Paramotoring: Jejuri", "imageUrl": "https://picsum.photos/seed/flyingrhino/300/450", "dataAiHint": "paramotoring adventure", "description": "Experience paramotoring near Jejuri.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Flying+Rhino+Paramotoring+Jejuri" },
+          { "id": "travel-d18", "title": "Junagadh", "imageUrl": "https://picsum.photos/seed/junagadh/300/450", "dataAiHint": "historic city", "description": "City in Gujarat known for Uparkot Fort and Girnar Hill.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Junagadh+Gujarat" },
+          { "id": "travel-d19", "title": "Somnath Temple", "imageUrl": "https://picsum.photos/seed/somnath/300/450", "dataAiHint": "jyotirlinga temple", "description": "Prominent Hindu pilgrimage site, one of the twelve Jyotirlinga shrines of Shiva.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Somnath+Temple+Gujarat" },
+          { "id": "travel-d20", "title": "Madhavpur Beach", "imageUrl": "https://picsum.photos/seed/madhavpurbeach/300/450", "dataAiHint": "scenic beach", "description": "Beautiful beach in Gujarat, known for its annual cultural fair.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Madhavpur+Beach+Gujarat+362230" }
         ]
       },
       {
@@ -261,3 +264,4 @@
     
 
     
+
