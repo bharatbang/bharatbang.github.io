@@ -291,6 +291,26 @@
           { "id": "m-w8", "title": "The Imitation Game", "imageUrl": "https://picsum.photos/seed/imitationgame/300/450", "dataAiHint": "biography war", "externalUrl": "https://www.imdb.com/title/tt2084970/" },
           { "id": "m-w9", "title": "The Covenant", "imageUrl": "https://picsum.photos/seed/thecovenant/300/450", "dataAiHint": "modern war", "externalUrl": "https://www.imdb.com/title/tt4873118/" }
         ]
+      },
+      {
+        "name": "Must Watch",
+        "iconName": "Star",
+        "series": [
+          {
+            "id": "m-mw1",
+            "title": "The Intern",
+            "imageUrl": "https://picsum.photos/seed/theintern/300/450",
+            "dataAiHint": "comedy drama",
+            "externalUrl": "https://www.imdb.com/title/tt2361509/"
+          },
+          {
+            "id": "m-mw2",
+            "title": "Green Book",
+            "imageUrl": "https://picsum.photos/seed/greenbook/300/450",
+            "dataAiHint": "drama biography",
+            "externalUrl": "https://www.imdb.com/title/tt6966692/"
+          }
+        ]
       }
     ]
   }
