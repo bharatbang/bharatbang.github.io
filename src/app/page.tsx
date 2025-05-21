@@ -5,8 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone } from 'lucide-react';
-import ConnectMeForm from '@/components/connect-me-form'; // Added import
+import { CodeXml, Smartphone, Mail } from 'lucide-react'; // Added Mail import
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -54,7 +53,7 @@ export default async function Home() {
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
         <section className="mb-12">
           <h2 className="text-3xl font-semibold tracking-tight mb-6 text-center sm:text-left">
-            Code Snippets
+            Quick Links
           </h2>
           <div className="flex flex-col sm:flex-row justify-center sm:justify-start gap-4 flex-wrap">
             <Link href="/html-creator" className={buttonVariants({ variant: "secondary", size: "lg" })}>
@@ -69,14 +68,14 @@ export default async function Home() {
               <Smartphone size={20} className="mr-2" />
               Phone Size Compare
             </Link>
+            <Link href="/connect-me" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <Mail size={20} className="mr-2" />
+              Connect Me
+            </Link>
           </div>
         </section>
         
         <GenreExplorerClient initialData={guideData} />
-
-        <section id="connect-me" className="py-12">
-          <ConnectMeForm />
-        </section>
 
       </main>
       <footer className="py-6 mt-12 border-t border-border">
