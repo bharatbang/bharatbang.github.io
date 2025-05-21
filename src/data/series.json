@@ -117,6 +117,28 @@
           { "id": "travel-p2", "title": "Comfortable Shoes", "imageUrl": "https://picsum.photos/seed/shoes/300/450", "dataAiHint": "walking shoes", "description": "Essential for exploring new cities and attractions." },
           { "id": "travel-p3", "title": "Travel Pillow", "imageUrl": "https://picsum.photos/seed/travelpillow/300/450", "dataAiHint": "neck pillow", "description": "For comfortable journeys on planes, trains, or buses." }
         ]
+      },
+      {
+        "name": "Trekking (By Ninad Sir)",
+        "iconName": "Mountain",
+        "series": [
+          { 
+            "id": "trek-ns1", 
+            "title": "Samrad (Sandhan Valley)", 
+            "imageUrl": "https://picsum.photos/seed/samradtrek/300/450", 
+            "dataAiHint": "trekking valley", 
+            "description": "Challenging trek through the Valley of Shadows in Maharashtra.",
+            "externalUrl": "https://www.google.com/maps/search/?api=1&query=Samrad+Sandhan+Valley+Maharashtra" 
+          },
+          { 
+            "id": "trek-ns2", 
+            "title": "Rajmachi Fort Trek", 
+            "imageUrl": "https://picsum.photos/seed/rajmachitrek/300/450", 
+            "dataAiHint": "fort trek", 
+            "description": "Historic fort trek with scenic views, near Lonavala, Maharashtra.",
+            "externalUrl": "https://www.google.com/maps/search/?api=1&query=Rajmachi+Fort+Trek" 
+          }
+        ]
       }
     ]
   },

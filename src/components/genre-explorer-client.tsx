@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import SeriesCard from '@/components/series-card';
 import {
   Film, Rocket, Swords, Smile, Drama, Zap, Ghost, Heart, PencilLine, BookOpen, Search, ArrowDownUp, FilterX, Tv,
-  Landmark, Utensils, Plane, ShieldAlert, ChefHat, ShoppingBasket, Flame, Coffee, Map, Lightbulb, Briefcase, ListFilter
+  Landmark, Utensils, Plane, ShieldAlert, ChefHat, ShoppingBasket, Flame, Coffee, Map, Lightbulb, Briefcase, ListFilter, Mountain
 } from 'lucide-react';
 
 const guideCategoryIconMap: { [key: string]: LucideIcon } = {
@@ -33,7 +33,7 @@ const genreIconMap: { [key: string]: LucideIcon } = {
   BookOpen: BookOpen,
   Film: Film,
   Tv: Tv,
-  ShieldAlert: ShieldAlert, // Thriller
+  ShieldAlert: ShieldAlert, // Thriller, War Movies
   Landmark: Landmark, // Mumbai Landmarks
   ChefHat: ChefHat, // Mumbai Food, Food Restaurants
   ShoppingBasket: ShoppingBasket, // Mumbai Markets
@@ -43,6 +43,7 @@ const genreIconMap: { [key: string]: LucideIcon } = {
   Map: Map, // Travel Destinations
   Lightbulb: Lightbulb, // Travel Tips
   Briefcase: Briefcase, // Travel Packing
+  Mountain: Mountain, // Trekking
 };
 
 interface GenreExplorerClientProps {
