@@ -6,15 +6,14 @@ import path from 'path';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { CodeXml, Smartphone } from 'lucide-react';
+import ConnectMeForm from '@/components/connect-me-form'; // Added import
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
-    // Correct path for Vercel deployment and local dev
     const filePath = path.join(process.cwd(), 'src', 'data', 'series.json');
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const jsonData = JSON.parse(fileContent);
 
-    // Validate that jsonData is an array of GuideCategory objects
     if (
       Array.isArray(jsonData) &&
       jsonData.every(
@@ -37,7 +36,7 @@ async function getSeriesData(): Promise<GuideCategory[]> {
     }
   } catch (error) {
     console.error("Failed to load series data:", error);
-    return []; // Return empty array on error to prevent build failure
+    return []; 
   }
 }
 
@@ -72,7 +71,13 @@ export default async function Home() {
             </Link>
           </div>
         </section>
+        
         <GenreExplorerClient initialData={guideData} />
+
+        <section id="connect-me" className="py-12">
+          <ConnectMeForm />
+        </section>
+
       </main>
       <footer className="py-6 mt-12 border-t border-border">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
