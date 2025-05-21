@@ -52,7 +52,7 @@
         "name": "Restaurants",
         "iconName": "Utensils",
         "series": [
-          { "id": "food-r1", "title": "Fine Dining Gem", "imageUrl": "https://picsum.photos/seed/finedining/300/450", "dataAiHint": "elegant restaurant", "description": "Experience exquisite cuisine in a luxurious setting." },
+          { "id": "food-r1", "title": "The Grand Thakar Restaurant, Rajkot", "imageUrl": "https://picsum.photos/seed/grandthakar/300/450", "dataAiHint": "thali restaurant", "description": "Authentic Gujarati and Kathiyawadi thali.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=The+Grand+Thakar+Restaurant+Rajkot" },
           { "id": "food-r2", "title": "Cozy Bistro", "imageUrl": "https://picsum.photos/seed/bistro/300/450", "dataAiHint": "small cafe", "description": "A charming spot for a casual meal with friends." },
           { "id": "food-r3", "title": "Family Eatery", "imageUrl": "https://picsum.photos/seed/familyeatery/300/450", "dataAiHint": "restaurant family", "description": "Kid-friendly and perfect for a family outing." }
         ]
@@ -250,5 +250,7 @@
     ]
   }
 ]
+
+    
 
     
