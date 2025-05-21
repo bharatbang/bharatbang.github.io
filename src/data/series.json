@@ -99,7 +99,8 @@
           { "id": "travel-d13", "title": "Jhunjhunu", "imageUrl": "https://picsum.photos/seed/jhunjhunu/300/450", "dataAiHint": "rajasthan town", "description": "Historic town in the Shekhawati region of Rajasthan, known for its havelis.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Jhunjhunu" },
           { "id": "travel-d14", "title": "Ayodhya", "imageUrl": "https://picsum.photos/seed/ayodhya/300/450", "dataAiHint": "ram temple", "description": "Ancient city in Uttar Pradesh, revered as the birthplace of Lord Rama.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Ayodhya" },
           { "id": "travel-d15", "title": "Tungareshwar Wildlife Sanctuary", "imageUrl": "https://picsum.photos/seed/tungareshwar/300/450", "dataAiHint": "wildlife sanctuary", "description": "A lush green sanctuary near Vasai, known for its waterfalls and biodiversity.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Tungareshwar+Wildlife+Sanctuary" },
-          { "id": "travel-d16", "title": "Dindigad Fort", "imageUrl": "https://picsum.photos/seed/dindigad/300/450", "dataAiHint": "hill fort", "description": "A historic hill fort in Tamil Nadu, offering panoramic views.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Dindigad+Fort" }
+          { "id": "travel-d16", "title": "Dindigad Fort", "imageUrl": "https://picsum.photos/seed/dindigad/300/450", "dataAiHint": "hill fort", "description": "A historic hill fort in Tamil Nadu, offering panoramic views.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Dindigad+Fort" },
+          { "id": "travel-d17", "title": "Flying Rhino Paramotoring: Jejuri", "imageUrl": "https://picsum.photos/seed/flyingrhino/300/450", "dataAiHint": "paramotoring adventure", "description": "Experience paramotoring near Jejuri.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Flying+Rhino+Paramotoring+Jejuri" }
         ]
       },
       {
