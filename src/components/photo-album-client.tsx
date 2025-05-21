@@ -15,34 +15,124 @@ interface AlbumItem {
   zIndex?: string; // Optional z-index e.g., "z-10"
 }
 
+// TODO: Replace placeholder imageUrls with actual, appropriately licensed image URLs from Wikipedia/Wikimedia Commons.
 const albumItems: AlbumItem[] = [
-  { id: '1', imageUrl: 'https://placehold.co/400x400.png', alt: 'Abstract Pink Waves', dataAiHint: 'abstract pink', sizeClasses: 'w-32 h-32 md:w-48 md:h-48', positionClasses: 'absolute top-[5%] left-[5%]', rotationClasses: 'transform -rotate-6', zIndex: 'z-10' },
-  { id: '2', imageUrl: 'https://placehold.co/300x300.png', alt: 'Pop Art Portrait', dataAiHint: 'popart portrait', sizeClasses: 'w-28 h-28 md:w-40 md:h-40', positionClasses: 'absolute top-[10%] left-[30%]', zIndex: 'z-0' },
-  { id: '3', imageUrl: 'https://placehold.co/350x350.png', alt: 'Cowboy Silhouette', dataAiHint: 'cowboy silhouette', sizeClasses: 'w-40 h-40 md:w-56 md:h-56', positionClasses: 'absolute top-[20%] left-[15%]', rotationClasses: 'transform rotate-3', zIndex: 'z-20' },
-  { id: '4', imageUrl: 'https://placehold.co/250x250.png', alt: 'Orange Gradient', dataAiHint: 'orange gradient', sizeClasses: 'w-36 h-36 md:w-44 md:h-44', positionClasses: 'absolute top-[8%] right-[25%]', zIndex: 'z-0' },
-  { id: '5', imageUrl: 'https://placehold.co/450x450.png', alt: 'Purple Heart Shape', dataAiHint: 'purple heart', sizeClasses: 'w-40 h-40 md:w-60 md:h-60', positionClasses: 'absolute top-[15%] right-[8%]', rotationClasses: 'transform rotate-2', zIndex: 'z-10' },
-  { id: '6', imageUrl: 'https://placehold.co/200x200.png', alt: 'Green Earth Globe', dataAiHint: 'earth globe', sizeClasses: 'w-24 h-24 md:w-32 md:h-32', positionClasses: 'absolute top-[2%] right-[2%]', zIndex: 'z-20' },
-  { id: '7', imageUrl: 'https://placehold.co/320x320.png', alt: 'Purple Abstract Swirl', dataAiHint: 'purple abstract', sizeClasses: 'w-28 h-28 md:w-36 md:h-36', positionClasses: 'absolute bottom-[15%] left-[8%]', rotationClasses: 'transform -rotate-3', zIndex: 'z-0' },
-  { id: '8', imageUrl: 'https://placehold.co/380x380.png', alt: 'Country Road', dataAiHint: 'country road', sizeClasses: 'w-32 h-32 md:w-48 md:h-48', positionClasses: 'absolute bottom-[5%] left-[20%]', zIndex: 'z-10' },
-  { id: '9', imageUrl: 'https://placehold.co/280x280.png', alt: 'Woman Singing', dataAiHint: 'woman singing', sizeClasses: 'w-36 h-36 md:w-44 md:h-44', positionClasses: 'absolute bottom-[8%] left-[40%]', rotationClasses: 'transform rotate-1', zIndex: 'z-20' },
-  { id: '10', imageUrl: 'https://placehold.co/360x360.png', alt: 'Band Photo', dataAiHint: 'band photo', sizeClasses: 'w-32 h-32 md:w-40 md:h-40', positionClasses: 'absolute bottom-[25%] right-[28%]', zIndex: 'z-0' },
-  { id: '11', imageUrl: 'https://placehold.co/420x420.png', alt: 'Purple Abstract Figure', dataAiHint: 'abstract figure', sizeClasses: 'w-36 h-36 md:w-52 md:h-52', positionClasses: 'absolute bottom-[10%] right-[10%]', rotationClasses: 'transform -rotate-2', zIndex: 'z-10' },
-  { id: '12', imageUrl: 'https://placehold.co/260x260.png', alt: 'Red Geometric Pattern', dataAiHint: 'red geometric', sizeClasses: 'w-28 h-28 md:w-36 md:h-36', positionClasses: 'absolute bottom-[2%] right-[2%]', zIndex: 'z-20' },
+  {
+    id: 'mumbai-1',
+    imageUrl: 'https://placehold.co/400x300.png',
+    alt: 'Gateway of India, Mumbai',
+    dataAiHint: 'Gateway India',
+    sizeClasses: 'w-40 h-32 md:w-56 md:h-44',
+    positionClasses: 'absolute top-[5%] left-[5%]',
+    rotationClasses: 'transform -rotate-3',
+    zIndex: 'z-10',
+  },
+  {
+    id: 'mumbai-2',
+    imageUrl: 'https://placehold.co/350x250.png',
+    alt: 'Marine Drive, Mumbai',
+    dataAiHint: 'Marine Drive',
+    sizeClasses: 'w-36 h-28 md:w-48 md:h-36',
+    positionClasses: 'absolute top-[10%] right-[8%]',
+    rotationClasses: 'transform rotate-2',
+    zIndex: 'z-5',
+  },
+  {
+    id: 'mumbai-3',
+    imageUrl: 'https://placehold.co/450x350.png',
+    alt: 'Chhatrapati Shivaji Maharaj Terminus (CSMT), Mumbai',
+    dataAiHint: 'CSMT station',
+    sizeClasses: 'w-44 h-36 md:w-60 md:h-48',
+    positionClasses: 'absolute top-[25%] left-[15%]',
+    rotationClasses: 'transform rotate-1',
+    zIndex: 'z-20',
+  },
+  {
+    id: 'mumbai-4',
+    imageUrl: 'https://placehold.co/300x400.png',
+    alt: 'Haji Ali Dargah, Mumbai',
+    dataAiHint: 'Haji Ali',
+    sizeClasses: 'w-32 h-40 md:w-40 md:h-52',
+    positionClasses: 'absolute top-[30%] right-[20%]',
+    rotationClasses: 'transform -rotate-2',
+    zIndex: 'z-10',
+  },
+  {
+    id: 'mumbai-5',
+    imageUrl: 'https://placehold.co/380x280.png',
+    alt: 'Siddhivinayak Temple, Mumbai',
+    dataAiHint: 'Siddhivinayak Temple',
+    sizeClasses: 'w-36 h-28 md:w-52 md:h-40',
+    positionClasses: 'absolute top-[50%] left-[5%]',
+    rotationClasses: 'transform rotate-3',
+    zIndex: 'z-5',
+  },
+  {
+    id: 'mumbai-6',
+    imageUrl: 'https://placehold.co/400x350.png',
+    alt: 'Elephanta Caves, Mumbai',
+    dataAiHint: 'Elephanta Caves',
+    sizeClasses: 'w-40 h-32 md:w-56 md:h-48',
+    positionClasses: 'absolute top-[55%] right-[5%]',
+    rotationClasses: 'transform -rotate-1',
+    zIndex: 'z-15',
+  },
+  {
+    id: 'mumbai-7',
+    imageUrl: 'https://placehold.co/360x260.png',
+    alt: 'Juhu Beach, Mumbai',
+    dataAiHint: 'Juhu Beach',
+    sizeClasses: 'w-36 h-28 md:w-48 md:h-36',
+    positionClasses: 'absolute bottom-[20%] left-[25%]',
+    rotationClasses: 'transform rotate-2',
+    zIndex: 'z-10',
+  },
+  {
+    id: 'mumbai-8',
+    imageUrl: 'https://placehold.co/420x320.png',
+    alt: 'Film City (Dadasaheb Phalke Chitranagari), Mumbai',
+    dataAiHint: 'Film City',
+    sizeClasses: 'w-40 h-32 md:w-56 md:h-44',
+    positionClasses: 'absolute bottom-[22%] right-[15%]',
+    rotationClasses: 'transform -rotate-3',
+    zIndex: 'z-5',
+  },
+  {
+    id: 'mumbai-9',
+    imageUrl: 'https://placehold.co/500x300.png',
+    alt: 'Bandra-Worli Sea Link, Mumbai',
+    dataAiHint: 'Sea Link',
+    sizeClasses: 'w-48 h-28 md:w-64 md:h-40',
+    positionClasses: 'absolute bottom-[5%] left-[5%]',
+    rotationClasses: 'transform rotate-1',
+    zIndex: 'z-20',
+  },
+  {
+    id: 'mumbai-10',
+    imageUrl: 'https://placehold.co/380x420.png',
+    alt: 'Sanjay Gandhi National Park, Mumbai',
+    dataAiHint: 'National Park',
+    sizeClasses: 'w-36 h-40 md:w-44 md:h-52',
+    positionClasses: 'absolute bottom-[8%] right-[2%]',
+    rotationClasses: 'transform rotate-2',
+    zIndex: 'z-10',
+  },
 ];
 
 export default function PhotoAlbumClient() {
   return (
-    <div className="relative w-full h-[calc(100vh-12rem)]  bg-muted/30 overflow-hidden p-4 md:p-8">
+    <div className="relative w-full h-[calc(100vh-12rem)] bg-muted/30 overflow-hidden p-4 md:p-8">
       {/* Album Grid */}
       {albumItems.map((item) => (
         <div
           key={item.id}
           className={`
-            ${item.sizeClasses} 
-            ${item.positionClasses} 
-            ${item.rotationClasses || ''} 
+            ${item.sizeClasses}
+            ${item.positionClasses}
+            ${item.rotationClasses || ''}
             ${item.zIndex || 'z-0'}
             shadow-lg hover:shadow-2xl transition-all duration-300 ease-out
+            bg-background border border-border rounded-lg md:rounded-xl
           `}
         >
           <Image
@@ -50,9 +140,8 @@ export default function PhotoAlbumClient() {
             alt={item.alt}
             layout="fill"
             objectFit="cover"
-            className="rounded-lg md:rounded-xl"
+            className="rounded-lg md:rounded-xl" // Ensure image itself is rounded if parent has overflow-hidden
             data-ai-hint={item.dataAiHint}
-            priority={parseInt(item.id) <= 3} // Prioritize loading for first few images
           />
         </div>
       ))}
