@@ -18,10 +18,18 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'placehold.co',
+        hostname: 'placehold.co', // Ensure this entry is present and correct
         port: '',
         pathname: '/**',
       },
+      // If you've replaced placeholders with images from other domains (e.g., wikimedia.org),
+      // you'll need to add their hostnames here as well. For example:
+      // {
+      //   protocol: 'https',
+      //   hostname: 'upload.wikimedia.org',
+      //   port: '',
+      //   pathname: '/**',
+      // },
     ],
   },
 };

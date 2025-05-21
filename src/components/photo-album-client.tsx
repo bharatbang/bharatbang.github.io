@@ -15,7 +15,9 @@ interface AlbumItem {
   zIndex?: string; // Optional z-index e.g., "z-10"
 }
 
-// TODO: Replace placeholder imageUrls with actual, appropriately licensed image URLs from Wikipedia/Wikimedia Commons.
+// These are placeholder images. You should replace 'imageUrl' with direct links
+// to images (e.g., from Wikimedia Commons), ensuring you have the right to use them
+// and that their hostnames are added to next.config.ts.
 const albumItems: AlbumItem[] = [
   {
     id: 'mumbai-1',
@@ -142,6 +144,7 @@ export default function PhotoAlbumClient() {
             objectFit="cover"
             className="rounded-lg md:rounded-xl" // Ensure image itself is rounded if parent has overflow-hidden
             data-ai-hint={item.dataAiHint}
+            priority={false} // Set to true for above-the-fold images if necessary
           />
         </div>
       ))}
