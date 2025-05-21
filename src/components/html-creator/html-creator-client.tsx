@@ -30,6 +30,7 @@ import {
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
   Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 // Represents a field that has been dropped onto the canvas
 export interface DroppedFieldItem extends DraggableFieldData {
@@ -85,6 +86,19 @@ export default function HtmlCreatorClient() {
   const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
   const [generatedHtml, setGeneratedHtml] = useState('');
   const [fieldCounters, setFieldCounters] = useState<Record<string, number>>({});
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check if running on the client and if it's a mobile device
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      toast({
+        title: "मोबाइल सूचना", // Mobile Alert
+        description: "भाऊ, मोबाईलमध्ये सगळं चालत नाही.", // Brother, not everything works on mobile.
+        variant: "default", // Or 'destructive' for more emphasis
+        duration: 5000, // Show for 5 seconds
+      });
+    }
+  }, [toast]);
 
 
   const getNextFieldName = (baseName: string): string => {
