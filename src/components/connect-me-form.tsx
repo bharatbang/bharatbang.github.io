@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea'; // If you add a message field
+import { cn } from '@/lib/utils'; // Import cn utility
 
 const FormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }).max(100, {message: 'Name must be 100 characters or less.'}),
@@ -46,12 +46,12 @@ export default function ConnectMeForm() {
 
   const {
     register,
-    handleSubmit, // We're not using react-hook-form's handleSubmit to submit, but it's good for structure
-    formState: { errors: clientErrors, isValid, isDirty }, // client-side errors
-    reset: resetClientForm, // to reset react-hook-form state
+    handleSubmit, 
+    formState: { errors: clientErrors, isValid, isDirty }, 
+    reset: resetClientForm, 
   } = useForm<FormDataSchema>({
     resolver: zodResolver(FormSchema),
-    mode: 'onBlur', // Validate on blur
+    mode: 'onBlur', 
   });
 
   useEffect(() => {
@@ -68,18 +68,16 @@ export default function ConnectMeForm() {
           description: state.message,
           variant: 'default',
         });
-        formRef.current?.reset(); // Reset the actual HTML form fields
-        resetClientForm(); // Reset react-hook-form's state
+        formRef.current?.reset(); 
+        resetClientForm(); 
       }
     }
   }, [state, toast, resetClientForm]);
   
   const getCombinedError = (fieldName: keyof FormDataSchema): string | undefined => {
-    // Prioritize server-side errors if they exist for the field
     if (state?.errors && state.errors[fieldName] && state.errors[fieldName]![0]) {
       return state.errors[fieldName]![0];
     }
-    // Fallback to client-side errors
     if (clientErrors[fieldName]) {
       return clientErrors[fieldName]?.message;
     }
@@ -103,7 +101,11 @@ export default function ConnectMeForm() {
               type="text"
               placeholder="e.g., Ada Lovelace"
               {...register('name')}
-              className={getCombinedError('name') ? 'border-destructive focus-visible:ring-destructive' : ''}
+              className={cn(
+                getCombinedError('name') 
+                  ? 'border-destructive focus-visible:ring-destructive' 
+                  : 'connect-me-input-gradient-border focus-visible:ring-ring'
+              )}
               aria-invalid={!!getCombinedError('name')}
             />
             {getCombinedError('name') && <p className="text-xs text-destructive pt-1">{getCombinedError('name')}</p>}
@@ -116,7 +118,11 @@ export default function ConnectMeForm() {
               type="tel"
               placeholder="e.g., +91 9876543210"
               {...register('mobile')}
-              className={getCombinedError('mobile') ? 'border-destructive focus-visible:ring-destructive' : ''}
+              className={cn(
+                getCombinedError('mobile') 
+                  ? 'border-destructive focus-visible:ring-destructive' 
+                  : 'connect-me-input-gradient-border focus-visible:ring-ring'
+              )}
               aria-invalid={!!getCombinedError('mobile')}
             />
             {getCombinedError('mobile') && <p className="text-xs text-destructive pt-1">{getCombinedError('mobile')}</p>}
