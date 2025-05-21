@@ -3,7 +3,6 @@ import GenreExplorerClient from '@/components/genre-explorer-client';
 import type { GuideCategory } from '@/types';
 import { promises as fs } from 'fs';
 import path from 'path';
-import AnimatedTitle from '@/components/animated-title';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { CodeXml, Smartphone } from 'lucide-react';
@@ -49,8 +48,8 @@ export default async function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="py-8 bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4 flex flex-col items-center">
-          <AnimatedTitle text="Bharat Bang" as="h1" className="text-5xl font-bold tracking-tight text-center" typingSpeed={100} initialDelay={200} />
-          <AnimatedTitle text="भरत बंग" as="h2" className="text-3xl font-medium tracking-tight text-primary-foreground/90 mt-2 text-center" typingSpeed={100} initialDelay={1400} />
+          <h1 className="text-5xl font-bold tracking-tight text-center">Bharat Bang</h1>
+          <h2 className="text-3xl font-medium tracking-tight text-primary-foreground/90 mt-2 text-center">भरत बंग</h2>
         </div>
       </header>
       <main className="container mx-auto p-4 sm:p-6 md:p-8">
