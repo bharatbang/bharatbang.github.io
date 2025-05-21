@@ -83,7 +83,9 @@
           { "id": "travel-d3", "title": "Hampi, Karnataka", "imageUrl": "https://picsum.photos/seed/hampi/300/450", "dataAiHint": "ancient ruins", "description": "Explore historic ruins and vibrant Italian life.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Hampi+Karnataka" },
           { "id": "travel-d4", "title": "Varanasi", "imageUrl": "https://picsum.photos/seed/varanasi/300/450", "dataAiHint": "holy city", "description": "Spiritual capital of India, with ghats along the Ganges.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Varanasi" },
           { "id": "travel-d5", "title": "Statue of Unity", "imageUrl": "https://picsum.photos/seed/statueofunity/300/450", "dataAiHint": "tall statue", "description": "World's tallest statue, dedicated to Sardar Vallabhbhai Patel.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Statue+of+Unity" },
-          { "id": "travel-d6", "title": "Indore", "imageUrl": "https://picsum.photos/seed/indore/300/450", "dataAiHint": "city food", "description": "Known for its vibrant street food and historical palaces.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Indore" }
+          { "id": "travel-d6", "title": "Indore", "imageUrl": "https://picsum.photos/seed/indore/300/450", "dataAiHint": "city food", "description": "Known for its vibrant street food and historical palaces.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Indore" },
+          { "id": "travel-d7", "title": "Rajkot", "imageUrl": "https://picsum.photos/seed/rajkot/300/450", "dataAiHint": "city gujarat", "description": "Historic city in Gujarat, known for traditional crafts and sweets.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Rajkot" },
+          { "id": "travel-d8", "title": "Dahanu", "imageUrl": "https://picsum.photos/seed/dahanu/300/450", "dataAiHint": "beach town", "description": "Coastal town in Maharashtra, known for its beaches and chikoo orchards.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Dahanu" }
         ]
       },
       {
