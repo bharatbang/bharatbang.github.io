@@ -6,20 +6,33 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
-import { Send, Bell, BellRing, BellOff } from 'lucide-react';
+import { Send, Bell, BellRing, BellOff, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { db } from '@/lib/firebase';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  onSnapshot,
+  Timestamp,
+} from 'firebase/firestore';
 
 interface Message {
   id: string;
   text: string;
-  timestamp: Date;
+  timestamp: Date | null; // Firestore timestamp will be Date, null initially
 }
 
 type NotificationPermission = 'default' | 'granted' | 'denied';
 
+const MESSAGES_COLLECTION = 'anonymousMessages';
+
 export default function ChatAnonymousClient() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
   const [userWantsNotifications, setUserWantsNotifications] = useState<boolean>(false);
 
@@ -32,6 +45,38 @@ export default function ChatAnonymousClient() {
       setNotificationPermission(Notification.permission as NotificationPermission);
     }
   }, []);
+
+  // Subscribe to Firestore messages
+  useEffect(() => {
+    setIsLoading(true);
+    const q = query(collection(db, MESSAGES_COLLECTION), orderBy('timestamp', 'asc'));
+
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const newMessages: Message[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          newMessages.push({
+            id: doc.id,
+            text: data.text,
+            timestamp: data.timestamp ? (data.timestamp as Timestamp).toDate() : null,
+          });
+        });
+        setMessages(newMessages);
+        setIsLoading(false);
+      },
+      (error) => {
+        console.error('Error fetching messages: ', error);
+        setIsLoading(false);
+        // Optionally, show an error toast to the user
+      }
+    );
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
 
   const requestNotificationPermission = async () => {
     if (!('Notification' in window)) {
@@ -55,7 +100,6 @@ export default function ChatAnonymousClient() {
     } else if (notificationPermission === 'default') {
       requestNotificationPermission();
     }
-    // If 'denied', do nothing as the button should ideally be disabled or indicate blocked.
   };
 
   const showBrowserNotification = (title: string, body: string) => {
@@ -64,21 +108,39 @@ export default function ChatAnonymousClient() {
     }
   };
 
-  const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
+  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
 
-    const newMessage: Message = {
-      id: crypto.randomUUID(),
-      text: inputValue.trim(),
-      timestamp: new Date(),
-    };
+    const messageText = inputValue.trim();
+    setInputValue(''); // Clear input immediately
 
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setInputValue('');
-
-    showBrowserNotification('New Anonymous Message', newMessage.text);
+    try {
+      await addDoc(collection(db, MESSAGES_COLLECTION), {
+        text: messageText,
+        timestamp: serverTimestamp(),
+      });
+      // Notification for sent message is handled by onSnapshot,
+      // but if you want to notify for your own messages differently, you could add logic here.
+      // For now, all new messages (including own) will trigger a notification if conditions are met.
+    } catch (error) {
+      console.error('Error sending message: ', error);
+      // Optionally, inform the user that the message failed to send
+    }
   };
+
+  // Effect to show notification for new incoming messages
+  useEffect(() => {
+    if (messages.length > 0 && !isLoading) {
+      const latestMessage = messages[messages.length - 1];
+      // A simple way to avoid notifying for historical messages on load or for own messages immediately after sending
+      // This assumes `latestMessage.timestamp` is fresh. More robust would be to check if the message is "new" since last check.
+      if (latestMessage.text && latestMessage.timestamp && (new Date().getTime() - latestMessage.timestamp.getTime() < 5000) /* 5 secs */ ) {
+         showBrowserNotification('New Anonymous Message', latestMessage.text);
+      }
+    }
+  }, [messages, isLoading]);
+
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -108,7 +170,6 @@ export default function ChatAnonymousClient() {
         </Button>
       );
     }
-    // 'default' permission
     return (
       <Button variant="outline" size="icon" onClick={requestNotificationPermission} aria-label="Enable notifications">
         <Bell size={20} />
@@ -121,18 +182,26 @@ export default function ChatAnonymousClient() {
       <Card className="flex-grow flex flex-col shadow-lg border border-border rounded-lg overflow-hidden">
         <CardContent className="p-0 flex-grow flex flex-col">
           <ScrollArea className="flex-grow p-4 space-y-3" ref={scrollAreaRef}>
-            {messages.length === 0 && (
+            {isLoading && (
+              <div className="flex items-center justify-center h-full">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <p className="ml-2 text-muted-foreground">Loading messages...</p>
+              </div>
+            )}
+            {!isLoading && messages.length === 0 && (
               <div className="flex items-center justify-center h-full">
                 <p className="text-muted-foreground">No messages yet. Start chatting!</p>
               </div>
             )}
-            {messages.map((msg) => (
+            {!isLoading && messages.map((msg) => (
               <div key={msg.id} className="flex flex-col items-start">
                 <div className="bg-primary text-primary-foreground p-3 rounded-lg rounded-bl-none shadow max-w-xs sm:max-w-md md:max-w-lg break-words">
                   <p className="text-sm">{msg.text}</p>
-                  <p className="text-xs text-primary-foreground/80 mt-1 text-right">
-                    {format(msg.timestamp, 'p')}
-                  </p>
+                  {msg.timestamp && (
+                    <p className="text-xs text-primary-foreground/80 mt-1 text-right">
+                      {format(msg.timestamp, 'p')}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
@@ -151,12 +220,15 @@ export default function ChatAnonymousClient() {
               autoComplete="off"
             />
             {getNotificationButton()}
-            <Button type="submit" size="icon" aria-label="Send message">
+            <Button type="submit" size="icon" aria-label="Send message" disabled={isLoading || inputValue.trim() === ''}>
               <Send size={20} />
             </Button>
           </form>
         </CardContent>
       </Card>
+       <p className="text-xs text-muted-foreground text-center mt-2">
+        Messages are temporary and will be automatically deleted after a short period (e.g., 1 hour). This needs to be configured in Firebase (TTL on 'anonymousMessages' collection's 'timestamp' field).
+      </p>
     </div>
   );
 }
