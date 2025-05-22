@@ -3,15 +3,12 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { Metadata } from 'next'; // Still useful for when not redirecting
+import type { Metadata } from 'next'; 
 import HtmlCreatorClient from '@/components/html-creator/html-creator-client';
-import { Loader2 } from 'lucide-react'; // For a loading indicator
+import { Loader2, ArrowLeft } from 'lucide-react'; 
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-// Metadata for this page when it's not redirecting (desktop view)
-// Note: Dynamic titles based on client-side state need different handling in App Router.
-// This approach is for static metadata if the page *could* render.
-// For a page that *always* redirects or conditionally renders based on client state,
-// metadata might be better handled at a higher level or not at all if it never fully renders.
 
 export default function HtmlCreatorPage() {
   const router = useRouter();
@@ -19,13 +16,7 @@ export default function HtmlCreatorPage() {
 
   useEffect(() => {
     const checkMobile = () => window.innerWidth < 768;
-    // Set initial state
     setIsMobile(checkMobile());
-
-    // Optional: if you need to react to resize after initial load
-    // const handleResize = () => setIsMobile(checkMobile());
-    // window.addEventListener('resize', handleResize);
-    // return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -35,7 +26,6 @@ export default function HtmlCreatorPage() {
   }, [isMobile, router]);
 
   if (isMobile === undefined) {
-    // Still determining screen size, show a loader
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -45,8 +35,6 @@ export default function HtmlCreatorPage() {
   }
 
   if (isMobile === true) {
-    // Being redirected, can show a message or loader
-    // This content will likely flash briefly before redirection occurs.
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -55,6 +43,29 @@ export default function HtmlCreatorPage() {
     );
   }
 
-  // Not mobile and check is complete, render the actual HTML creator
-  return <HtmlCreatorClient />;
+  return (
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <header className="py-6 bg-primary text-primary-foreground shadow-md">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-semibold tracking-tight">HTML Creator</h1>
+            <Link href="/" legacyBehavior>
+              <Button variant="outline" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
+                <ArrowLeft size={16} className="mr-2" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+      <main className="flex-grow flex flex-col overflow-hidden">
+        <HtmlCreatorClient />
+      </main>
+      <footer className="py-6 border-t border-border">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} Bharat Bang. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }

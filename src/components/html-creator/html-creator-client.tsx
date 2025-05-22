@@ -14,7 +14,7 @@ import {
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
   Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag
 } from 'lucide-react';
-// import { useToast } from '@/hooks/use-toast'; // Removed as mobile alert is handled by page redirection
+
 
 // Represents a field that has been dropped onto the canvas
 export interface DroppedFieldItem extends DraggableFieldData {
@@ -70,9 +70,7 @@ export default function HtmlCreatorClient() {
   const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
   const [generatedHtml, setGeneratedHtml] = useState('');
   const [fieldCounters, setFieldCounters] = useState<Record<string, number>>({});
-  // const { toast } = useToast(); // Removed, mobile alert handled by redirection
 
-  // Removed useEffect for mobile toast alert, as redirection handles this now.
 
   const getNextFieldName = (baseName: string): string => {
     const currentCount = fieldCounters[baseName] || 0;
@@ -154,7 +152,7 @@ export default function HtmlCreatorClient() {
   };
 
   return (
-    <div className="flex h-screen bg-muted/40 text-foreground">
+    <div className="flex h-full bg-muted/40 text-foreground"> {/* Changed h-screen to h-full */}
       {/* Left Panel - Fields */}
       <aside className="w-64 flex-shrink-0 border-r border-border bg-background p-4 overflow-y-auto">
         <h2 className="text-sm font-semibold text-muted-foreground px-2 mb-3">FIELDS</h2>

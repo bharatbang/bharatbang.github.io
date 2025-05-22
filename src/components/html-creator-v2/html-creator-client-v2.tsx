@@ -151,7 +151,7 @@ export default function HtmlCreatorClientV2() { // Renamed component
   };
 
   return (
-    <div className="flex h-screen bg-muted/40 text-foreground">
+    <div className="flex h-full bg-muted/40 text-foreground"> {/* Changed h-screen to h-full */}
       {/* Left Panel - Fields */}
       <aside className="w-64 flex-shrink-0 border-r border-border bg-background p-4 overflow-y-auto">
         <h2 className="text-sm font-semibold text-muted-foreground px-2 mb-3">FIELDS (V2)</h2>

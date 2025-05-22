@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { PHONE_DATA, VIEWS, SORT_OPTIONS, type PhoneSpec, type PhoneView, type SortOption } from './phone-data';
-import { X, HelpCircle, ArrowLeft } from 'lucide-react';
+import { X, HelpCircle } from 'lucide-react'; // Removed ArrowLeft as it's now in page header
 
 const pixelsPerMm = 3.78; // Approximate, can be calibrated
 
@@ -84,15 +84,7 @@ export default function PhoneSizeCompareClient() {
 
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <div className="mb-4">
-        <Link href="/" legacyBehavior>
-          <Button variant="outline">
-            <ArrowLeft size={16} className="mr-2" />
-            Back to Home
-          </Button>
-        </Link>
-      </div>
+    <div className="space-y-6"> {/* Removed container and p-4, handled by page layout */}
       <div className="bg-card p-4 rounded-lg shadow border space-y-4">
         <div className="flex flex-wrap items-center gap-4">
           <Select
@@ -248,4 +240,3 @@ export default function PhoneSizeCompareClient() {
     </div>
   );
 }
-
