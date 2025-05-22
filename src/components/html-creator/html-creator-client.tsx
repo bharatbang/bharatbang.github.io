@@ -3,22 +3,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import type { LucideIcon } from 'lucide-react';
-// import {
-//   Tabs,
-//   TabsContent,
-//   TabsList,
-//   TabsTrigger,
-// } from '@/components/ui/tabs';
-// import { Input } from '@/components/ui/input';
-// import { Label as UiLabel } from '@/components/ui/label'; // Renamed to avoid conflict with local Label field
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '@/components/ui/select';
-// import { Checkbox } from '@/components/ui/checkbox';
 import FieldButton from './field-button';
 import type { DraggableFieldData } from './field-button';
 import DroppedFieldDisplay from './dropped-field-display';
@@ -30,7 +14,7 @@ import {
   Image as ImageIcon, ClipboardCheck, FileUp, Search, StickyNote, LayoutGrid,
   Briefcase, ListOrdered, FunctionSquare, PenTool, Users, Type, Tag
 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+// import { useToast } from '@/hooks/use-toast'; // Removed as mobile alert is handled by page redirection
 
 // Represents a field that has been dropped onto the canvas
 export interface DroppedFieldItem extends DraggableFieldData {
@@ -86,20 +70,9 @@ export default function HtmlCreatorClient() {
   const [droppedFields, setDroppedFields] = useState<DroppedFieldItem[]>([]);
   const [generatedHtml, setGeneratedHtml] = useState('');
   const [fieldCounters, setFieldCounters] = useState<Record<string, number>>({});
-  const { toast } = useToast();
+  // const { toast } = useToast(); // Removed, mobile alert handled by redirection
 
-  useEffect(() => {
-    // Check if running on the client and if it's a mobile device
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      toast({
-        title: "मोबाइल सूचना", // Mobile Alert
-        description: "भाऊ, मोबाईलमध्ये सगळं चालत नाही.", // Brother, not everything works on mobile.
-        variant: "default", // Or 'destructive' for more emphasis
-        duration: 5000, // Show for 5 seconds
-      });
-    }
-  }, [toast]);
-
+  // Removed useEffect for mobile toast alert, as redirection handles this now.
 
   const getNextFieldName = (baseName: string): string => {
     const currentCount = fieldCounters[baseName] || 0;
@@ -124,7 +97,7 @@ export default function HtmlCreatorClient() {
     } else {
       console.error("Clicked field data is invalid or missing required properties:", fieldData);
     }
-  }, [fieldCounters, droppedFields]); // Added fieldCounters and droppedFields
+  }, [fieldCounters, droppedFields]);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -233,89 +206,6 @@ export default function HtmlCreatorClient() {
           <HtmlPreviewArea html={generatedHtml} onDownload={handleDownloadHtml} />
         </div>
       </main>
-
-      {/* Right Panel - Properties - THIS PANEL IS NOW HIDDEN
-      <aside className="w-80 flex-shrink-0 border-l border-border bg-background p-0 overflow-y-auto">
-        <Tabs defaultValue="form-properties" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 rounded-none border-b border-border">
-            <TabsTrigger value="form-properties" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none">FORM PROPERTIES</TabsTrigger>
-            <TabsTrigger value="field-properties" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none">FIELD PROPERTIES</TabsTrigger>
-          </TabsList>
-          <TabsContent value="form-properties" className="p-4 space-y-6">
-            <div>
-              <UiLabel htmlFor="formTitleProp" className="text-xs font-semibold text-muted-foreground">Form Title</UiLabel>
-              <Input id="formTitleProp" value={formTitle} onChange={(e) => setFormTitle(e.target.value)} className="mt-1 h-8 bg-background"/>
-            </div>
-            <div>
-              <UiLabel htmlFor="formLinkName" className="text-xs font-semibold text-muted-foreground">Form Link Name</UiLabel>
-              <Input id="formLinkName" defaultValue="Vacation_Requests" className="mt-1 h-8 bg-background"/>
-            </div>
-
-            <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Appearance</h3>
-            <div>
-              <UiLabel htmlFor="labelPlacement" className="text-xs font-semibold text-muted-foreground">Label Placement</UiLabel>
-              <Select defaultValue="left">
-                <SelectTrigger id="labelPlacement" className="mt-1 h-8 bg-background">
-                  <SelectValue placeholder="Select placement" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="left">Left</SelectItem>
-                  <SelectItem value="top">Top</SelectItem>
-                  <SelectItem value="right">Right</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <UiLabel htmlFor="labelWidth" className="text-xs font-semibold text-muted-foreground">Label Width</UiLabel>
-              <Select defaultValue="auto">
-                <SelectTrigger id="labelWidth" className="mt-1 h-8 bg-background">
-                  <SelectValue placeholder="Select width" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="auto">Auto</SelectItem>
-                  <SelectItem value="25%">25%</SelectItem>
-                  <SelectItem value="50%">50%</SelectItem>
-                  <SelectItem value="75%">75%</SelectItem>
-                  <SelectItem value="100%">100%</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-             <h3 className="text-sm font-semibold text-foreground pt-2 border-t border-border">Validation</h3>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="enableCaptcha" />
-              <UiLabel htmlFor="enableCaptcha" className="text-sm font-normal">Enable Captcha</UiLabel>
-            </div>
-             <div className="flex items-center space-x-2">
-              <Checkbox id="oneEntryIp" />
-              <UiLabel htmlFor="oneEntryIp" className="text-sm font-normal">One Entry Per IP Address</UiLabel>
-            </div>
-             <div className="flex items-center space-x-2">
-              <Checkbox id="oneEntryUser" />
-              <UiLabel htmlFor="oneEntryUser" className="text-sm font-normal">One Entry Per User</UiLabel>
-            </div>
-             <div>
-              <UiLabel htmlFor="maxEntries" className="text-xs font-semibold text-muted-foreground">Maximum Entries</UiLabel>
-              <Select defaultValue="unlimited">
-                <SelectTrigger id="maxEntries" className="mt-1 h-8 bg-background">
-                  <SelectValue placeholder="Select limit" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="unlimited">Unlimited</SelectItem>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </TabsContent>
-          <TabsContent value="field-properties" className="p-4">
-            <p className="text-sm text-muted-foreground">Select a field on the canvas to see its properties. (Feature coming soon)</p>
-          </TabsContent>
-        </Tabs>
-      </aside>
-       */}
     </div>
   );
 }
-
