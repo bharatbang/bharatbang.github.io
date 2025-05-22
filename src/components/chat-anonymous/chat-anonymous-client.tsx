@@ -139,7 +139,7 @@ export default function ChatAnonymousClient() {
          showBrowserNotification('New Anonymous Message', latestMessage.text);
       }
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, notificationPermission, userWantsNotifications]); // Added notificationPermission and userWantsNotifications
 
 
   useEffect(() => {
@@ -194,11 +194,11 @@ export default function ChatAnonymousClient() {
               </div>
             )}
             {!isLoading && messages.map((msg) => (
-              <div key={msg.id} className="flex flex-col items-start">
-                <div className="bg-primary text-primary-foreground p-3 rounded-lg rounded-bl-none shadow max-w-xs sm:max-w-md md:max-w-lg break-words">
+              <div key={msg.id} className="w-full"> {/* Changed: More neutral container */}
+                <div className="bg-card text-card-foreground p-3 rounded-lg shadow max-w-md break-words inline-block"> {/* Changed: Neutral bubble style */}
                   <p className="text-sm">{msg.text}</p>
                   {msg.timestamp && (
-                    <p className="text-xs text-primary-foreground/80 mt-1 text-right">
+                    <p className="text-xs text-muted-foreground mt-1 text-right"> {/* Changed: Use muted-foreground for timestamp */}
                       {format(msg.timestamp, 'p')}
                     </p>
                   )}
@@ -232,3 +232,4 @@ export default function ChatAnonymousClient() {
     </div>
   );
 }
+
