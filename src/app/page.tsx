@@ -4,8 +4,8 @@ import type { GuideCategory } from '@/types';
 import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images } from 'lucide-react'; // Added Images import
+import { Button, buttonVariants } from '@/components/ui/button';
+import { CodeXml, Smartphone, Mail, Images, MessageSquare } from 'lucide-react'; // Added Images, MessageSquare import
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -76,6 +76,10 @@ export default async function Home() {
               <Images size={20} className="mr-2" />
               Photo Album
             </Link>
+            <Link href="/chat-anonymous" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <MessageSquare size={20} className="mr-2" />
+              Chat Anonymous
+            </Link>
           </div>
         </section>
         
@@ -90,3 +94,4 @@ export default async function Home() {
     </div>
   );
 }
+
