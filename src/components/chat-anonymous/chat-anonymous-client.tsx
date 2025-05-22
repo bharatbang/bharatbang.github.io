@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
-import { Send } from 'lucide-react';
+import { Send, Bell, BellRing, BellOff } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface Message {
@@ -15,11 +15,54 @@ interface Message {
   timestamp: Date;
 }
 
+type NotificationPermission = 'default' | 'granted' | 'denied';
+
 export default function ChatAnonymousClient() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const [userWantsNotifications, setUserWantsNotifications] = useState<boolean>(false);
+
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Check initial notification permission
+    if ('Notification' in window) {
+      setNotificationPermission(Notification.permission as NotificationPermission);
+    }
+  }, []);
+
+  const requestNotificationPermission = async () => {
+    if (!('Notification' in window)) {
+      alert('This browser does not support desktop notification');
+      return;
+    }
+
+    const permission = await Notification.requestPermission();
+    setNotificationPermission(permission as NotificationPermission);
+    if (permission === 'granted') {
+      setUserWantsNotifications(true);
+      showBrowserNotification('Notifications Enabled!', 'You will now receive notifications for new messages when the tab is inactive.');
+    } else if (permission === 'denied') {
+      setUserWantsNotifications(false);
+    }
+  };
+
+  const toggleUserWantsNotifications = () => {
+    if (notificationPermission === 'granted') {
+      setUserWantsNotifications(prev => !prev);
+    } else if (notificationPermission === 'default') {
+      requestNotificationPermission();
+    }
+    // If 'denied', do nothing as the button should ideally be disabled or indicate blocked.
+  };
+
+  const showBrowserNotification = (title: string, body: string) => {
+    if (notificationPermission === 'granted' && userWantsNotifications && document.hidden) {
+      new Notification(title, { body });
+    }
+  };
 
   const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,13 +76,12 @@ export default function ChatAnonymousClient() {
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputValue('');
+
+    showBrowserNotification('New Anonymous Message', newMessage.text);
   };
 
   useEffect(() => {
-    // Scroll to bottom when new messages are added
     if (scrollAreaRef.current) {
-      // ShadCN ScrollArea nests the actual scrollable viewport.
-      // We need to select it to control its scrollTop property.
       const scrollViewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
       if (scrollViewport) {
         scrollViewport.scrollTop = scrollViewport.scrollHeight;
@@ -48,9 +90,31 @@ export default function ChatAnonymousClient() {
   }, [messages]);
 
   useEffect(() => {
-    // Focus input on load
     inputRef.current?.focus();
   }, []);
+
+  const getNotificationButton = () => {
+    if (notificationPermission === 'denied') {
+      return (
+        <Button variant="outline" size="icon" disabled aria-label="Notifications blocked">
+          <BellOff size={20} />
+        </Button>
+      );
+    }
+    if (notificationPermission === 'granted') {
+      return (
+        <Button variant="outline" size="icon" onClick={toggleUserWantsNotifications} aria-label={userWantsNotifications ? "Disable notifications" : "Enable notifications"}>
+          {userWantsNotifications ? <BellRing size={20} className="text-accent" /> : <Bell size={20} />}
+        </Button>
+      );
+    }
+    // 'default' permission
+    return (
+      <Button variant="outline" size="icon" onClick={requestNotificationPermission} aria-label="Enable notifications">
+        <Bell size={20} />
+      </Button>
+    );
+  };
 
   return (
     <div className="flex flex-col h-full p-4 md:p-6 bg-muted/30 flex-grow">
@@ -67,7 +131,7 @@ export default function ChatAnonymousClient() {
                 <div className="bg-primary text-primary-foreground p-3 rounded-lg rounded-bl-none shadow max-w-xs sm:max-w-md md:max-w-lg break-words">
                   <p className="text-sm">{msg.text}</p>
                   <p className="text-xs text-primary-foreground/80 mt-1 text-right">
-                    {format(msg.timestamp, 'p')} {/* 'p' for short time, e.g., 2:30 PM */}
+                    {format(msg.timestamp, 'p')}
                   </p>
                 </div>
               </div>
@@ -86,6 +150,7 @@ export default function ChatAnonymousClient() {
               className="flex-grow"
               autoComplete="off"
             />
+            {getNotificationButton()}
             <Button type="submit" size="icon" aria-label="Send message">
               <Send size={20} />
             </Button>
