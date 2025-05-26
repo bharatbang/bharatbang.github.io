@@ -18,6 +18,11 @@ const BAD_WORDS_LIST: string[] = [
   'inappropriate',
   'offensive',
   'example', // For testing
+  'fuck',
+  'screw',
+  'idiot',
+  'mc',
+  'bc',
 ];
 
 export default function ProfanityFilteringClient() {
