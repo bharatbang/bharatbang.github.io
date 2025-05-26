@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan } from 'lucide-react'; // Added ShieldBan
+import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan } from 'lucide-react';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -44,7 +44,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="py-8 bg-primary text-primary-foreground shadow-md">
+      <header className="py-8 animated-header-background text-primary-foreground shadow-md">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <h1 className="text-5xl font-bold tracking-tight text-center">Bharat Bang</h1>
           <h2 className="text-3xl font-medium tracking-tight text-primary-foreground/90 mt-2 text-center">भरत बंग</h2>

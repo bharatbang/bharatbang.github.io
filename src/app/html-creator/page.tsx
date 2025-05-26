@@ -45,7 +45,7 @@ export default function HtmlCreatorPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <header className="py-6 bg-primary text-primary-foreground shadow-md">
+      <header className="py-6 animated-header-background text-primary-foreground shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-semibold tracking-tight">HTML Creator</h1>

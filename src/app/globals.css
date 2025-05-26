@@ -129,4 +129,16 @@
   .animate-explode-out {
     animation: explode-out 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
   }
+
+  .animated-header-background {
+    background: linear-gradient(270deg, hsl(200, 100%, 50%), hsl(150, 100%, 40%), hsl(50, 100%, 70%), hsl(200, 100%, 50%)); /* Sky blue, Lush green, Sandy yellow, Sky blue */
+    background-size: 600% 600%;
+    animation: gradientHeaderAnimation 20s ease infinite;
+  }
+}
+
+@keyframes gradientHeaderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
