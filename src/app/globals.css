@@ -101,4 +101,32 @@
     /* padding-box: first background (solid input color) is clipped to padding box */
     /* border-box: second background (gradient) is clipped to border box, showing only at border area */
   }
+
+  @keyframes rise-from-bottom {
+    from {
+      transform: translateY(100vh) scale(0.5);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-rise-from-bottom {
+    animation: rise-from-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes explode-out {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5) rotate(720deg) translateY(-50px);
+      opacity: 0;
+    }
+  }
+  .animate-explode-out {
+    animation: explode-out 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+  }
 }

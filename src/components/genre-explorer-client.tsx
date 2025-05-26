@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import SeriesCard from '@/components/series-card';
+import { cn } from '@/lib/utils';
 import {
   Film, Rocket, Swords, Smile, Drama, Zap, Ghost, Heart, PencilLine, BookOpen, Search, ArrowDownUp, FilterX, Tv,
   Landmark, Utensils, Plane, ShieldAlert, ChefHat, ShoppingBasket, Flame, Coffee, Map, Lightbulb, Briefcase, ListFilter, Mountain, Star
@@ -54,10 +55,13 @@ interface GenreExplorerClientProps {
 const DEFAULT_CATEGORY_NAME = "";
 const DEFAULT_GENRE_NAME = "";
 
+type AnimationStep = 'idle' | 'rising' | 'exploding';
+
 export default function GenreExplorerClient({ initialData }: GenreExplorerClientProps) {
   const [guideCategories, setGuideCategories] = useState<GuideCategory[]>(initialData);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<'none' | 'asc' | 'desc'>('none');
+  const [animationStep, setAnimationStep] = useState<AnimationStep>('idle');
 
   const [selectedGuideCategoryName, setSelectedGuideCategoryName] = useState<string>(() => {
     if (initialData.length === 0) {
@@ -161,7 +165,33 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
     } else {
       setSelectedGenreName(DEFAULT_GENRE_NAME);
     }
+
+    if (newCategoryName === 'Food Guide' && animationStep === 'idle') {
+      setAnimationStep('rising');
+    }
   };
+
+  useEffect(() => {
+    let riseToEndTimer: NodeJS.Timeout;
+    let explodeToEndTimer: NodeJS.Timeout;
+
+    if (animationStep === 'rising') {
+      // After rise animation (0.5s) + a small pause (0.1s), start exploding
+      riseToEndTimer = setTimeout(() => {
+        setAnimationStep('exploding');
+      }, 500 + 100); // 0.5s rise + 0.1s pause
+
+      // After rise (0.5s) + pause (0.1s) + explode (0.7s), go to idle
+      explodeToEndTimer = setTimeout(() => {
+        setAnimationStep('idle');
+      }, 500 + 100 + 700);
+    }
+
+    return () => {
+      clearTimeout(riseToEndTimer);
+      clearTimeout(explodeToEndTimer);
+    };
+  }, [animationStep]);
 
 
   if (!initialData) { 
@@ -280,6 +310,31 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
             No guide data available.
           </p>
       )}
+
+      {/* Animated Fries Box */}
+      <div
+        style={{
+          width: '100px',
+          height: '120px',
+        }}
+        className={cn(
+          "fixed bottom-0 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center justify-end bg-red-600 p-2 pt-8 rounded-t-lg shadow-2xl overflow-hidden", // Added pt-8 for icon space
+          {
+            'animate-rise-from-bottom': animationStep === 'rising',
+            'animate-explode-out': animationStep === 'exploding',
+            'hidden': animationStep === 'idle',
+          }
+        )}
+      >
+        <Utensils size={28} className="text-white absolute top-2 left-1/2 -translate-x-1/2" /> {/* Centered Icon */}
+        {/* "Fries" - simple yellow divs */}
+        <div className="flex justify-around w-full h-2/3 items-end">
+          <div className="w-2.5 h-12 bg-yellow-400 rounded-t-sm transform -rotate-[15deg] origin-bottom"></div>
+          <div className="w-2.5 h-16 bg-yellow-400 rounded-t-sm"></div>
+          <div className="w-2.5 h-12 bg-yellow-400 rounded-t-sm transform rotate-[15deg] origin-bottom"></div>
+          <div className="w-2.5 h-14 bg-yellow-400 rounded-t-sm transform -rotate-[5deg] origin-bottom"></div>
+        </div>
+      </div>
     </div>
   );
 }
