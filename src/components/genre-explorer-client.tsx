@@ -180,7 +180,7 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
         onValueChange={handleGuideCategoryChange} 
         className="w-full"
       >
-        <TabsList className="flex flex-wrap gap-2 p-2 bg-card rounded-lg shadow-md border border-input justify-start items-center h-auto">
+        <TabsList className="flex flex-wrap gap-2 p-2 bg-card rounded-lg shadow-md border border-border justify-start items-center h-auto">
           {guideCategories.map((category) => {
             const IconComponent = guideCategoryIconMap[category.iconName] || Tv; 
             return (
