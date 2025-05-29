@@ -49,37 +49,22 @@
     "iconName": "Utensils",
     "genres": [
       {
-        "name": "Restaurants",
-        "iconName": "Utensils",
+        "name": "Food Hotspots",
+        "iconName": "ChefHat",
         "series": [
-          { "id": "food-r1", "title": "The Grand Thakar Restaurant, Rajkot", "imageUrl": "https://picsum.photos/seed/grandthakarrajkot/300/450", "dataAiHint": "thali restaurant", "description": "Authentic Gujarati and Kathiyawadi thali.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=The+Grand+Thakar+Restaurant+Rajkot" },
-          {
-            "id": "food-r2",
-            "title": "Kansar Kathiyawadi Thali (Thane)",
-            "imageUrl": "https://picsum.photos/seed/kansarthalithane/300/450",
-            "dataAiHint": "gujarati thali",
-            "description": "Authentic Kathiyawadi thali restaurant in Thane.",
-            "externalUrl": "https://www.google.com/maps/search/?api=1&query=Kansar+Kathiyawadi+Thali+Restaurant+Thane"
-          },
-          { "id": "food-r3", "title": "Family Eatery", "imageUrl": "https://picsum.photos/seed/familyeatery/300/450", "dataAiHint": "restaurant family", "description": "Kid-friendly and perfect for a family outing." }
-        ]
-      },
-      {
-        "name": "Street Food",
-        "iconName": "Flame",
-        "series": [
-          { "id": "food-sf1", "title": "Famous Taco Stand", "imageUrl": "https://picsum.photos/seed/tacostand/300/450", "dataAiHint": "tacos food", "description": "Authentic street tacos that are a local favorite." },
-          { "id": "food-sf2", "title": "Local Noodle Stall", "imageUrl": "https://picsum.photos/seed/noodlestall/300/450", "dataAiHint": "noodles street", "description": "Delicious and quick noodles cooked fresh." },
-          { "id": "food-sf3", "title": "Sweet Crepes Cart", "imageUrl": "https://picsum.photos/seed/crepescart/300/450", "dataAiHint": "dessert street", "description": "Indulge in a variety of sweet and savory crepes." }
-        ]
-      },
-      {
-        "name": "Cafes",
-        "iconName": "Coffee",
-        "series": [
-          { "id": "food-c1", "title": "Artisan Coffee Shop", "imageUrl": "https://picsum.photos/seed/coffeeshop/300/450", "dataAiHint": "coffee art", "description": "Specialty coffees and a relaxing atmosphere." },
-          { "id": "food-c2", "title": "Quiet Study Cafe", "imageUrl": "https://picsum.photos/seed/studycafe/300/450", "dataAiHint": "cafe books", "description": "A peaceful place to work, study, or read." },
-          { "id": "food-c3", "title": "Trendy Brunch Spot", "imageUrl": "https://picsum.photos/seed/brunchspot/300/450", "dataAiHint": "brunch food", "description": "The perfect place for a weekend brunch." }
+          { "id": "mum-f1", "title": "The Apetite Momos", "imageUrl": "https://picsum.photos/seed/apetitemomos/300/450", "dataAiHint": "cafe interior", "description": "A popular and historic restaurant and bar in Colaba.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=The+Apetite+Momos+Mumbai" },
+          { "id": "mum-f2", "title": "Anand Vadapav", "imageUrl": "https://picsum.photos/seed/anandvadapav/300/450", "dataAiHint": "street food", "description": "Famous for its late-night kebabs and rolls.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Anand+Vadapav+Mumbai" },
+          { "id": "mum-f3", "title": "Bhagat Tarachand", "imageUrl": "https://picsum.photos/seed/bhagattarachand/300/450", "dataAiHint": "restaurant classic", "description": "Iconic Parsi restaurant known for Berry Pulao.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Bhagat+Tarachand+Mumbai" },
+          { "id": "mum-f4", "title": "Radhe Dhokla Ghatkopar", "imageUrl": "https://picsum.photos/seed/radhedhokla/300/450", "dataAiHint": "gujarati snacks", "description": "Ghatkopar, best gujarati dishes.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Radhe+Dhokla+Ghatkopar+Mumbai" },
+          { "id": "mum-f5", "title": "Pavilion Veg Restaurant", "imageUrl": "https://picsum.photos/seed/pavilionveg/300/450", "dataAiHint": "restaurant fine_dining", "description": "Ghatkopar, best soup,starters", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Pavilion+Veg+Restaurant+Ghatkopar+Mumbai" },
+          { "id": "mum-f6", "title": "Pancham Puri Wala", "imageUrl": "https://picsum.photos/seed/panchampuri/300/450", "dataAiHint": "indian thali", "description": "CSMT, best puri chole", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Pancham+Puri+Wala+CSMT+Mumbai" },
+          { "id": "mum-f7", "title": "Sukhsagar (Girgaon Chaupati)", "imageUrl": "https://picsum.photos/seed/sukhsagar/300/450", "dataAiHint": "restaurant casual", "description": "Popular eatery near Girgaon Chaupati.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Sukhsagar+Girgaon+Chaupati+Mumbai" },
+          { "id": "mum-f8", "title": "Status Hotel (NCPA)", "imageUrl": "https://picsum.photos/seed/statushotel/300/450", "dataAiHint": "hotel restaurant", "description": "Known restaurant near NCPA, Nariman Point.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Status+Hotel+NCPA+Mumbai" },
+          { "id": "mum-f9", "title": "Delhi Da Chaap (Thane)", "imageUrl": "https://picsum.photos/seed/delhichaap/300/450", "dataAiHint": "north_indian food", "description": "Specializing in chaap dishes, located in Thane.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Delhi+Da+Chaap+Thane" },
+          { "id": "mum-f10", "title": "Trendy Taste (Andheri)", "imageUrl": "https://picsum.photos/seed/trendytaste/300/450", "dataAiHint": "modern cafe", "description": "Contemporary cafe in Andheri.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Trendy+Taste+Andheri+Mumbai" },
+          { "id": "mum-f11", "title": "Suryavanshi Pan Bhandar (Malad)", "imageUrl": "https://picsum.photos/seed/suryavanshipan/300/450", "dataAiHint": "pan shop", "description": "Famous pan shop in Malad.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Suryavanshi+Pan+Bhandar+Malad+Mumbai" },
+          { "id": "mum-f12", "title": "Shankar Sandwich (Malad)", "imageUrl": "https://picsum.photos/seed/shankarsandwich/300/450", "dataAiHint": "sandwich stall", "description": "Popular sandwich stall in Malad.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Shankar+Sandwich+Malad+Mumbai" },
+          { "id": "mum-f13", "title": "Kansar Kathiyawadi Thali (Thane)", "imageUrl": "https://picsum.photos/seed/kansarthali/300/450", "dataAiHint": "gujarati thali", "description": "Authentic Kathiyawadi thali restaurant in Thane.", "externalUrl": "https://www.google.com/maps/search/?api=1&query=Kansar+Kathiyawadi+Thali+Restaurant+Thane" }
         ]
       }
     ]
@@ -315,4 +300,6 @@
     ]
   }
 ]
+    
+
     
