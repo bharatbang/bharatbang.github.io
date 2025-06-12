@@ -70,11 +70,25 @@ export default function EmiComparisonClient() {
   const [loanOption3, setLoanOption3] = useState<LoanOptionState>(initialLoanOptionState);
 
   const handleInputChange = (
-    optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>,
+    cardIndex: number, // 0 for Loan Option 1, 1 for Loan Option 2, 2 for Loan Option 3
     field: keyof LoanOptionState,
     value: string
   ) => {
-    optionSetter((prev) => ({ ...prev, [field]: value }));
+    if (field === 'principal' || field === 'tenureMonths') {
+      // Sync these fields across all options
+      setLoanOption1(prev => ({ ...prev, [field]: value }));
+      setLoanOption2(prev => ({ ...prev, [field]: value }));
+      setLoanOption3(prev => ({ ...prev, [field]: value }));
+    } else if (field === 'annualRate') {
+      // Update only the specific loan option's annual rate
+      if (cardIndex === 0) {
+        setLoanOption1(prev => ({ ...prev, annualRate: value }));
+      } else if (cardIndex === 1) {
+        setLoanOption2(prev => ({ ...prev, annualRate: value }));
+      } else if (cardIndex === 2) {
+        setLoanOption3(prev => ({ ...prev, annualRate: value }));
+      }
+    }
   };
 
   const loanData1 = useMemo(() => calculateLoanData(loanOption1.principal, loanOption1.annualRate, loanOption1.tenureMonths), [loanOption1]);
@@ -130,7 +144,7 @@ export default function EmiComparisonClient() {
   const renderLoanOptionCard = (
     title: string,
     optionState: LoanOptionState,
-    optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>,
+    // optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>, // Removed
     calculatedData: CalculatedLoanData,
     optionNumber: number, // 1-based index
     borderColorClass: string,
@@ -149,7 +163,7 @@ export default function EmiComparisonClient() {
             type="number"
             placeholder="e.g., 500000"
             value={optionState.principal}
-            onChange={(e) => handleInputChange(optionSetter, 'principal', e.target.value)}
+            onChange={(e) => handleInputChange(optionNumber - 1, 'principal', e.target.value)}
             min="0"
           />
         </div>
@@ -160,7 +174,7 @@ export default function EmiComparisonClient() {
             type="number"
             placeholder="e.g., 8.5"
             value={optionState.annualRate}
-            onChange={(e) => handleInputChange(optionSetter, 'annualRate', e.target.value)}
+            onChange={(e) => handleInputChange(optionNumber - 1, 'annualRate', e.target.value)}
             step="0.01"
             min="0"
           />
@@ -172,7 +186,7 @@ export default function EmiComparisonClient() {
             type="number"
             placeholder="e.g., 60"
             value={optionState.tenureMonths}
-            onChange={(e) => handleInputChange(optionSetter, 'tenureMonths', e.target.value)}
+            onChange={(e) => handleInputChange(optionNumber - 1, 'tenureMonths', e.target.value)}
             min="1"
           />
         </div>
@@ -246,9 +260,9 @@ export default function EmiComparisonClient() {
         <Button onClick={resetAll} variant="outline">Reset All Fields</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {renderLoanOptionCard('Loan Option 1', loanOption1, setLoanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]", getCardDynamicBackground(0))}
-        {renderLoanOptionCard('Loan Option 2', loanOption2, setLoanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]", getCardDynamicBackground(1))}
-        {renderLoanOptionCard('Loan Option 3', loanOption3, setLoanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]", getCardDynamicBackground(2))}
+        {renderLoanOptionCard('Loan Option 1', loanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]", getCardDynamicBackground(0))}
+        {renderLoanOptionCard('Loan Option 2', loanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]", getCardDynamicBackground(1))}
+        {renderLoanOptionCard('Loan Option 3', loanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]", getCardDynamicBackground(2))}
       </div>
 
       <Card className="mt-8 shadow-lg">
@@ -299,4 +313,6 @@ export default function EmiComparisonClient() {
     </div>
   );
 }
+    
+
     
