@@ -66,26 +66,29 @@ export default function StoriesClient() {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-4 z-10">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => scroll('left')}
-          className="bg-background/80 hover:bg-background text-foreground rounded-full shadow-md"
-          aria-label="Previous Story"
-        >
-          <ChevronLeft />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => scroll('right')}
-          className="bg-background/80 hover:bg-background text-foreground rounded-full shadow-md"
-          aria-label="Next Story"
-        >
-          <ChevronRight />
-        </Button>
-      </div>
+
+      {/* Left Arrow Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => scroll('left')}
+        className="absolute left-4 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-background/70 hover:bg-background text-foreground rounded-full shadow-lg"
+        aria-label="Previous Story"
+      >
+        <ChevronLeft />
+      </Button>
+
+      {/* Right Arrow Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => scroll('right')}
+        className="absolute right-4 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-background/70 hover:bg-background text-foreground rounded-full shadow-lg"
+        aria-label="Next Story"
+      >
+        <ChevronRight />
+      </Button>
+
       <div className="absolute top-4 left-1/2 -translate-x-1/2 text-xs sm:text-sm text-muted-foreground z-10 bg-background/80 px-3 py-1.5 rounded-full shadow">
         Scroll or use arrows to navigate stories
       </div>
