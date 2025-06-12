@@ -64,29 +64,41 @@ const calculateLoanData = (principalStr: string, annualRateStr: string, tenureMo
   };
 };
 
+const ThumbsUpIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="hsl(var(--accent))" className={className}>
+    <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+  </svg>
+);
+
+const ThumbsDownIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="hsl(var(--destructive))" className={className}>
+    <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79-.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+  </svg>
+);
+
+
 export default function EmiComparisonClient() {
   const [loanOption1, setLoanOption1] = useState<LoanOptionState>(initialLoanOptionState);
   const [loanOption2, setLoanOption2] = useState<LoanOptionState>(initialLoanOptionState);
   const [loanOption3, setLoanOption3] = useState<LoanOptionState>(initialLoanOptionState);
 
   const handleInputChange = (
-    cardIndex: number, // 0 for Loan Option 1, 1 for Loan Option 2, 2 for Loan Option 3
+    cardIndex: number, 
     field: keyof LoanOptionState,
     value: string
   ) => {
+    const numericValue = value; // Keep as string, validation happens in calculateLoanData
     if (field === 'principal' || field === 'tenureMonths') {
-      // Sync these fields across all options
-      setLoanOption1(prev => ({ ...prev, [field]: value }));
-      setLoanOption2(prev => ({ ...prev, [field]: value }));
-      setLoanOption3(prev => ({ ...prev, [field]: value }));
+      setLoanOption1(prev => ({ ...prev, [field]: numericValue }));
+      setLoanOption2(prev => ({ ...prev, [field]: numericValue }));
+      setLoanOption3(prev => ({ ...prev, [field]: numericValue }));
     } else if (field === 'annualRate') {
-      // Update only the specific loan option's annual rate
       if (cardIndex === 0) {
-        setLoanOption1(prev => ({ ...prev, annualRate: value }));
+        setLoanOption1(prev => ({ ...prev, annualRate: numericValue }));
       } else if (cardIndex === 1) {
-        setLoanOption2(prev => ({ ...prev, annualRate: value }));
+        setLoanOption2(prev => ({ ...prev, annualRate: numericValue }));
       } else if (cardIndex === 2) {
-        setLoanOption3(prev => ({ ...prev, annualRate: value }));
+        setLoanOption3(prev => ({ ...prev, annualRate: numericValue }));
       }
     }
   };
@@ -108,7 +120,7 @@ export default function EmiComparisonClient() {
       .filter(option => option.emi !== null && option.principal > 0);
 
     if (validOptions.length < 2) {
-      return -1; // Not enough valid options to compare
+      return -1; 
     }
 
     validOptions.sort((a, b) => {
@@ -116,27 +128,26 @@ export default function EmiComparisonClient() {
       if (a.emi! > b.emi!) return 1;
       if (a.totalInterest! < b.totalInterest!) return -1;
       if (a.totalInterest! > b.totalInterest!) return 1;
-      return a.originalIndex < b.originalIndex ? -1 : 1; // Tie-breaker by original position
+      return a.originalIndex < b.originalIndex ? -1 : 1; 
     });
     
     return validOptions[0].originalIndex;
-  }, [loanData1, loanData2, loanData3, loanOption1, loanOption2, loanOption3]);
+  }, [loanDataArray, loanOptionsArray]);
 
 
   const getCardDynamicBackground = (currentIndex: number): string => {
     if (bestOptionIndex === -1) {
-      return ""; // Default background if no best option determined
+      return ""; 
     }
+    const currentOptionIsValid = loanDataArray[currentIndex].emi !== null && parseFloat(loanOptionsArray[currentIndex].principal) > 0;
+    if (!currentOptionIsValid) {
+        return ""; // No special background for invalid options
+    }
+
     if (currentIndex === bestOptionIndex) {
-      return "bg-accent/20 dark:bg-accent/30"; // Greenish highlight
+      return "bg-accent/20 dark:bg-accent/30"; 
     } else {
-      // Only apply red if this "other" option was valid itself, otherwise default
-      const optionData = loanDataArray[currentIndex];
-      const optionInputs = loanOptionsArray[currentIndex];
-      if (optionData.emi !== null && parseFloat(optionInputs.principal) > 0) {
-        return "bg-destructive/20 dark:bg-destructive/30"; // Reddish highlight
-      }
-      return ""; // Default for other non-best options that were not valid
+      return "bg-destructive/20 dark:bg-destructive/30";
     }
   };
 
@@ -144,66 +155,81 @@ export default function EmiComparisonClient() {
   const renderLoanOptionCard = (
     title: string,
     optionState: LoanOptionState,
-    // optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>, // Removed
     calculatedData: CalculatedLoanData,
     optionNumber: number, // 1-based index
+    currentIndex: number, // 0-based index for comparison with bestOptionIndex
     borderColorClass: string,
     dynamicBackgroundClass: string
-  ) => (
-    <Card className={cn("flex flex-col border-2 shadow-lg", borderColorClass, dynamicBackgroundClass)}>
-      <CardHeader className="bg-muted/70">
-        <CardTitle className="text-xl font-semibold">{title}</CardTitle>
-        <CardDescription>Enter loan details to calculate EMI.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4 flex-grow pt-6">
-        <div>
-          <Label htmlFor={`principal-${optionNumber}`} className="text-sm">Principal Amount (₹)</Label>
-          <Input
-            id={`principal-${optionNumber}`}
-            type="number"
-            placeholder="e.g., 500000"
-            value={optionState.principal}
-            onChange={(e) => handleInputChange(optionNumber - 1, 'principal', e.target.value)}
-            min="0"
-          />
-        </div>
-        <div>
-          <Label htmlFor={`rate-${optionNumber}`} className="text-sm">Annual Interest Rate (%)</Label>
-          <Input
-            id={`rate-${optionNumber}`}
-            type="number"
-            placeholder="e.g., 8.5"
-            value={optionState.annualRate}
-            onChange={(e) => handleInputChange(optionNumber - 1, 'annualRate', e.target.value)}
-            step="0.01"
-            min="0"
-          />
-        </div>
-        <div>
-          <Label htmlFor={`tenure-${optionNumber}`} className="text-sm">Loan Tenure (Months)</Label>
-          <Input
-            id={`tenure-${optionNumber}`}
-            type="number"
-            placeholder="e.g., 60"
-            value={optionState.tenureMonths}
-            onChange={(e) => handleInputChange(optionNumber - 1, 'tenureMonths', e.target.value)}
-            min="1"
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="mt-auto bg-muted/50 p-4 rounded-b-lg">
-        <div className="w-full">
-          <p className="text-sm font-medium text-muted-foreground">Calculated EMI:</p>
-          <p className="text-2xl font-bold text-primary">
-            {calculatedData.emi !== null ? `₹ ${calculatedData.emi.toFixed(2)}` : '₹ 0.00'}
-          </p>
-          {calculatedData.emi === null && (optionState.principal || optionState.annualRate || optionState.tenureMonths) && (
-             <p className="text-xs text-destructive mt-1 flex items-center"><AlertCircle size={14} className="mr-1" />Please enter valid inputs.</p>
-          )}
-        </div>
-      </CardFooter>
-    </Card>
-  );
+  ) => {
+    const currentOptionIsValid = calculatedData.emi !== null && parseFloat(optionState.principal) > 0;
+    
+    return (
+    <div className="flex flex-col">
+      <div className="flex justify-center items-center h-10 mb-1">
+        {bestOptionIndex !== -1 && currentOptionIsValid && (
+          currentIndex === bestOptionIndex ? (
+            <ThumbsUpIcon />
+          ) : (
+            <ThumbsDownIcon />
+          )
+        )}
+      </div>
+      <Card className={cn("flex flex-col border-2 shadow-lg", borderColorClass, dynamicBackgroundClass)}>
+        <CardHeader className="bg-muted/70">
+          <CardTitle className="text-xl font-semibold">{title}</CardTitle>
+          <CardDescription>Enter loan details to calculate EMI.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4 flex-grow pt-6">
+          <div>
+            <Label htmlFor={`principal-${optionNumber}`} className="text-sm">Principal Amount (₹)</Label>
+            <Input
+              id={`principal-${optionNumber}`}
+              type="number"
+              placeholder="e.g., 500000"
+              value={optionState.principal}
+              onChange={(e) => handleInputChange(currentIndex, 'principal', e.target.value)}
+              min="0"
+            />
+          </div>
+          <div>
+            <Label htmlFor={`rate-${optionNumber}`} className="text-sm">Annual Interest Rate (%)</Label>
+            <Input
+              id={`rate-${optionNumber}`}
+              type="number"
+              placeholder="e.g., 8.5"
+              value={optionState.annualRate}
+              onChange={(e) => handleInputChange(currentIndex, 'annualRate', e.target.value)}
+              step="0.01"
+              min="0"
+            />
+          </div>
+          <div>
+            <Label htmlFor={`tenure-${optionNumber}`} className="text-sm">Loan Tenure (Months)</Label>
+            <Input
+              id={`tenure-${optionNumber}`}
+              type="number"
+              placeholder="e.g., 60"
+              value={optionState.tenureMonths}
+              onChange={(e) => handleInputChange(currentIndex, 'tenureMonths', e.target.value)}
+              min="1"
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="mt-auto bg-muted/50 p-4 rounded-b-lg">
+          <div className="w-full">
+            <p className="text-sm font-medium text-muted-foreground">Calculated EMI:</p>
+            <p className="text-2xl font-bold text-primary">
+              {calculatedData.emi !== null ? `₹ ${calculatedData.emi.toFixed(2)}` : '₹ 0.00'}
+            </p>
+            {calculatedData.emi === null && (optionState.principal || optionState.annualRate || optionState.tenureMonths) && (
+               <p className="text-xs text-destructive mt-1 flex items-center"><AlertCircle size={14} className="mr-1" />Please enter valid inputs.</p>
+            )}
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
+    );
+  };
 
   const resetAll = () => {
     setLoanOption1(initialLoanOptionState);
@@ -260,9 +286,9 @@ export default function EmiComparisonClient() {
         <Button onClick={resetAll} variant="outline">Reset All Fields</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {renderLoanOptionCard('Loan Option 1', loanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]", getCardDynamicBackground(0))}
-        {renderLoanOptionCard('Loan Option 2', loanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]", getCardDynamicBackground(1))}
-        {renderLoanOptionCard('Loan Option 3', loanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]", getCardDynamicBackground(2))}
+        {renderLoanOptionCard('Loan Option 1', loanOption1, loanData1, 1, 0, "border-[hsl(var(--chart-1))]", getCardDynamicBackground(0))}
+        {renderLoanOptionCard('Loan Option 2', loanOption2, loanData2, 2, 1, "border-[hsl(var(--chart-2))]", getCardDynamicBackground(1))}
+        {renderLoanOptionCard('Loan Option 3', loanOption3, loanData3, 3, 2, "border-[hsl(var(--chart-3))]", getCardDynamicBackground(2))}
       </div>
 
       <Card className="mt-8 shadow-lg">
