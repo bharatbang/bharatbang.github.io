@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText } from 'lucide-react';
+import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText, Calculator } from 'lucide-react';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -35,7 +35,7 @@ async function getSeriesData(): Promise<GuideCategory[]> {
     }
   } catch (error) {
     console.error("Failed to load series data:", error);
-    return []; 
+    return [];
   }
 }
 
@@ -88,9 +88,13 @@ export default async function Home() {
               <BookText size={20} className="mr-2" />
               Stories
             </Link>
+            <Link href="/emi-comparison" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <Calculator size={20} className="mr-2" />
+              EMI Comparison
+            </Link>
           </div>
         </section>
-        
+
         <GenreExplorerClient initialData={guideData} />
 
       </main>
