@@ -6,11 +6,19 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { AlertCircle, TrendingUp, TrendingDown, Info } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface LoanOptionState {
   principal: string;
   annualRate: string;
   tenureMonths: string;
+}
+
+interface CalculatedLoanData {
+  emi: number | null;
+  totalInterest: number | null;
+  totalRepayable: number | null;
 }
 
 const initialLoanOptionState: LoanOptionState = {
@@ -19,22 +27,41 @@ const initialLoanOptionState: LoanOptionState = {
   tenureMonths: '',
 };
 
-const calculateEMI = (principal: number, annualRate: number, tenureMonths: number): number | null => {
-  if (principal <= 0 || annualRate < 0 || tenureMonths <= 0) {
-    return null;
+const calculateLoanData = (principalStr: string, annualRateStr: string, tenureMonthsStr: string): CalculatedLoanData => {
+  const principal = parseFloat(principalStr);
+  const annualRate = parseFloat(annualRateStr);
+  const tenureMonths = parseInt(tenureMonthsStr, 10);
+
+  if (principal <= 0 || annualRate < 0 || tenureMonths <= 0 || isNaN(principal) || isNaN(annualRate) || isNaN(tenureMonths)) {
+    return { emi: null, totalInterest: null, totalRepayable: null };
   }
+
   const monthlyRate = annualRate / 12 / 100;
+  let emi: number;
+
   if (monthlyRate === 0) {
-    // If interest rate is 0, EMI is principal / tenure if principal and tenure are valid
-    return principal > 0 && tenureMonths > 0 ? principal / tenureMonths : null;
+    emi = principal / tenureMonths;
+  } else {
+    if (Math.pow(1 + monthlyRate, tenureMonths) - 1 === 0) {
+       return { emi: null, totalInterest: null, totalRepayable: null };
+    }
+    emi =
+      (principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
+      (Math.pow(1 + monthlyRate, tenureMonths) - 1);
   }
-  if (Math.pow(1 + monthlyRate, tenureMonths) - 1 === 0) { // Avoid division by zero if (1+monthlyRate)^tenureMonths is 1
-    return null;
+  
+  if (isNaN(emi) || !isFinite(emi)) {
+    return { emi: null, totalInterest: null, totalRepayable: null };
   }
-  const emi =
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
-    (Math.pow(1 + monthlyRate, tenureMonths) - 1);
-  return emi;
+
+  const totalRepayable = emi * tenureMonths;
+  const totalInterest = totalRepayable - principal;
+
+  return { 
+    emi: parseFloat(emi.toFixed(2)), 
+    totalInterest: parseFloat(totalInterest.toFixed(2)), 
+    totalRepayable: parseFloat(totalRepayable.toFixed(2))
+  };
 };
 
 export default function EmiComparisonClient() {
@@ -50,40 +77,24 @@ export default function EmiComparisonClient() {
     optionSetter((prev) => ({ ...prev, [field]: value }));
   };
 
-  const emi1 = useMemo(() => {
-    const principal = parseFloat(loanOption1.principal);
-    const annualRate = parseFloat(loanOption1.annualRate);
-    const tenureMonths = parseInt(loanOption1.tenureMonths, 10);
-    return calculateEMI(principal, annualRate, tenureMonths);
-  }, [loanOption1]);
-
-  const emi2 = useMemo(() => {
-    const principal = parseFloat(loanOption2.principal);
-    const annualRate = parseFloat(loanOption2.annualRate);
-    const tenureMonths = parseInt(loanOption2.tenureMonths, 10);
-    return calculateEMI(principal, annualRate, tenureMonths);
-  }, [loanOption2]);
-
-  const emi3 = useMemo(() => {
-    const principal = parseFloat(loanOption3.principal);
-    const annualRate = parseFloat(loanOption3.annualRate);
-    const tenureMonths = parseInt(loanOption3.tenureMonths, 10);
-    return calculateEMI(principal, annualRate, tenureMonths);
-  }, [loanOption3]);
+  const loanData1 = useMemo(() => calculateLoanData(loanOption1.principal, loanOption1.annualRate, loanOption1.tenureMonths), [loanOption1]);
+  const loanData2 = useMemo(() => calculateLoanData(loanOption2.principal, loanOption2.annualRate, loanOption2.tenureMonths), [loanOption2]);
+  const loanData3 = useMemo(() => calculateLoanData(loanOption3.principal, loanOption3.annualRate, loanOption3.tenureMonths), [loanOption3]);
 
   const renderLoanOptionCard = (
     title: string,
     optionState: LoanOptionState,
     optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>,
-    calculatedEmi: number | null,
-    optionNumber: number
+    calculatedData: CalculatedLoanData,
+    optionNumber: number,
+    borderColorClass: string
   ) => (
-    <Card className="flex flex-col">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
+    <Card className={cn("flex flex-col border-2 shadow-lg", borderColorClass)}>
+      <CardHeader className="bg-muted/70">
+        <CardTitle className="text-xl font-semibold">{title}</CardTitle>
         <CardDescription>Enter loan details to calculate EMI.</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4 flex-grow">
+      <CardContent className="space-y-4 flex-grow pt-6">
         <div>
           <Label htmlFor={`principal-${optionNumber}`} className="text-sm">Principal Amount (₹)</Label>
           <Input
@@ -123,10 +134,10 @@ export default function EmiComparisonClient() {
         <div className="w-full">
           <p className="text-sm font-medium text-muted-foreground">Calculated EMI:</p>
           <p className="text-2xl font-bold text-primary">
-            {calculatedEmi !== null ? `₹ ${calculatedEmi.toFixed(2)}` : '₹ 0.00'}
+            {calculatedData.emi !== null ? `₹ ${calculatedData.emi.toFixed(2)}` : '₹ 0.00'}
           </p>
-          {calculatedEmi === null && (optionState.principal || optionState.annualRate || optionState.tenureMonths) && (
-             <p className="text-xs text-destructive mt-1">Please enter valid inputs for all fields.</p>
+          {calculatedData.emi === null && (optionState.principal || optionState.annualRate || optionState.tenureMonths) && (
+             <p className="text-xs text-destructive mt-1 flex items-center"><AlertCircle size={14} className="mr-1" />Please enter valid inputs.</p>
           )}
         </div>
       </CardFooter>
@@ -139,16 +150,87 @@ export default function EmiComparisonClient() {
     setLoanOption3(initialLoanOptionState);
   };
 
+  const renderSavingsComparison = (
+    baseOptionData: CalculatedLoanData, 
+    baseOptionName: string,
+    compareOptionData: CalculatedLoanData, 
+    compareOptionName: string,
+    basePrincipal: string,
+    comparePrincipal: string
+    ) => {
+    if (baseOptionData.emi === null || compareOptionData.emi === null) {
+      return <p className="text-sm text-muted-foreground">Enter valid details for {baseOptionName} and {compareOptionName} to see comparison.</p>;
+    }
+    // Only compare if principals are the same, otherwise it's not an apples-to-apples savings comparison
+    if (parseFloat(basePrincipal) !== parseFloat(comparePrincipal) && basePrincipal && comparePrincipal) {
+        return <p className="text-sm text-muted-foreground">Principal amounts for {baseOptionName} and {compareOptionName} must be the same for direct savings comparison.</p>;
+    }
+
+
+    const interestDiff = (baseOptionData.totalInterest ?? 0) - (compareOptionData.totalInterest ?? 0);
+    const repayableDiff = (baseOptionData.totalRepayable ?? 0) - (compareOptionData.totalRepayable ?? 0);
+
+    return (
+      <div className="space-y-2">
+        <h4 className="font-semibold text-md">{compareOptionName} vs. {baseOptionName}</h4>
+        <div className={cn("flex items-center", interestDiff > 0 ? "text-green-600" : interestDiff < 0 ? "text-red-600" : "text-muted-foreground")}>
+          {interestDiff > 0 ? <TrendingUp size={16} className="mr-2" /> : interestDiff < 0 ? <TrendingDown size={16} className="mr-2" /> : <Info size={16} className="mr-2" />}
+          <span>
+            You {interestDiff > 0 ? 'save' : interestDiff < 0 ? 'spend an extra' : 'pay the same amount of'} 
+            <strong className="px-1">₹{Math.abs(interestDiff).toFixed(2)}</strong> 
+            in total interest.
+          </span>
+        </div>
+        <div className={cn("flex items-center", repayableDiff > 0 ? "text-green-600" : repayableDiff < 0 ? "text-red-600" : "text-muted-foreground")}>
+          {repayableDiff > 0 ? <TrendingUp size={16} className="mr-2" /> : repayableDiff < 0 ? <TrendingDown size={16} className="mr-2" /> : <Info size={16} className="mr-2" />}
+          <span>
+            You {repayableDiff > 0 ? 'save' : repayableDiff < 0 ? 'spend an extra' : 'repay the same amount'} 
+            <strong className="px-1">₹{Math.abs(repayableDiff).toFixed(2)}</strong> 
+            in total repayment.
+          </span>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex justify-end">
         <Button onClick={resetAll} variant="outline">Reset All Fields</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {renderLoanOptionCard('Loan Option 1', loanOption1, setLoanOption1, emi1, 1)}
-        {renderLoanOptionCard('Loan Option 2', loanOption2, setLoanOption2, emi2, 2)}
-        {renderLoanOptionCard('Loan Option 3', loanOption3, setLoanOption3, emi3, 3)}
+        {renderLoanOptionCard('Loan Option 1', loanOption1, setLoanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]")}
+        {renderLoanOptionCard('Loan Option 2', loanOption2, setLoanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]")}
+        {renderLoanOptionCard('Loan Option 3', loanOption3, setLoanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]")}
       </div>
+
+      <Card className="mt-8 shadow-lg">
+        <CardHeader className="bg-muted/70">
+          <CardTitle className="text-xl font-semibold">Savings Summary</CardTitle>
+          <CardDescription>Comparison of total interest and repayment amounts based on the options above. Comparisons are most meaningful when principal amounts are the same.</CardDescription>
+        </CardHeader>
+        <CardContent className="pt-6 space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 text-sm">
+            {[loanData1, loanData2, loanData3].map((data, index) => (
+              <div key={index} className="p-3 bg-background rounded-md border">
+                <h4 className="font-medium text-primary mb-1">Loan Option {index + 1}</h4>
+                <p>Total Interest: <span className="font-semibold">{data.totalInterest !== null ? `₹${data.totalInterest.toFixed(2)}` : 'N/A'}</span></p>
+                <p>Total Repayable: <span className="font-semibold">{data.totalRepayable !== null ? `₹${data.totalRepayable.toFixed(2)}` : 'N/A'}</span></p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="space-y-4">
+             {loanData1.emi !== null && loanData2.emi !== null && renderSavingsComparison(loanData1, "Option 1", loanData2, "Option 2", loanOption1.principal, loanOption2.principal)}
+             {loanData1.emi !== null && loanData2.emi !== null && loanData3.emi !==null && <hr className="my-4 border-border"/>}
+             {loanData1.emi !== null && loanData3.emi !== null && renderSavingsComparison(loanData1, "Option 1", loanData3, "Option 3", loanOption1.principal, loanOption3.principal)}
+          </div>
+           {(loanData1.emi === null || (loanData2.emi === null && loanData3.emi === null)) && (
+            <p className="text-sm text-muted-foreground text-center">Enter details for Loan Option 1 and at least one other option to see a comparative summary.</p>
+           )}
+        </CardContent>
+      </Card>
+
       <Card className="mt-8">
         <CardHeader>
           <CardTitle>EMI Calculation Formula</CardTitle>
@@ -170,3 +252,5 @@ export default function EmiComparisonClient() {
     </div>
   );
 }
+
+    
