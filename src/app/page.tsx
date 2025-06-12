@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan } from 'lucide-react';
+import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText } from 'lucide-react';
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -83,6 +83,10 @@ export default async function Home() {
             <Link href="/profanity-filtering" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <ShieldBan size={20} className="mr-2" />
               Profanity Filtering
+            </Link>
+            <Link href="/stories" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <BookText size={20} className="mr-2" />
+              Stories
             </Link>
           </div>
         </section>

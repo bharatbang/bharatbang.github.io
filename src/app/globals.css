@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -134,6 +135,15 @@
     background: linear-gradient(270deg, hsl(200, 100%, 50%), hsl(150, 100%, 40%), hsl(50, 100%, 70%), hsl(200, 100%, 50%)); /* Sky blue, Lush green, Sandy yellow, Sky blue */
     background-size: 600% 600%;
     animation: gradientHeaderAnimation 20s ease infinite;
+  }
+
+  /* Utility to hide scrollbars */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 
