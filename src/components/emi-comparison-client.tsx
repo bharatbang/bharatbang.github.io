@@ -81,15 +81,62 @@ export default function EmiComparisonClient() {
   const loanData2 = useMemo(() => calculateLoanData(loanOption2.principal, loanOption2.annualRate, loanOption2.tenureMonths), [loanOption2]);
   const loanData3 = useMemo(() => calculateLoanData(loanOption3.principal, loanOption3.annualRate, loanOption3.tenureMonths), [loanOption3]);
 
+  const loanDataArray = [loanData1, loanData2, loanData3];
+  const loanOptionsArray = [loanOption1, loanOption2, loanOption3];
+
+  const bestOptionIndex = useMemo(() => {
+    const validOptions = loanDataArray
+      .map((data, index) => ({
+        ...data,
+        originalIndex: index,
+        principal: parseFloat(loanOptionsArray[index].principal),
+      }))
+      .filter(option => option.emi !== null && option.principal > 0);
+
+    if (validOptions.length < 2) {
+      return -1; // Not enough valid options to compare
+    }
+
+    validOptions.sort((a, b) => {
+      if (a.emi! < b.emi!) return -1;
+      if (a.emi! > b.emi!) return 1;
+      if (a.totalInterest! < b.totalInterest!) return -1;
+      if (a.totalInterest! > b.totalInterest!) return 1;
+      return a.originalIndex < b.originalIndex ? -1 : 1; // Tie-breaker by original position
+    });
+    
+    return validOptions[0].originalIndex;
+  }, [loanData1, loanData2, loanData3, loanOption1, loanOption2, loanOption3]);
+
+
+  const getCardDynamicBackground = (currentIndex: number): string => {
+    if (bestOptionIndex === -1) {
+      return ""; // Default background if no best option determined
+    }
+    if (currentIndex === bestOptionIndex) {
+      return "bg-accent/20 dark:bg-accent/30"; // Greenish highlight
+    } else {
+      // Only apply red if this "other" option was valid itself, otherwise default
+      const optionData = loanDataArray[currentIndex];
+      const optionInputs = loanOptionsArray[currentIndex];
+      if (optionData.emi !== null && parseFloat(optionInputs.principal) > 0) {
+        return "bg-destructive/20 dark:bg-destructive/30"; // Reddish highlight
+      }
+      return ""; // Default for other non-best options that were not valid
+    }
+  };
+
+
   const renderLoanOptionCard = (
     title: string,
     optionState: LoanOptionState,
     optionSetter: React.Dispatch<React.SetStateAction<LoanOptionState>>,
     calculatedData: CalculatedLoanData,
-    optionNumber: number,
-    borderColorClass: string
+    optionNumber: number, // 1-based index
+    borderColorClass: string,
+    dynamicBackgroundClass: string
   ) => (
-    <Card className={cn("flex flex-col border-2 shadow-lg", borderColorClass)}>
+    <Card className={cn("flex flex-col border-2 shadow-lg", borderColorClass, dynamicBackgroundClass)}>
       <CardHeader className="bg-muted/70">
         <CardTitle className="text-xl font-semibold">{title}</CardTitle>
         <CardDescription>Enter loan details to calculate EMI.</CardDescription>
@@ -161,7 +208,7 @@ export default function EmiComparisonClient() {
     if (baseOptionData.emi === null || compareOptionData.emi === null) {
       return <p className="text-sm text-muted-foreground">Enter valid details for {baseOptionName} and {compareOptionName} to see comparison.</p>;
     }
-    // Only compare if principals are the same, otherwise it's not an apples-to-apples savings comparison
+    
     if (parseFloat(basePrincipal) !== parseFloat(comparePrincipal) && basePrincipal && comparePrincipal) {
         return <p className="text-sm text-muted-foreground">Principal amounts for {baseOptionName} and {compareOptionName} must be the same for direct savings comparison.</p>;
     }
@@ -199,9 +246,9 @@ export default function EmiComparisonClient() {
         <Button onClick={resetAll} variant="outline">Reset All Fields</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {renderLoanOptionCard('Loan Option 1', loanOption1, setLoanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]")}
-        {renderLoanOptionCard('Loan Option 2', loanOption2, setLoanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]")}
-        {renderLoanOptionCard('Loan Option 3', loanOption3, setLoanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]")}
+        {renderLoanOptionCard('Loan Option 1', loanOption1, setLoanOption1, loanData1, 1, "border-[hsl(var(--chart-1))]", getCardDynamicBackground(0))}
+        {renderLoanOptionCard('Loan Option 2', loanOption2, setLoanOption2, loanData2, 2, "border-[hsl(var(--chart-2))]", getCardDynamicBackground(1))}
+        {renderLoanOptionCard('Loan Option 3', loanOption3, setLoanOption3, loanData3, 3, "border-[hsl(var(--chart-3))]", getCardDynamicBackground(2))}
       </div>
 
       <Card className="mt-8 shadow-lg">
@@ -252,5 +299,4 @@ export default function EmiComparisonClient() {
     </div>
   );
 }
-
     
