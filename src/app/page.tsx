@@ -6,6 +6,8 @@ import path from 'path';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText, Calculator } from 'lucide-react';
+import { markTwainQuotes } from '@/data/quotes'; // Import quotes
+import InitialQuoteToast from '@/components/initial-quote-toast'; // Import the new component
 
 async function getSeriesData(): Promise<GuideCategory[]> {
   try {
@@ -41,9 +43,14 @@ async function getSeriesData(): Promise<GuideCategory[]> {
 
 export default async function Home() {
   const guideData = await getSeriesData();
+  let randomQuote: string | null = null;
+  if (markTwainQuotes && markTwainQuotes.length > 0) {
+    randomQuote = markTwainQuotes[Math.floor(Math.random() * markTwainQuotes.length)];
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {randomQuote && <InitialQuoteToast quote={randomQuote} />}
       <header className="py-8 animated-header-background text-primary-foreground shadow-md">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <h1 className="text-5xl font-bold tracking-tight text-center">Bharat Bang</h1>
