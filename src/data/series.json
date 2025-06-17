@@ -296,6 +296,54 @@
             "externalUrl": "https://www.imdb.com/title/tt6966692/"
           }
         ]
+      },
+      {
+        "name": "Denzel Washington",
+        "iconName": "User",
+        "series": [
+          { "id": "m-denzel-trainingday", "title": "Training Day (2001)", "imageUrl": "https://picsum.photos/seed/dwtrainingday/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0139654/" },
+          { "id": "m-denzel-manonfire", "title": "Man on Fire (2004)", "imageUrl": "https://picsum.photos/seed/dwmanonfire/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0328107/" },
+          { "id": "m-denzel-glory", "title": "Glory (1989)", "imageUrl": "https://picsum.photos/seed/dwglory/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0097441/" },
+          { "id": "m-denzel-malcolmx", "title": "Malcolm X (1992)", "imageUrl": "https://picsum.photos/seed/dwmalcolmx/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0104797/" },
+          { "id": "m-denzel-flight", "title": "Flight (2012)", "imageUrl": "https://picsum.photos/seed/dwflight/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt1907668/" },
+          { "id": "m-denzel-equalizer", "title": "The Equalizer (2014)", "imageUrl": "https://picsum.photos/seed/dwequalizer/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0455944/" },
+          { "id": "m-denzel-americangangster", "title": "American Gangster (2007)", "imageUrl": "https://picsum.photos/seed/dwamericangangster/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0765429/" },
+          { "id": "m-denzel-fences", "title": "Fences (2016)", "imageUrl": "https://picsum.photos/seed/dwfences/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt2671706/" },
+          { "id": "m-denzel-remembertitans", "title": "Remember the Titans (2000)", "imageUrl": "https://picsum.photos/seed/dwremembertitans/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0210945/" },
+          { "id": "m-denzel-philadelphia", "title": "Philadelphia (1993)", "imageUrl": "https://picsum.photos/seed/dwphiladelphia/300/450", "dataAiHint": "denzel_washington movie_poster", "externalUrl": "https://www.imdb.com/title/tt0107818/" }
+        ]
+      },
+      {
+        "name": "Mark Wahlberg",
+        "iconName": "User",
+        "series": [
+          { "id": "m-markw-departed", "title": "The Departed (2006)", "imageUrl": "https://picsum.photos/seed/mwdeparted/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt0407887/" },
+          { "id": "m-markw-fighter", "title": "The Fighter (2010)", "imageUrl": "https://picsum.photos/seed/mwfighter/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt0964517/" },
+          { "id": "m-markw-lonesurvivor", "title": "Lone Survivor (2013)", "imageUrl": "https://picsum.photos/seed/mwlonesurvivor/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt1091191/" },
+          { "id": "m-markw-ted", "title": "Ted (2012)", "imageUrl": "https://picsum.photos/seed/mwted/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt1637725/" },
+          { "id": "m-markw-boogienights", "title": "Boogie Nights (1997)", "imageUrl": "https://picsum.photos/seed/mwboogienights/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt0118749/" },
+          { "id": "m-markw-shooter", "title": "Shooter (2007)", "imageUrl": "https://picsum.photos/seed/mwshooter/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt0800389/" },
+          { "id": "m-markw-patriotsday", "title": "Patriots Day (2016)", "imageUrl": "https://picsum.photos/seed/mwpatriotsday/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt4572514/" },
+          { "id": "m-markw-deepwater", "title": "Deepwater Horizon (2016)", "imageUrl": "https://picsum.photos/seed/mwdeepwater/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt4272296/" },
+          { "id": "m-markw-paingain", "title": "Pain & Gain (2013)", "imageUrl": "https://picsum.photos/seed/mwpaingain/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt1980209/" },
+          { "id": "m-markw-instantfamily", "title": "Instant Family (2018)", "imageUrl": "https://picsum.photos/seed/mwinstantfamily/300/450", "dataAiHint": "mark_wahlberg movie_poster", "externalUrl": "https://www.imdb.com/title/tt7401588/" }
+        ]
+      },
+      {
+        "name": "Tom Hanks",
+        "iconName": "User",
+        "series": [
+          { "id": "m-tomh-forrestgump", "title": "Forrest Gump (1994)", "imageUrl": "https://picsum.photos/seed/thforrestgump/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0109830/" },
+          { "id": "m-tomh-savingprivateryan", "title": "Saving Private Ryan (1998)", "imageUrl": "https://picsum.photos/seed/thsavingprivateryan/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0120815/" },
+          { "id": "m-tomh-castaway", "title": "Cast Away (2000)", "imageUrl": "https://picsum.photos/seed/thcastaway/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0260299/" },
+          { "id": "m-tomh-greenmile", "title": "The Green Mile (1999)", "imageUrl": "https://picsum.photos/seed/thgreenmile/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0120689/" },
+          { "id": "m-tomh-philadelphia", "title": "Philadelphia (1993)", "imageUrl": "https://picsum.photos/seed/thphiladelphia/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0107818/" },
+          { "id": "m-tomh-captainphillips", "title": "Captain Phillips (2013)", "imageUrl": "https://picsum.photos/seed/thcaptainphillips/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt1535109/" },
+          { "id": "m-tomh-big", "title": "Big (1988)", "imageUrl": "https://picsum.photos/seed/thbig/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0094737/" },
+          { "id": "m-tomh-apollo13", "title": "Apollo 13 (1995)", "imageUrl": "https://picsum.photos/seed/thapollo13/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0112384/" },
+          { "id": "m-tomh-catchme", "title": "Catch Me If You Can (2002)", "imageUrl": "https://picsum.photos/seed/thcatchme/300/450", "dataAiHint": "tom_hanks movie_poster", "externalUrl": "https://www.imdb.com/title/tt0264464/" },
+          { "id": "m-tomh-toystory", "title": "Toy Story (1995)", "imageUrl": "https://picsum.photos/seed/thtoystory/300/450", "dataAiHint": "tom_hanks animated_movie", "externalUrl": "https://www.imdb.com/title/tt0114709/" }
+        ]
       }
     ]
   }

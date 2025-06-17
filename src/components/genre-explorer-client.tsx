@@ -11,7 +11,7 @@ import SeriesCard from '@/components/series-card';
 import { cn } from '@/lib/utils';
 import {
   Film, Rocket, Swords, Smile, Drama, Zap, Ghost, Heart, PencilLine, BookOpen, Search, ArrowDownUp, FilterX, Tv,
-  Landmark, Utensils, Plane, ShieldAlert, ChefHat, ShoppingBasket, Flame, Coffee, Map, Lightbulb, Briefcase, ListFilter, Mountain, Star
+  Landmark, Utensils, Plane, ShieldAlert, ChefHat, ShoppingBasket, Flame, Coffee, Map, Lightbulb, Briefcase, ListFilter, Mountain, Star, User
 } from 'lucide-react';
 
 const guideCategoryIconMap: { [key: string]: LucideIcon } = {
@@ -46,6 +46,7 @@ const genreIconMap: { [key: string]: LucideIcon } = {
   Briefcase: Briefcase, // Travel Packing
   Mountain: Mountain, // Trekking
   Star: Star, // Must Watch Movies
+  User: User, // Actor specific genres
 };
 
 interface GenreExplorerClientProps {
@@ -339,3 +340,5 @@ export default function GenreExplorerClient({ initialData }: GenreExplorerClient
   );
 }
 
+
+    
