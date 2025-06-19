@@ -1,19 +1,34 @@
 
 export interface CarSpec {
-  id: string;
-  name: string;
-  brand: string;
+  id: string; // unique id for each variant: e.g. punch_pure_p
+  name: string; // Full name: e.g. Tata Punch Pure (P)
+  brand: string; // Tata
+  modelName: string; // Punch
+  variantName: string; // Pure (P)
   price: number; // lakhs
-  priceDisplay: string; // e.g., "₹7.46 - 13.04 Lakh"
-  imageUrl: string;
-  bodyType: string;
-  fuelType: string;
-  transmission: string;
-  mileage?: string;
-  engine?: string;
-  safetyRating?: number; // stars
+  priceDisplay: string; // ₹6.00 Lakh
+  imageUrl: string; // placeholder
+  bodyType: string; // SUV, Hatchback
+  fuelType: string; // Petrol, Diesel, CNG, Electric
+
+  transmission: string; // Manual, Automatic
+  engineDisplay?: string; // e.g. "1199cc / 3 cyl"
+  safetyRating?: number; // stars (from Overall Rating)
+  mileageDisplay?: string; // e.g. "14.5 kmpl" or "6.8 km/kWh" (from Overall Economy)
+
+  maxPowerHp?: number;
+  bootVolumeLitres?: number;
+  hasTractionControl?: boolean;
+  hasAllPowerWindows?: boolean;
+  airbagCount?: number; // e.g., 2 for "multiple"
+  hasMusicSystem?: boolean;
+  hasAlloyWheels?: boolean;
+  
   dataAiHint?: string;
-  // Add other relevant specs as needed
+
+  // Deprecated from old structure, kept for temporary compatibility if needed by other parts, but prefer new fields
+  mileage?: string; // Use mileageDisplay
+  engine?: string; // Use engineDisplay
 }
 
 export const BODY_TYPES = ["SUV", "Hatchback", "Sedan", "MUV", "Luxury", "Minivan", "Pickup Truck", "Coupe", "Convertible"] as const;
@@ -22,10 +37,9 @@ export type BodyType = typeof BODY_TYPES[number];
 export const FUEL_TYPES = ["Petrol", "Diesel", "CNG", "Electric", "Hybrid"] as const;
 export type FuelType = typeof FUEL_TYPES[number];
 
-export const TRANSMISSIONS = ["Manual", "Automatic"] as const; // Simplified
-export type Transmission = typeof TRANSMISSIONS[number];
+export const TRANSMISSIONS = ["Manual", "Automatic"] as const;
+export type TransmissionType = typeof TRANSMISSIONS[number];
 
-// Using broad ranges for budget filter as per Cardekho
 export const BUDGET_RANGES = [
   { label: "Under 5 Lakh", min: 0, max: 5 },
   { label: "5 - 10 Lakh", min: 5, max: 10 },
@@ -38,204 +52,314 @@ export const BUDGET_RANGES = [
 ] as const;
 export type BudgetRange = typeof BUDGET_RANGES[number];
 
+export const POWER_RANGES = [
+  { label: "Under 100 hp", min: 0, max: 99 },
+  { label: "100 - 150 hp", min: 100, max: 150 },
+  { label: "150 - 200 hp", min: 150, max: 200 },
+  { label: "Over 200 hp", min: 200, max: Infinity },
+] as const;
+export type PowerRange = typeof POWER_RANGES[number];
+
+export const BOOT_VOLUME_RANGES = [
+  { label: "Under 300 L", min: 0, max: 299 },
+  { label: "300 - 400 L", min: 300, max: 399 },
+  { label: "400 - 500 L", min: 400, max: 499 },
+  { label: "Over 500 L", min: 500, max: Infinity },
+] as const;
+export type BootVolumeRange = typeof BOOT_VOLUME_RANGES[number];
+
 
 export const CARS_DATA: CarSpec[] = [
+  // Tata Punch Variants
   {
-    id: 'maruti_swift',
-    name: 'Maruti Swift',
-    brand: 'Maruti Suzuki',
-    price: 6.49, // Base price in Lakhs for filtering
-    priceDisplay: '₹6.49 - 9.64 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Hatchback',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '22.38 kmpl',
-    engine: '1197 cc',
-    dataAiHint: 'maruti swift hatchback',
-  },
-  {
-    id: 'tata_punch',
-    name: 'Tata Punch',
+    id: 'tata_punch_pure_p',
+    name: 'Tata Punch Pure (P)',
     brand: 'Tata',
-    price: 6.13,
-    priceDisplay: '₹6.13 - 10.20 Lakh',
+    modelName: 'Punch',
+    variantName: 'Pure (P)',
+    price: 6.00,
+    priceDisplay: '₹6.00 Lakh',
     imageUrl: 'https://placehold.co/300x200.png',
     bodyType: 'SUV',
     fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '20.09 kmpl',
-    engine: '1199 cc',
-    safetyRating: 5,
-    dataAiHint: 'tata punch suv',
+    transmission: 'Manual', // 5 Gears
+    engineDisplay: '1199cc / 3cyl',
+    maxPowerHp: 88,
+    bootVolumeLitres: 366,
+    hasTractionControl: true,
+    hasAllPowerWindows: false, // '-'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: false, // '-'
+    hasAlloyWheels: false, // '-'
+    safetyRating: 2, // Approx from image
+    dataAiHint: 'tata punch white',
+    mileageDisplay: 'N/A',
   },
   {
-    id: 'hyundai_creta',
-    name: 'Hyundai Creta',
-    brand: 'Hyundai',
-    price: 11.00,
-    priceDisplay: '₹11.00 - 20.15 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'SUV',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '17.4 kmpl',
-    engine: '1497 cc',
-    dataAiHint: 'hyundai creta suv',
-  },
-  {
-    id: 'mahindra_scorpio_n',
-    name: 'Mahindra Scorpio N',
-    brand: 'Mahindra',
-    price: 13.60,
-    priceDisplay: '₹13.60 - 24.54 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'SUV',
-    fuelType: 'Diesel',
-    transmission: 'Manual',
-    mileage: '16.23 kmpl',
-    engine: '2198 cc',
-    safetyRating: 5,
-    dataAiHint: 'mahindra scorpio suv',
-  },
-  {
-    id: 'maruti_fronx',
-    name: 'Maruti Fronx',
-    brand: 'Maruti Suzuki',
-    price: 7.51,
-    priceDisplay: '₹7.51 - 13.04 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'SUV',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '21.79 kmpl',
-    engine: '1197 cc',
-    dataAiHint: 'maruti fronx suv',
-  },
-  {
-    id: 'kia_seltos',
-    name: 'Kia Seltos',
-    brand: 'Kia',
-    price: 10.90,
-    priceDisplay: '₹10.90 - 20.35 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'SUV',
-    fuelType: 'Diesel',
-    transmission: 'Automatic',
-    mileage: '18.0 kmpl',
-    engine: '1493 cc',
-    dataAiHint: 'kia seltos suv',
-  },
-  {
-    id: 'tata_nexon',
-    name: 'Tata Nexon',
+    id: 'tata_punch_creative_ira_amt_dt',
+    name: 'Tata Punch Creative (P) IRA AMT DT',
     brand: 'Tata',
-    price: 8.15,
-    priceDisplay: '₹8.15 - 15.80 Lakh',
+    modelName: 'Punch',
+    variantName: 'Creative (P) IRA AMT DT',
+    price: 9.47,
+    priceDisplay: '₹9.47 Lakh',
     imageUrl: 'https://placehold.co/300x200.png',
     bodyType: 'SUV',
     fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '17.44 kmpl',
-    engine: '1199 cc',
-    safetyRating: 5,
-    dataAiHint: 'tata nexon compact_suv',
+    transmission: 'Automatic', // 5A Gears
+    engineDisplay: '1199cc / 3cyl',
+    maxPowerHp: 88,
+    bootVolumeLitres: 366,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: true, // '✓'
+    safetyRating: 4, // ★★★★☆ (assuming 4.5 rounds to 4 for filtering)
+    dataAiHint: 'tata punch red dualtone',
+    mileageDisplay: '14.5 kmpl',
   },
   {
-    id: 'maruti_ertiga',
-    name: 'Maruti Ertiga',
-    brand: 'Maruti Suzuki',
-    price: 8.69,
-    priceDisplay: '₹8.69 - 13.03 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'MUV',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '20.51 kmpl',
-    engine: '1462 cc',
-    dataAiHint: 'maruti ertiga muv',
-  },
-  {
-    id: 'hyundai_i20',
-    name: 'Hyundai i20',
-    brand: 'Hyundai',
-    price: 7.04,
-    priceDisplay: '₹7.04 - 11.21 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Hatchback',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '20.0 kmpl',
-    engine: '1197 cc',
-    dataAiHint: 'hyundai i20 hatchback',
-  },
-  {
-    id: 'toyota_innova_crysta',
-    name: 'Toyota Innova Crysta',
-    brand: 'Toyota',
-    price: 19.99,
-    priceDisplay: '₹19.99 - 26.30 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'MUV',
-    fuelType: 'Diesel',
-    transmission: 'Manual',
-    mileage: '15.3 kmpl',
-    engine: '2393 cc',
-    dataAiHint: 'toyota innova muv',
-  },
-  {
-    id: 'maruti_dzire',
-    name: 'Maruti Dzire',
-    brand: 'Maruti Suzuki',
-    price: 6.56,
-    priceDisplay: '₹6.56 - 9.39 Lakh',
-    imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Sedan',
-    fuelType: 'Petrol',
-    transmission: 'Manual',
-    mileage: '22.41 kmpl',
-    engine: '1197 cc',
-    dataAiHint: 'maruti dzire sedan',
-  },
-  {
-    id: 'tata_tiago_ev',
-    name: 'Tata Tiago EV',
+    id: 'tata_punch_ev_empowered_s_7_2kw',
+    name: 'Tata Punch EV Empowered+ S 7.2KW',
     brand: 'Tata',
-    price: 7.99,
-    priceDisplay: '₹7.99 - 11.89 Lakh',
+    modelName: 'Punch',
+    variantName: 'EV Empowered+ S 7.2KW',
+    price: 15.49,
+    priceDisplay: '₹15.49 Lakh',
     imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Hatchback',
+    bodyType: 'SUV',
     fuelType: 'Electric',
-    transmission: 'Automatic',
-    mileage: '315 km/charge', // Range
-    dataAiHint: 'tata tiago electric hatchback',
+    transmission: 'Automatic', // 1A Gears
+    engineDisplay: 'E 35kWh',
+    maxPowerHp: 122,
+    bootVolumeLitres: 366,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: true, // '✓'
+    safetyRating: 4, // ★★★★☆
+    dataAiHint: 'tata punch green electric',
+    mileageDisplay: '6.8 km/kWh',
   },
-   {
-    id: 'bmw_x1',
-    name: 'BMW X1',
-    brand: 'BMW',
-    price: 49.50,
-    priceDisplay: '₹49.50 - 52.50 Lakh',
+
+  // Tata Nexon Variants
+  {
+    id: 'tata_nexon_p_smart',
+    name: 'Tata Nexon 1.2 (P) Smart',
+    brand: 'Tata',
+    modelName: 'Nexon',
+    variantName: '1.2 (P) Smart',
+    price: 8.00,
+    priceDisplay: '₹8.00 Lakh',
     imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Luxury', // Could also be SUV
-    fuelType: 'Petrol', // Also available in Diesel
-    transmission: 'Automatic',
-    mileage: '20.37 kmpl',
-    engine: '1995 cc',
-    dataAiHint: 'bmw x1 luxury suv',
+    bodyType: 'SUV',
+    fuelType: 'Petrol',
+    transmission: 'Manual', // 5 Gears
+    engineDisplay: '1198cc / 3cyl',
+    maxPowerHp: 120,
+    bootVolumeLitres: 382,
+    hasTractionControl: true,
+    hasAllPowerWindows: false, // 'F'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: false, // '-'
+    hasAlloyWheels: false, // '-'
+    dataAiHint: 'tata nexon blue',
+    mileageDisplay: 'N/A',
   },
   {
-    id: 'mercedes_benz_gla',
-    name: 'Mercedes-Benz GLA',
-    brand: 'Mercedes-Benz',
-    price: 50.50,
-    priceDisplay: '₹50.50 - 56.90 Lakh',
+    id: 'tata_nexon_p_fearless_s_dca',
+    name: 'Tata Nexon 1.2 (P) Fearless+S DCA',
+    brand: 'Tata',
+    modelName: 'Nexon',
+    variantName: '1.2 (P) Fearless+S DCA',
+    price: 14.80,
+    priceDisplay: '₹14.80 Lakh',
     imageUrl: 'https://placehold.co/300x200.png',
-    bodyType: 'Luxury', // Could also be SUV
+    bodyType: 'SUV',
     fuelType: 'Petrol',
-    transmission: 'Automatic',
-    mileage: '17.4 kmpl',
-    engine: '1332 cc',
-    dataAiHint: 'mercedes gla luxury suv',
-  }
+    transmission: 'Automatic', // 7A Gears
+    engineDisplay: '1198cc / 3cyl',
+    maxPowerHp: 120,
+    bootVolumeLitres: 382,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓'
+    airbagCount: 2, // '✓✓' (assuming standard, image has ✓✓ for airbags)
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: true, // '✓✓'
+    dataAiHint: 'tata nexon orange dualtone',
+    mileageDisplay: 'N/A',
+  },
+  {
+    id: 'tata_nexon_ev_empowered_45_dark',
+    name: 'Tata Nexon EV Empowered+ 45 #Dark',
+    brand: 'Tata',
+    modelName: 'Nexon',
+    variantName: 'EV Empowered+ 45 #Dark',
+    price: 17.19,
+    priceDisplay: '₹17.19 Lakh',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV',
+    fuelType: 'Electric',
+    transmission: 'Automatic', // 1A Gears
+    engineDisplay: 'E 45kWh',
+    maxPowerHp: 145,
+    bootVolumeLitres: 350,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: true, // '✓✓'
+    safetyRating: 5, // ★★★★★
+    dataAiHint: 'tata nexon dark electric',
+    mileageDisplay: '6.3 km/kWh',
+  },
+
+  // Tata Curvv Variants (Data is mostly NA, using placeholders)
+  {
+    id: 'tata_curvv_revotron_p_smart',
+    name: 'Tata Curvv Revotron (P) Smart',
+    brand: 'Tata',
+    modelName: 'Curvv',
+    variantName: 'Revotron (P) Smart',
+    price: 9.99,
+    priceDisplay: '₹9.99 Lakh (est.)',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV', // SUV-coupé
+    fuelType: 'Petrol',
+    transmission: 'Manual', // 6 Gears
+    engineDisplay: '1198cc / 3cyl',
+    maxPowerHp: 120,
+    bootVolumeLitres: 500,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓✓'
+    airbagCount: 2, // Assuming '✓✓' means 2
+    hasMusicSystem: false, // '-'
+    hasAlloyWheels: false, // '-'
+    dataAiHint: 'tata curvv blue concept',
+    mileageDisplay: 'N/A',
+  },
+  {
+    id: 'tata_curvv_ev_55_empowered_a',
+    name: 'Tata Curvv EV 55 Empowered+A',
+    brand: 'Tata',
+    modelName: 'Curvv',
+    variantName: 'EV 55 Empowered+A',
+    price: 21.99,
+    priceDisplay: '₹21.99 Lakh (est.)',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV', // SUV-coupé
+    fuelType: 'Electric',
+    transmission: 'Automatic', // 1A Gears
+    engineDisplay: 'E 55kWh',
+    maxPowerHp: 167,
+    bootVolumeLitres: 500,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓✓'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: true, // '✓✓'
+    dataAiHint: 'tata curvv silver electric',
+    mileageDisplay: 'N/A',
+  },
+
+  // Tata Harrier Variants
+  {
+    id: 'tata_harrier_smart',
+    name: 'Tata Harrier Smart',
+    brand: 'Tata',
+    modelName: 'Harrier',
+    variantName: 'Smart',
+    price: 15.49,
+    priceDisplay: '₹15.49 Lakh',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV',
+    fuelType: 'Diesel',
+    transmission: 'Manual', // 6 Gears
+    engineDisplay: '1956cc / 4cyl',
+    maxPowerHp: 170,
+    bootVolumeLitres: 445,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓✓'
+    airbagCount: 2, // '✓✓'
+    hasMusicSystem: true, // '✓'
+    hasAlloyWheels: false, // '-'
+    dataAiHint: 'tata harrier yellow',
+    mileageDisplay: 'N/A',
+  },
+  {
+    id: 'tata_harrier_fearless_dark_a',
+    name: 'Tata Harrier Fearless+ Dark A',
+    brand: 'Tata',
+    modelName: 'Harrier',
+    variantName: 'Fearless+ Dark A',
+    price: 27.09,
+    priceDisplay: '₹27.09 Lakh',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV',
+    fuelType: 'Diesel',
+    transmission: 'Automatic', // 6A Gears
+    engineDisplay: '1956cc / 4cyl',
+    maxPowerHp: 170,
+    bootVolumeLitres: 445,
+    hasTractionControl: true,
+    hasAllPowerWindows: true, // '✓✓'
+    airbagCount: 2, // '✓✓' (assuming for Fearless+)
+    hasMusicSystem: true, // '✓✓'
+    hasAlloyWheels: true, // '✓✓'
+    dataAiHint: 'tata harrier black dark_edition',
+    mileageDisplay: 'N/A',
+  },
+  // Add some older data for variety in filters
+  {
+    id: 'maruti_swift_old',
+    name: 'Maruti Swift LXI',
+    brand: 'Maruti Suzuki',
+    modelName: 'Swift',
+    variantName: 'LXI',
+    price: 6.49, 
+    priceDisplay: '₹6.49 Lakh',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'Hatchback',
+    fuelType: 'Petrol',
+    transmission: 'Manual',
+    mileageDisplay: '22.38 kmpl',
+    engineDisplay: '1197 cc',
+    maxPowerHp: 89,
+    bootVolumeLitres: 268,
+    hasTractionControl: false,
+    hasAllPowerWindows: false,
+    airbagCount: 2,
+    hasMusicSystem: false,
+    hasAlloyWheels: false,
+    safetyRating: 2,
+    dataAiHint: 'maruti swift red hatchback',
+  },
+  {
+    id: 'hyundai_creta_old',
+    name: 'Hyundai Creta SX',
+    brand: 'Hyundai',
+    modelName: 'Creta',
+    variantName: 'SX',
+    price: 14.00,
+    priceDisplay: '₹14.00 Lakh',
+    imageUrl: 'https://placehold.co/300x200.png',
+    bodyType: 'SUV',
+    fuelType: 'Petrol',
+    transmission: 'Manual',
+    mileageDisplay: '17.4 kmpl',
+    engineDisplay: '1497 cc',
+    maxPowerHp: 113,
+    bootVolumeLitres: 433,
+    hasTractionControl: true,
+    hasAllPowerWindows: true,
+    airbagCount: 2, // Base models might have 2, top models 6.
+    hasMusicSystem: true,
+    hasAlloyWheels: true,
+    safetyRating: 3, // Example
+    dataAiHint: 'hyundai creta white suv',
+  },
 ];
+
+    

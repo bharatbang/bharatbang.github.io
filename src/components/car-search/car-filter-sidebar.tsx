@@ -9,7 +9,18 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { BODY_TYPES, FUEL_TYPES, BUDGET_RANGES, type BodyType, type FuelType, type BudgetRange } from '@/data/car-data';
+import { 
+  BODY_TYPES, 
+  FUEL_TYPES, 
+  BUDGET_RANGES, 
+  POWER_RANGES,
+  BOOT_VOLUME_RANGES,
+  type BodyType, 
+  type FuelType, 
+  type BudgetRange,
+  type PowerRange,
+  type BootVolumeRange
+} from '@/data/car-data';
 import type { Filters } from './car-search-client';
 
 interface CarFilterSidebarProps {
@@ -40,6 +51,26 @@ export default function CarFilterSidebar({ currentFilters, onFilterChange, onRes
     onFilterChange({ fuelTypes: newFuelTypes });
   };
 
+  const handlePowerRangeChange = (value: string) => {
+    const selectedRange = POWER_RANGES.find(range => range.label === value) || null;
+    onFilterChange({ powerRange: selectedRange as PowerRange | null });
+  };
+
+  const handleBootVolumeRangeChange = (value: string) => {
+    const selectedRange = BOOT_VOLUME_RANGES.find(range => range.label === value) || null;
+    onFilterChange({ bootVolumeRange: selectedRange as BootVolumeRange | null });
+  };
+
+  const handleFeatureChange = (feature: keyof Filters['features'], checked: boolean) => {
+    onFilterChange({
+      features: {
+        ...currentFilters.features,
+        [feature]: checked,
+      },
+    });
+  };
+
+
   return (
     <Card className="shadow-md">
       <CardHeader className="border-b">
@@ -54,7 +85,7 @@ export default function CarFilterSidebar({ currentFilters, onFilterChange, onRes
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
-        <Accordion type="multiple" defaultValue={['budget', 'bodyType', 'fuelType']} className="w-full">
+        <Accordion type="multiple" defaultValue={['budget', 'bodyType', 'fuelType', 'features', 'performance']} className="w-full">
           {/* Budget Filter */}
           <AccordionItem value="budget" className="border-b">
             <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">Budget</AccordionTrigger>
@@ -78,7 +109,7 @@ export default function CarFilterSidebar({ currentFilters, onFilterChange, onRes
           <AccordionItem value="bodyType" className="border-b">
             <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">Body Type</AccordionTrigger>
             <AccordionContent className="px-4 pb-4">
-              <div className="space-y-2 max-h-48 overflow-y-auto pr-1"> {/* Scroll for many options */}
+              <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {BODY_TYPES.map(type => (
                   <div key={type} className="flex items-center space-x-2">
                     <Checkbox
@@ -94,7 +125,7 @@ export default function CarFilterSidebar({ currentFilters, onFilterChange, onRes
           </AccordionItem>
 
           {/* Fuel Type Filter */}
-          <AccordionItem value="fuelType" className="border-b-0">
+          <AccordionItem value="fuelType" className="border-b">
             <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">Fuel Type</AccordionTrigger>
             <AccordionContent className="px-4 pb-4">
               <div className="space-y-2">
@@ -112,9 +143,72 @@ export default function CarFilterSidebar({ currentFilters, onFilterChange, onRes
             </AccordionContent>
           </AccordionItem>
 
-          {/* Future: Add more filter sections like Transmission, Seating Capacity, etc. */}
+          {/* Performance Filters */}
+          <AccordionItem value="performance" className="border-b">
+            <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">Performance & Capacity</AccordionTrigger>
+            <AccordionContent className="px-4 pb-4 space-y-4">
+              <div>
+                <Label className="text-xs font-semibold mb-2 block">Max Power (hp)</Label>
+                <RadioGroup
+                  value={currentFilters.powerRange?.label || ""}
+                  onValueChange={handlePowerRangeChange}
+                  className="space-y-2"
+                >
+                  {POWER_RANGES.map(range => (
+                    <div key={range.label} className="flex items-center space-x-2">
+                      <RadioGroupItem value={range.label} id={`power-${range.label.replace(/\s+/g, '-')}`} />
+                      <Label htmlFor={`power-${range.label.replace(/\s+/g, '-')}`} className="font-normal text-xs">{range.label}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+              <div>
+                <Label className="text-xs font-semibold mb-2 block">Boot Volume (Litres)</Label>
+                <RadioGroup
+                  value={currentFilters.bootVolumeRange?.label || ""}
+                  onValueChange={handleBootVolumeRangeChange}
+                  className="space-y-2"
+                >
+                  {BOOT_VOLUME_RANGES.map(range => (
+                    <div key={range.label} className="flex items-center space-x-2">
+                      <RadioGroupItem value={range.label} id={`boot-${range.label.replace(/\s+/g, '-')}`} />
+                      <Label htmlFor={`boot-${range.label.replace(/\s+/g, '-')}`} className="font-normal text-xs">{range.label}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          {/* Key Features Filter */}
+          <AccordionItem value="features" className="border-b-0">
+            <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">Key Features</AccordionTrigger>
+            <AccordionContent className="px-4 pb-4">
+              <div className="space-y-2">
+                {[
+                  { id: 'hasTractionControl', label: 'Traction Control' },
+                  { id: 'hasAllPowerWindows', label: 'All Power Windows' },
+                  { id: 'hasMultipleAirbags', label: 'Multiple Airbags (2+)' },
+                  { id: 'hasMusicSystem', label: 'Music System' },
+                  { id: 'hasAlloyWheels', label: 'Alloy Wheels' },
+                ].map(feature => (
+                  <div key={feature.id} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`feature-${feature.id}`}
+                      checked={currentFilters.features[feature.id as keyof Filters['features']]}
+                      onCheckedChange={(checked) => handleFeatureChange(feature.id as keyof Filters['features'], Boolean(checked))}
+                    />
+                    <Label htmlFor={`feature-${feature.id}`} className="font-normal text-xs">{feature.label}</Label>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
         </Accordion>
       </CardContent>
     </Card>
   );
 }
+
+    
