@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText, Calculator, Car } from 'lucide-react';
+import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText, Calculator, Car, ClipboardList } from 'lucide-react';
 import { markTwainQuotes } from '@/data/quotes'; // Import quotes
 import InitialQuoteToast from '@/components/initial-quote-toast'; // Import the new component
 
@@ -102,6 +102,10 @@ export default async function Home() {
             <Link href="/car-search" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               <Car size={20} className="mr-2" />
               Car Search
+            </Link>
+            <Link href="/admin-db-access" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              <ClipboardList size={20} className="mr-2" />
+              Admin DB Access
             </Link>
           </div>
         </section>
