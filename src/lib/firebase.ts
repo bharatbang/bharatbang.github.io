@@ -15,10 +15,13 @@ const firebaseConfig: FirebaseOptions = {
 let app;
 if (!getApps().length) {
   app = initializeApp(firebaseConfig);
+  console.log('[Firebase] Firebase app initialized.');
 } else {
   app = getApp();
+  console.log('[Firebase] Firebase app re-used.');
 }
 
 const db = getFirestore(app);
+console.log('[Firebase] Firestore instance obtained.');
 
 export { app, db };

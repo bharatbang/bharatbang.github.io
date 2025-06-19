@@ -49,6 +49,7 @@ export default function ChatAnonymousClient() {
   // Subscribe to Firestore messages
   useEffect(() => {
     setIsLoading(true);
+    console.log('[ChatAnonymousClient] Attempting to subscribe to Firestore messages...');
     const q = query(collection(db, MESSAGES_COLLECTION), orderBy('timestamp', 'asc'));
 
     const unsubscribe = onSnapshot(
@@ -65,16 +66,20 @@ export default function ChatAnonymousClient() {
         });
         setMessages(newMessages);
         setIsLoading(false);
+        console.log('[ChatAnonymousClient] Successfully received message snapshot. Messages count:', newMessages.length);
       },
       (error) => {
-        console.error('Error fetching messages: ', error);
+        console.error('[ChatAnonymousClient] Error fetching messages: ', error);
         setIsLoading(false);
         // Optionally, show an error toast to the user
       }
     );
 
     // Cleanup subscription on unmount
-    return () => unsubscribe();
+    return () => {
+      console.log('[ChatAnonymousClient] Unsubscribing from Firestore messages.');
+      unsubscribe();
+    };
   }, []);
 
 
@@ -116,15 +121,17 @@ export default function ChatAnonymousClient() {
     setInputValue(''); // Clear input immediately
 
     try {
+      console.log('[ChatAnonymousClient] Attempting to send message to Firestore...');
       await addDoc(collection(db, MESSAGES_COLLECTION), {
         text: messageText,
         timestamp: serverTimestamp(),
       });
+      console.log('[ChatAnonymousClient] Message sent successfully to Firestore.');
       // Notification for sent message is handled by onSnapshot,
       // but if you want to notify for your own messages differently, you could add logic here.
       // For now, all new messages (including own) will trigger a notification if conditions are met.
     } catch (error) {
-      console.error('Error sending message: ', error);
+      console.error('[ChatAnonymousClient] Error sending message: ', error);
       // Optionally, inform the user that the message failed to send
     }
   };
@@ -232,4 +239,3 @@ export default function ChatAnonymousClient() {
     </div>
   );
 }
-
