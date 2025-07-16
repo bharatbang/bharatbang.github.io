@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import GenreExplorerClient from '@/components/genre-explorer-client';
 import type { GuideCategory } from '@/types';
 import seriesData from '@/data/series.json';
@@ -14,25 +14,16 @@ import InitialQuoteToast from '@/components/initial-quote-toast';
 // We can directly import the JSON data in a client component.
 const initialData: GuideCategory[] = seriesData as GuideCategory[];
 
-interface HomeProps {
-  randomQuote: string | null;
-}
-
 export default function HomePage() {
-  const [randomQuote, setRandomQuote] = React.useState<string | null>(null);
+  const [randomQuote, setRandomQuote] = useState<string | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // This ensures Math.random() only runs on the client after hydration
     if (markTwainQuotes && markTwainQuotes.length > 0) {
       setRandomQuote(markTwainQuotes[Math.floor(Math.random() * markTwainQuotes.length)]);
     }
-  }, []);
-
-  return <HomeClient initialData={initialData} randomQuote={randomQuote} />;
-}
-
-
-function HomeClient({ initialData, randomQuote }: { initialData: GuideCategory[], randomQuote: string | null }) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  }, []); // Empty dependency array ensures this runs once after the component mounts
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
