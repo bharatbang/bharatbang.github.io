@@ -1,6 +1,9 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
+  // Add the "output: 'export'" option
+  output: 'export',
+  
   /* config options here */
   typescript: {
     ignoreBuildErrors: true,
@@ -9,6 +12,8 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    // Add "unoptimized: true" for static exports
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
