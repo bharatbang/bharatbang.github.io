@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -6,7 +7,7 @@ import type { GuideCategory } from '@/types';
 import seriesData from '@/data/series.json';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CodeXml, Smartphone, Mail, Images, MessageSquare, ShieldBan, BookText, Calculator, Car, ClipboardList, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CodeXml, Smartphone, Images, MessageSquare, ShieldBan, BookText, Calculator, Car, ClipboardList, ChevronLeft, ChevronRight } from 'lucide-react';
 import { markTwainQuotes } from '@/data/quotes';
 import InitialQuoteToast from '@/components/initial-quote-toast';
 
@@ -16,9 +17,13 @@ const initialData: GuideCategory[] = seriesData as GuideCategory[];
 export default function HomePage() {
   const [randomQuote, setRandomQuote] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    // This ensures Math.random() only runs on the client after hydration
+    // These operations are safe here because useEffect only runs on the client,
+    // after the initial server render is complete.
+    setCurrentYear(new Date().getFullYear());
+    
     if (markTwainQuotes && markTwainQuotes.length > 0) {
       setRandomQuote(markTwainQuotes[Math.floor(Math.random() * markTwainQuotes.length)]);
     }
@@ -74,10 +79,6 @@ export default function HomePage() {
                 <Smartphone size={20} className="mr-2" />
                 Phone Size Compare
               </Link>
-              <Link href="/connect-me" className={buttonVariants({ variant: "secondary", size: "lg" })}>
-                <Mail size={20} className="mr-2" />
-                Connect Me
-              </Link>
               <Link href="/photo-album" className={buttonVariants({ variant: "secondary", size: "lg" })}>
                 <Images size={20} className="mr-2" />
                 Photo Album
@@ -124,7 +125,7 @@ export default function HomePage() {
       </main>
       <footer className="py-6 mt-12 border-t border-border">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Bharat Bang. All rights reserved.</p>
+          <p>&copy; {currentYear} Bharat Bang. All rights reserved.</p>
         </div>
       </footer>
     </div>

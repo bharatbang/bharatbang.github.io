@@ -87,22 +87,6 @@
 }
 
 @layer utilities {
-  .connect-me-input-gradient-border {
-    border-width: 2px; /* Control border thickness */
-    border-style: solid;
-    border-color: transparent; /* Make the actual border transparent */
-    
-    /* First background is the input's actual background color (hsl(var(--input))) */
-    /* Second background is the gradient for the border */
-    background-image: linear-gradient(hsl(var(--input)), hsl(var(--input))), 
-                      linear-gradient(to right, hsl(327, 70%, 55%), hsl(39, 90%, 55%)); /* Strong Pink to Strong Orange */
-
-    background-origin: border-box; /* Gradient starts from the border edge */
-    background-clip: padding-box, border-box; 
-    /* padding-box: first background (solid input color) is clipped to padding box */
-    /* border-box: second background (gradient) is clipped to border box, showing only at border area */
-  }
-
   @keyframes rise-from-bottom {
     from {
       transform: translateY(100vh) scale(0.5);
